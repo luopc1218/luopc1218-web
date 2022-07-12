@@ -4,7 +4,7 @@
             Luopc1218's BBS
         </div>
         <n-menu />
-        <n-button @click="changeDarkMode">{{ store.state.theme.darkMode ? "日间" : "夜间" }}</n-button>
+        <n-button type="primary" @click="changeDarkMode">{{ store.state.theme.darkMode ? "日间" : "夜间" }}</n-button>
     </div>
 </template>
 

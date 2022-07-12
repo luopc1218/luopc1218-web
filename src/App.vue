@@ -1,5 +1,6 @@
 <template>
   <NConfigProvider :themeOverrides="themeOverrides" :theme="darkMode ? darkTheme : undefined">
+    {{ themeOverrides.common?.primaryColor }}
     <Header />
     <router-view />
   </NConfigProvider>
@@ -20,7 +21,10 @@ export default defineComponent({
     const darkMode = computed(() => store.state.theme.darkMode)
     const themeOverrides = computed<GlobalThemeOverrides>(() => ({
       common: {
-        baseColor: store.state.theme.primaryColor,
+        primaryColor: store.state.theme.primaryColor,
+        primaryColorHover: store.state.theme.primaryColor,
+        primaryColorPressed: store.state.theme.primaryColor,
+        primaryColorSuppl: store.state.theme.primaryColor,
       },
     }))
     return {

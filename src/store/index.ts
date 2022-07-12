@@ -15,7 +15,7 @@ export default createStore<globalStoreStates>({
       darkMode: false,
       backgroundColor: "#fff",
       textColor: "#000",
-      primaryColor: "#323232"
+      primaryColor: "red"
     }
   },
   getters: {
