@@ -1,24 +1,24 @@
 <template>
-  <NConfigProvider :themeOverrides="themeOverrides" :theme="darkMode ? darkTheme : undefined" :locale="zhCN"
+  <n-config-provider :themeOverrides="themeOverrides" :theme="darkMode ? darkTheme : undefined" :locale="zhCN"
     :date-locale="dateZhCN">
     <div :class="darkMode ? 'darkMode' : ''">
       <Header />
       <router-view />
     </div>
-    <NGlobalStyle />
-  </NConfigProvider>
+    <n-global-style />
+  </n-config-provider>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import Header from './components/Header.vue'
-import { NConfigProvider, GlobalThemeOverrides, darkTheme, NGlobalStyle, zhCN, dateZhCN } from 'naive-ui'
+import { GlobalThemeOverrides, darkTheme, zhCN, dateZhCN } from 'naive-ui'
 import { useStore } from 'vuex'
 import { globalStoreStates } from './store';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { Header, NConfigProvider, NGlobalStyle },
+  components: { Header, },
   setup() {
     const store = useStore<globalStoreStates>()
     const darkMode = computed(() => store.state.theme.darkMode)

@@ -1,5 +1,5 @@
 <template>
-    <NElement class="header supportDark">
+    <n-element class="header supportDark">
         <div class="title">
             Luopc1218's BBS
         </div>
@@ -9,6 +9,15 @@
         <div class="searchInput">
             <n-input />
         </div>
+        <n-popover style="padding: 0" trigger="click" :keep-alive-on-hover="false">
+            <template #trigger>
+                <n-button secondary ghost color="#fff">更换主题</n-button>
+            </template>
+            <color-picker isWidget disableAlpha :pure-color="store.state.theme.primaryColor"
+                @update:pure-color="handleChangePrimaryColor">
+                选择主题</color-picker>
+        </n-popover>
+
         <n-button secondary ghost color="#fff" class="toggleDarkModeBtn" @click="toggleDarkMode">{{
                 store.state.theme.darkMode ? "浅色" : "暗色"
         }}
@@ -20,28 +29,39 @@
         </n-dropdown>
 
 
-    </NElement>
+    </n-element>
 </template>
 
 <script lang="ts">
 import { defineComponent, h, reactive } from "vue";
-import { NMenu, NButton, NInput, NDropdown, NAvatar, NText, NElement } from 'naive-ui'
+import { NButton, NAvatar, NText, } from 'naive-ui'
 import { useStore } from 'vuex'
 import { globalStoreStates } from "@/store";
+// color picker
+import { ColorPicker } from "vue3-colorpicker";
+import "vue3-colorpicker/style.css";
 
 export default defineComponent({
-    components: { NMenu, NButton, NInput, NDropdown, NAvatar, NElement },
+    components: { ColorPicker },
     setup() {
         const store = useStore<globalStoreStates>()
         const toggleDarkMode = () => {
             store.commit("toggleDarkMode")
         }
         const menuOptions = reactive([{
-            label: () => h(NButton, { text: true, color: "#fff" }, '博客'),
+            label: () => h(NButton, {
+                text: true, color: "#fff", onClick() {
+                    document.location = "http://106.52.172.134:8001"
+                }
+            }, '博客'),
             key: 'blogs',
 
         }, {
-            label: () => h(NButton, { text: true, color: "#fff" }, '论坛'),
+            label: () => h(NButton, {
+                text: true, color: "#fff", onClick() {
+                    document.location = "/"
+                }
+            }, '论坛'),
             key: 'bbs',
 
         }])
@@ -97,8 +117,12 @@ export default defineComponent({
             console.log(key);
 
         }
+
+        const handleChangePrimaryColor = (color: string) => {
+            store.commit("changePrimaryColor", color)
+        }
         return {
-            store, toggleDarkMode, menuOptions, moreOptions, handleMoreOptionSelect
+            store, toggleDarkMode, menuOptions, moreOptions, handleMoreOptionSelect, handleChangePrimaryColor
         }
     }
 })
@@ -110,8 +134,7 @@ export default defineComponent({
     padding: 1rem;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 1rem;
+
     background-color: var(--primary-color);
 
     .title {

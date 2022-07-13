@@ -15,11 +15,6 @@ const routes: Array<RouteRecordRaw> = [
     name: "profile",
     component: ProfilePage
   },
-  {
-    path: '/playerDemo',
-    name: 'playerDemo',
-    component: PlayerDemoPage
-  }
 ]
 
 const router = createRouter({

@@ -1,4 +1,4 @@
-import { PRIMARY_COLOR } from '@/utils/theme';
+import { DEFAULT_PRIMARY_COLOR } from '@/utils/theme';
 import { createStore } from 'vuex'
 
 export interface globalStoreStates {
@@ -12,7 +12,7 @@ export default createStore<globalStoreStates>({
   state: {
     theme: {
       darkMode: false,
-      primaryColor: PRIMARY_COLOR
+      primaryColor: localStorage.getItem("primaryColor") || DEFAULT_PRIMARY_COLOR
     }
   },
   getters: {
@@ -20,6 +20,10 @@ export default createStore<globalStoreStates>({
   mutations: {
     toggleDarkMode(state) {
       state.theme.darkMode = !state.theme.darkMode
+    },
+    changePrimaryColor(state, color) {
+      localStorage.setItem("primaryColor", color)
+      state.theme.primaryColor = color
     }
   },
   actions: {

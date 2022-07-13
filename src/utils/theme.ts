@@ -1,1 +1,1 @@
-export const PRIMARY_COLOR = "#486491"
+export const DEFAULT_PRIMARY_COLOR = "#486491"
