@@ -1,28 +1,104 @@
 <template>
-    <div class="header">
+    <NElement class="header supportDark">
         <div class="title">
             Luopc1218's BBS
         </div>
-        <n-menu />
-        <n-button type="primary" @click="changeDarkMode">{{ store.state.theme.darkMode ? "日间" : "夜间" }}</n-button>
-    </div>
+        <div class="menu">
+            <n-menu mode="horizontal" :options="menuOptions" />
+        </div>
+        <div class="searchInput">
+            <n-input />
+        </div>
+        <n-button secondary ghost color="#fff" class="toggleDarkModeBtn" @click="toggleDarkMode">{{
+                store.state.theme.darkMode ? "浅色" : "暗色"
+        }}
+        </n-button>
+        <n-dropdown trigger="click" :options="moreOptions" @select="handleMoreOptionSelect">
+            <n-button text>
+                <n-avatar round size="small" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+            </n-button>
+        </n-dropdown>
+
+
+    </NElement>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { NMenu, NButton } from 'naive-ui'
+import { defineComponent, h, reactive } from "vue";
+import { NMenu, NButton, NInput, NDropdown, NAvatar, NText, NElement } from 'naive-ui'
 import { useStore } from 'vuex'
 import { globalStoreStates } from "@/store";
 
 export default defineComponent({
-    components: { NMenu, NButton },
+    components: { NMenu, NButton, NInput, NDropdown, NAvatar, NElement },
     setup() {
         const store = useStore<globalStoreStates>()
-        const changeDarkMode = () => {
-            console.log(store.state.theme);
+        const toggleDarkMode = () => {
+            store.commit("toggleDarkMode")
+        }
+        const menuOptions = reactive([{
+            label: () => h(NButton, { text: true, color: "#fff" }, '博客'),
+            key: 'blogs',
+
+        }, {
+            label: () => h(NButton, { text: true, color: "#fff" }, '论坛'),
+            key: 'bbs',
+
+        }])
+
+        const moreOptions = reactive([
+            {
+                key: 'userInfo',
+                type: 'render',
+                render() {
+                    return h(
+                        'div',
+                        {
+                            style: 'display: flex; align-items: center; padding: 8px 12px;'
+                        },
+                        [
+                            h(NAvatar, {
+                                round: true,
+                                style: 'margin-right: 12px;',
+                                src: 'https://07akioni.oss-cn-beijing.aliyuncs.com/demo1.JPG'
+                            }),
+                            h('div', null, [
+                                h('div', null, [h(NText, { depth: 2 }, { default: () => '打工仔' })]),
+                                h('div', { style: 'font-size: 12px;' }, [
+                                    h(
+                                        NText,
+                                        { depth: 3 },
+                                        { default: () => '毫无疑问，你是办公室里最亮的星' }
+                                    )
+                                ])
+                            ])
+                        ]
+                    )
+                },
+            },
+            {
+                type: 'divider',
+                key: 'd1'
+            }, {
+                label: '个人信息',
+                key: 'userInfo',
+            },
+            {
+                label: '系统管理',
+                key: 'systemManagement',
+            },
+            {
+                label: '注销',
+                key: 'signOut',
+
+            },])
+
+        const handleMoreOptionSelect = (key: string) => {
+            console.log(key);
+
         }
         return {
-            store, changeDarkMode
+            store, toggleDarkMode, menuOptions, moreOptions, handleMoreOptionSelect
         }
     }
 })
@@ -30,14 +106,35 @@ export default defineComponent({
 
 <style lang="scss">
 .header {
+    color: #fff;
     padding: 1rem;
     display: flex;
-    align-content: flex-end;
+    align-items: center;
     border-bottom: 1px solid #ccc;
     margin-bottom: 1rem;
+    background-color: var(--primary-color);
 
     .title {
         font-size: 20px;
+        margin-right: 1rem;
+        font-family: fantasy;
+    }
+
+    .menu {
+        flex: 1
+    }
+
+    .searchInput {
+        margin-right: 1rem;
+
+    }
+
+    .toggleDarkModeBtn {
+        margin-right: 1rem
+    }
+
+    .userInfo {
+        margin-right: 1rem;
     }
 }
 </style>

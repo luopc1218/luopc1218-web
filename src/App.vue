@@ -1,21 +1,24 @@
 <template>
-  <NConfigProvider :themeOverrides="themeOverrides" :theme="darkMode ? darkTheme : undefined">
-    {{ themeOverrides.common?.primaryColor }}
-    <Header />
-    <router-view />
+  <NConfigProvider :themeOverrides="themeOverrides" :theme="darkMode ? darkTheme : undefined" :locale="zhCN"
+    :date-locale="dateZhCN">
+    <div :class="darkMode ? 'darkMode' : ''">
+      <Header />
+      <router-view />
+    </div>
+    <NGlobalStyle />
   </NConfigProvider>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef } from 'vue';
+import { defineComponent, computed } from 'vue';
 import Header from './components/Header.vue'
-import { NConfigProvider, GlobalThemeOverrides, darkTheme } from 'naive-ui'
+import { NConfigProvider, GlobalThemeOverrides, darkTheme, NGlobalStyle, zhCN, dateZhCN } from 'naive-ui'
 import { useStore } from 'vuex'
 import { globalStoreStates } from './store';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { Header, NConfigProvider },
+  components: { Header, NConfigProvider, NGlobalStyle },
   setup() {
     const store = useStore<globalStoreStates>()
     const darkMode = computed(() => store.state.theme.darkMode)
@@ -30,8 +33,18 @@ export default defineComponent({
     return {
       themeOverrides,
       darkMode,
-      darkTheme
+      darkTheme, zhCN, dateZhCN
     }
   }
 });
 </script>
+<style lang="scss">
+.darkMode {
+
+  .supportDark {
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    background-color: #000 !important;
+    color: #fff;
+  }
+}
+</style>
