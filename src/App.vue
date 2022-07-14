@@ -3,23 +3,28 @@
     :date-locale="dateZhCN">
     <div :class="darkMode ? 'darkMode' : ''">
       <Header />
-      <router-view />
+      <n-scrollbar class="scrollContent">
+        <router-view style="flex:1" />
+        <Footer />
+      </n-scrollbar>
     </div>
     <n-global-style />
   </n-config-provider>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import Header from './components/Header.vue'
+import { defineComponent, computed, onMounted } from 'vue';
+import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
 import { GlobalThemeOverrides, darkTheme, zhCN, dateZhCN } from 'naive-ui'
 import { useStore } from 'vuex'
 import { globalStoreStates } from './store';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { Header, },
+  components: { Header, Footer },
   setup() {
+   
     const store = useStore<globalStoreStates>()
     const darkMode = computed(() => store.state.theme.darkMode)
     const themeOverrides = computed<GlobalThemeOverrides>(() => ({
@@ -30,6 +35,9 @@ export default defineComponent({
         primaryColorSuppl: store.state.theme.primaryColor,
       },
     }))
+    onMounted(() => {
+      store.dispatch("getUserInfo")
+    })
     return {
       themeOverrides,
       darkMode,
@@ -39,8 +47,11 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.darkMode {
+.scrollContent {
+  height: calc(100vh - 74px);
+}
 
+.darkMode {
   .supportDark {
     transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     background-color: #000 !important;

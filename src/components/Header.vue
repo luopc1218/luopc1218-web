@@ -49,17 +49,19 @@ export default defineComponent({
             store.commit("toggleDarkMode")
         }
         const menuOptions = reactive([{
-            label: () => h(NButton, {
-                text: true, color: "#fff", onClick() {
-                    document.location = "http://106.52.172.134:8001"
+            label: () => h("a", {
+                href: 'http://106.52.172.134:8001',
+                style: {
+                    color: "#fff"
                 }
             }, '博客'),
             key: 'blogs',
 
         }, {
-            label: () => h(NButton, {
-                text: true, color: "#fff", onClick() {
-                    document.location = "/"
+            label: () => h("a", {
+                href: '/',
+                style: {
+                    color: "#fff"
                 }
             }, '论坛'),
             key: 'bbs',
@@ -144,7 +146,8 @@ export default defineComponent({
     }
 
     .menu {
-        flex: 1
+        flex: 1;
+
     }
 
     .searchInput {

@@ -1,5 +1,6 @@
 import { DEFAULT_PRIMARY_COLOR } from '@/utils/theme';
 import { createStore } from 'vuex'
+import userModule from './user'
 
 export interface globalStoreStates {
   theme: {
@@ -29,5 +30,6 @@ export default createStore<globalStoreStates>({
   actions: {
   },
   modules: {
+    userModule
   }
 })
