@@ -1,12 +1,17 @@
 import { DEFAULT_PRIMARY_COLOR } from '@/utils/theme';
-import { createStore } from 'vuex'
-import userModule from './user'
+import { createStore, useStore as baseUserStore } from 'vuex'
+import userModule, { userModuleState } from './user'
 
+
+export interface AllStoreStates extends globalStoreStates {
+  user: userModuleState
+}
 export interface globalStoreStates {
   theme: {
     darkMode: boolean;
     primaryColor: string;
-  }
+  },
+
 }
 
 export default createStore<globalStoreStates>({
@@ -14,7 +19,8 @@ export default createStore<globalStoreStates>({
     theme: {
       darkMode: false,
       primaryColor: localStorage.getItem("primaryColor") || DEFAULT_PRIMARY_COLOR
-    }
+    },
+
   },
   getters: {
   },
@@ -25,11 +31,17 @@ export default createStore<globalStoreStates>({
     changePrimaryColor(state, color) {
       localStorage.setItem("primaryColor", color)
       state.theme.primaryColor = color
-    }
+    },
+
   },
   actions: {
   },
   modules: {
-    userModule
+    user: userModule
   }
 })
+
+
+export const useStore = () => {
+  return baseUserStore<AllStoreStates>()
+}

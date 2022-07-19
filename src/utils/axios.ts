@@ -1,9 +1,5 @@
 import { default as baseAxios } from 'axios'
-import { createDiscreteApi } from 'naive-ui';
 
-const { message, } = createDiscreteApi(
-    ['message',],
-)
 
 const axios = baseAxios.create({
 
@@ -26,7 +22,10 @@ axios.interceptors.response.use(res => {
     // 对响应数据做处理
     return res
 }, error => {
-    message.error(error.message);
+    window._notification.error({
+        content: "网络错误",
+        meta: error.message
+    });
 })
 
 export default axios;

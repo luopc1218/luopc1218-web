@@ -1,8 +1,4 @@
-import { createDiscreteApi } from "naive-ui"
-
-const { message } = createDiscreteApi(
-    ['message',],
-)
+import { requestOptions } from "./request"
 
 export interface ResponseData<T = any> {
     code: number,
@@ -17,17 +13,15 @@ const codeChecker = (errorCode: number) => {
     }
 }
 
-export const responseHandler = <T,>(response: ResponseData<T>): Promise<ResponseData<T>> => {
-    console.log(response);
-    
+export const responseHandler = <T,>(response: ResponseData<T>, options?: requestOptions): Promise<T | undefined> => {
     if (response.success) {
-        return Promise.resolve(response)
+        return Promise.resolve(response.data)
     } else {
-        if (response.message) {
-            message.error(response.message)
+        if (response.message && options?.showErrorMessage) {
+            window?._message.error(response.message)
         }
         codeChecker(response.code)
-        return Promise.reject(undefined)
+        return Promise.reject(new Error(response.message))
     }
 
 }

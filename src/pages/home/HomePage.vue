@@ -40,7 +40,7 @@
                             <div class="announcement">
                                 <n-card>
                                     <n-space>
-                                        <n-button type="primary">发帖</n-button>
+                                        <n-button type="primary" secondary strong>发帖</n-button>
                                     </n-space>
                                 </n-card>
                             </div>
@@ -83,13 +83,8 @@
 
     </n-element>
 </template>
-<script lang="ts">
-export default {
-    name: "homePage",
-    setup() {
-        return {}
-    }
-}
+<script lang="ts" setup>
+
 </script>
 <style lang="scss" scoped>
 .home {

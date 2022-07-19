@@ -5,9 +5,15 @@ import { ResponseData, responseHandler } from "./responseHandler"
 
 
 
-export type requestOptions = Omit<AxiosRequestConfig, 'url' | 'method' | 'params' | 'data'>
+export interface requestOptions extends Omit<AxiosRequestConfig, 'url' | 'method' | 'params' | 'data'> {
+    showErrorMessage?: boolean,
+    showSuccessMessage?: boolean
+}
 
-export const request = async <T,>(api: Api, params?: any, options?: requestOptions) => {
+export const request = async <T,>(api: Api, params?: any, options: requestOptions = {
+    showErrorMessage: true,
+    showSuccessMessage: false
+}) => {
     const response: AxiosResponse<ResponseData<T>> = await axios({
         url: api.url,
         method: api.method,
@@ -15,8 +21,8 @@ export const request = async <T,>(api: Api, params?: any, options?: requestOptio
         data: api.method === 'post' ? params : undefined,
         ...options
     })
-    
-    return responseHandler(response.data)
+
+    return responseHandler(response.data, options)
 }
 
 export default request

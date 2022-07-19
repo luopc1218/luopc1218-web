@@ -8,6 +8,15 @@
         <Footer />
       </n-scrollbar>
     </div>
+    <n-message-provider>
+      <NaiveMessageIniter />
+    </n-message-provider>
+    <n-dialog-provider>
+      <NaiveDialogIniter />
+    </n-dialog-provider>
+    <n-notification-provider>
+      <NaiveNotificationIniter />
+    </n-notification-provider>
     <n-global-style />
   </n-config-provider>
 </template>
@@ -19,12 +28,16 @@ import Footer from '@/components/Footer.vue'
 import { GlobalThemeOverrides, darkTheme, zhCN, dateZhCN } from 'naive-ui'
 import { useStore } from 'vuex'
 import { globalStoreStates } from './store';
+import NaiveMessageIniter from '@/components/NaiveMessageIniter.vue'
+import NaiveDialogIniter from '@/components/NaiveDialogIniter.vue'
+import NaiveNotificationIniter from '@/components/NaiveNotificationIniter.vue'
+
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { Header, Footer },
+  components: { Header, Footer, NaiveMessageIniter, NaiveDialogIniter, NaiveNotificationIniter },
   setup() {
-   
+
     const store = useStore<globalStoreStates>()
     const darkMode = computed(() => store.state.theme.darkMode)
     const themeOverrides = computed<GlobalThemeOverrides>(() => ({
@@ -36,7 +49,7 @@ export default defineComponent({
       },
     }))
     onMounted(() => {
-      store.dispatch("getUserInfo")
+      store.dispatch("user/checkSignIn")
     })
     return {
       themeOverrides,
