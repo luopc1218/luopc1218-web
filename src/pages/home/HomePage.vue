@@ -126,14 +126,17 @@ onMounted(() => {
 .home {
     .banner {
         background-size: contain 100%;
+        background-position: center;
         background-repeat: repeat;
         height: 190px;
         color: var(--primary-color);
-        font-size: 24px;
+        font-size: 36px;
         font-family: fantasy;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-weight: bolder;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff; //设置发光效果
     }
 
     .content {
