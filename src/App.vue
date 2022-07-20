@@ -58,7 +58,7 @@ export default defineComponent({
           tagMode: false,
           debug: false,
           model: { jsonPath: '/live2dw/live2d-widget-model-hibiki/assets/hibiki.model.json' },
-          display: { position: 'right', width: 120, height: 270, "vOffset": 0 },  //调整大小,和位置
+          display: { position: 'right', width: 120, height: 270, "vOffset": 0, hOffset: 50 },  //调整大小,和位置
           mobile: { show: false },   //要不要盯着你的鼠标看
           log: false,
         })
@@ -69,7 +69,7 @@ export default defineComponent({
       if (localStorage.getItem('accessToken')) {
         store.dispatch("user/checkSignIn")
       }
-      initLive2d()
+      // initLive2d()
     })
     return {
       themeOverrides,
