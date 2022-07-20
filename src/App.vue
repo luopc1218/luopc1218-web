@@ -49,7 +49,9 @@ export default defineComponent({
       },
     }))
     onMounted(() => {
-      store.dispatch("user/checkSignIn")
+      if (localStorage.getItem('accessToken')) {
+        store.dispatch("user/checkSignIn")
+      }
     })
     return {
       themeOverrides,

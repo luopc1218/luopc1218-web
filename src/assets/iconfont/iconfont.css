@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont";
   /* Project id 3469587 */
-  src: url('./iconfont.woff2?t=1657694665610') format('woff2'),
-    url('./iconfont.woff?t=1657694665610') format('woff'),
-    url('./iconfont.ttf?t=1657694665610') format('truetype');
+  src: url('./iconfont.woff2?t=1658281263461') format('woff2'),
+    url('./iconfont.woff?t=1658281263461') format('woff'),
+    url('./iconfont.ttf?t=1658281263461') format('truetype');
 }
 
 [class^="icon-"],
@@ -22,13 +22,24 @@
 
 }
 
-
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-weixin:before {
+  content: "\e600";
+}
+
+.icon-QQ:before {
+  content: "\e903";
+}
+
+.icon-weibo:before {
+  content: "\e904";
 }
 
 .icon-viewlarger:before {
@@ -1797,6 +1808,311 @@
 
 .icon-beijing:before {
   content: "\e8d8";
+}
+
+.icon-stop:before {
+  content: "\e7d9";
+}
+
+.icon-bold:before {
+  content: "\e8d9";
+}
+
+.icon-success:before {
+  content: "\e7da";
+}
+
+.icon-zijin:before {
+  content: "\e8da";
+}
+
+.icon-supplier-features:before {
+  content: "\e7db";
+}
+
+.icon-eraser:before {
+  content: "\e8db";
+}
+
+.icon-switch:before {
+  content: "\e7dc";
+}
+
+.icon-centeralignment:before {
+  content: "\e8dc";
+}
+
+.icon-survey:before {
+  content: "\e7dd";
+}
+
+.icon-click:before {
+  content: "\e8dd";
+}
+
+.icon-template:before {
+  content: "\e7de";
+}
+
+.icon-aspjiesuan:before {
+  content: "\e8de";
+}
+
+.icon-text:before {
+  content: "\e7df";
+}
+
+.icon-flag:before {
+  content: "\e8df";
+}
+
+.icon-suspended:before {
+  content: "\e7e0";
+}
+
+.icon-falg-fill:before {
+  content: "\e8e0";
+}
+
+.icon-task-management:before {
+  content: "\e7e1";
+}
+
+.icon-Fee:before {
+  content: "\e8e1";
+}
+
+.icon-tool:before {
+  content: "\e7e2";
+}
+
+.icon-filling:before {
+  content: "\e8e2";
+}
+
+.icon-Top:before {
+  content: "\e7e3";
+}
+
+.icon-Foreigncurrency:before {
+  content: "\e8e3";
+}
+
+.icon-smile:before {
+  content: "\e7e4";
+}
+
+.icon-guanliyuan:before {
+  content: "\e8e4";
+}
+
+.icon-textile-products:before {
+  content: "\e7e5";
+}
+
+.icon-language:before {
+  content: "\e8e5";
+}
+
+.icon-tradealert:before {
+  content: "\e7e6";
+}
+
+.icon-leftalignment:before {
+  content: "\e8e6";
+}
+
+.icon-topsales:before {
+  content: "\e7e7";
+}
+
+.icon-extra-inquiries:before {
+  content: "\e8e7";
+}
+
+.icon-tradingvolume:before {
+  content: "\e7e8";
+}
+
+.icon-Italic:before {
+  content: "\e8e8";
+}
+
+.icon-training:before {
+  content: "\e7e9";
+}
+
+.icon-pcm:before {
+  content: "\e8e9";
+}
+
+.icon-upload:before {
+  content: "\e7ea";
+}
+
+.icon-reducecell:before {
+  content: "\e8ea";
+}
+
+.icon-RFQ-word:before {
+  content: "\e7eb";
+}
+
+.icon-rightalignment:before {
+  content: "\e8eb";
+}
+
+
+.icon-stop:before {
+  content: "\e7d9";
+}
+
+.icon-bold:before {
+  content: "\e8d9";
+}
+
+.icon-success:before {
+  content: "\e7da";
+}
+
+.icon-zijin:before {
+  content: "\e8da";
+}
+
+.icon-supplier-features:before {
+  content: "\e7db";
+}
+
+.icon-eraser:before {
+  content: "\e8db";
+}
+
+.icon-switch:before {
+  content: "\e7dc";
+}
+
+.icon-centeralignment:before {
+  content: "\e8dc";
+}
+
+.icon-survey:before {
+  content: "\e7dd";
+}
+
+.icon-click:before {
+  content: "\e8dd";
+}
+
+.icon-template:before {
+  content: "\e7de";
+}
+
+.icon-aspjiesuan:before {
+  content: "\e8de";
+}
+
+.icon-text:before {
+  content: "\e7df";
+}
+
+.icon-flag:before {
+  content: "\e8df";
+}
+
+.icon-suspended:before {
+  content: "\e7e0";
+}
+
+.icon-falg-fill:before {
+  content: "\e8e0";
+}
+
+.icon-task-management:before {
+  content: "\e7e1";
+}
+
+.icon-Fee:before {
+  content: "\e8e1";
+}
+
+.icon-tool:before {
+  content: "\e7e2";
+}
+
+.icon-filling:before {
+  content: "\e8e2";
+}
+
+.icon-Top:before {
+  content: "\e7e3";
+}
+
+.icon-Foreigncurrency:before {
+  content: "\e8e3";
+}
+
+.icon-smile:before {
+  content: "\e7e4";
+}
+
+.icon-guanliyuan:before {
+  content: "\e8e4";
+}
+
+.icon-textile-products:before {
+  content: "\e7e5";
+}
+
+.icon-language:before {
+  content: "\e8e5";
+}
+
+.icon-tradealert:before {
+  content: "\e7e6";
+}
+
+.icon-leftalignment:before {
+  content: "\e8e6";
+}
+
+.icon-topsales:before {
+  content: "\e7e7";
+}
+
+.icon-extra-inquiries:before {
+  content: "\e8e7";
+}
+
+.icon-tradingvolume:before {
+  content: "\e7e8";
+}
+
+.icon-Italic:before {
+  content: "\e8e8";
+}
+
+.icon-training:before {
+  content: "\e7e9";
+}
+
+.icon-pcm:before {
+  content: "\e8e9";
+}
+
+.icon-upload:before {
+  content: "\e7ea";
+}
+
+.icon-reducecell:before {
+  content: "\e8ea";
+}
+
+.icon-RFQ-word:before {
+  content: "\e7eb";
+}
+
+.icon-rightalignment:before {
+  content: "\e8eb";
 }
 
 .icon-stop:before {

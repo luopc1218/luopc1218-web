@@ -15,6 +15,10 @@ export const apis: Record<string, Api> = {
     getNavLink: {
         url: '/api/getNavLink',
         method: "get"
+    },
+    upload: {
+        url: '/api/file/upload',
+        method: 'post'
     }
 }
 

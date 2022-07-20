@@ -3,6 +3,7 @@ import { apis, request } from '@/utils'
 import { Module } from 'vuex'
 import { globalStoreStates } from '.'
 import SignInForm from '@/components/SignInForm.vue'
+import SignUpForm from '@/components/SignUpForm.vue'
 import { h } from 'vue'
 
 
@@ -64,7 +65,26 @@ export const userModule: Module<userModuleState, globalStoreStates> = {
                 })
 
             } catch (error) {
-                console.log(error);
+                console.error(error);
+            }
+        },
+        cleanSignIn(context) {
+            localStorage.removeItem("accessToken");
+            context.commit('setUserInfo', undefined)
+        },
+        signUp(context) {
+            try {
+                const dialogInstance = window?._dialog.create({
+                    showIcon: false,
+                    content: () => h(SignUpForm, {
+                        onFinished() {
+                            dialogInstance.destroy()
+
+                        }
+                    }),
+                })
+            } catch (error) {
+                console.error(error);
             }
         }
     },

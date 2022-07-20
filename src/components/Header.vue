@@ -6,31 +6,34 @@
         <div class="menu">
             <n-menu mode="horizontal" :options="menuOptions" />
         </div>
-        <div class="searchInput">
-            <n-input placeholder="请输入搜索内容" />
-        </div>
-        <n-popover style="padding: 0" trigger="click" :keep-alive-on-hover="false">
-            <template #trigger>
-                <n-button secondary ghost color="#fff">更换主题</n-button>
-            </template>
-            <color-picker isWidget disableAlpha :pure-color="store.state.theme.primaryColor"
-                @update:pure-color="handleChangePrimaryColor">
-                选择主题</color-picker>
-        </n-popover>
+        <n-space align="center">
+            <div class="searchInput">
+                <n-input placeholder="请输入搜索内容" />
+            </div>
+            <n-popover style="padding: 0" trigger="click" :keep-alive-on-hover="false">
+                <template #trigger>
+                    <n-button quaternary color="#fff">更换主题</n-button>
+                </template>
+                <color-picker isWidget disableAlpha :pure-color="store.state.theme.primaryColor"
+                    @update:pure-color="handleChangePrimaryColor">
+                    选择主题</color-picker>
+            </n-popover>
 
-        <n-button secondary ghost color="#fff" class="toggleDarkModeBtn" @click="toggleDarkMode">{{
-                store.state.theme.darkMode ? "浅色" : "暗色"
-        }}
-        </n-button>
-        <n-spin v-if="store.state.user.userInfoLoading" :size="14" stroke="#fff"></n-spin>
-        <n-dropdown v-else-if="!!userInfo" trigger="click" :options="moreOptions" @select="handleMoreOptionSelect">
-            <n-button text>
-                <n-avatar round size="small" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+            <n-button quaternary color="#fff" class="toggleDarkModeBtn" @click="toggleDarkMode">{{
+                    store.state.theme.darkMode ? "浅色" : "暗色"
+            }}
             </n-button>
-        </n-dropdown>
-        <div v-else>
-            <n-button text color="#fff" @click="handleSignIn">请先登录</n-button>
-        </div>
+            <n-spin v-if="store.state.user.userInfoLoading" :size="14" stroke="#fff"></n-spin>
+            <n-dropdown v-else-if="!!userInfo" trigger="click" :options="moreOptions" @select="handleMoreOptionSelect">
+                <n-button text>
+                    <n-avatar round size="small" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+                </n-button>
+            </n-dropdown>
+            <div v-else>
+                <n-button text color="#fff" @click="handleSignIn">请先登录</n-button>
+            </div>
+        </n-space>
+
     </n-element>
 </template>
 

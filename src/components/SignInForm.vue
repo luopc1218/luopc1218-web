@@ -12,16 +12,19 @@
         </n-form-item>
         <n-form-item>
             <div style="width:100%;text-align:center;">
-                <div style="display:flex;align-items: center;justify-content: flex-end;padding-bottom:1rem;">
+                <n-space  align="center" :size="2" justify="end"  style="padding-bottom:1rem;">
                     <span>没有账号？</span>
                     <n-button text @click="handleSignUp">去注册</n-button>
+                </n-space>
+                <div style="padding:0 5rem">
+                    <n-button type="primary" size="large" block attr-type="submit" @click="handleSubmit" round>登录
+                    </n-button>
                 </div>
-                <n-button type="primary" block attr-type="submit" @click="handleSubmit" round>登录</n-button>
                 <n-divider></n-divider>
-                <n-space>
-                    <n-button>qq</n-button>
-                    <n-button>weixin</n-button>
-                    <n-button>weibo</n-button>
+                <n-space align="center" size="large" justify="center">
+                    <n-button circle size="large"><i class="icon-QQ extra"></i></n-button>
+                    <n-button circle size="large"><i class="icon-weixin extra"></i></n-button>
+                    <n-button circle size="large"><i class="icon-weibo extra"></i></n-button>
                 </n-space>
             </div>
         </n-form-item>
@@ -31,6 +34,9 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { NForm, NFormItem, NInput, NButton, FormInst } from 'naive-ui'
+import { useStore } from 'vuex'
+
+const store = useStore()
 
 const formRef = ref<FormInst | null>(null)
 
@@ -40,11 +46,11 @@ const formValue = reactive({
 })
 
 const handleSignUp = () => {
-    console.log('handleSignUp');
+    store.dispatch('user/signUp')
 
 }
 
-const handleSubmit = (e: MouseEvent) => {
+const handleSubmit = (e: Event) => {
     e.preventDefault();
     console.log(formValue);
 
@@ -57,9 +63,13 @@ const handleSubmit = (e: MouseEvent) => {
     .title {
         padding: 1rem;
         text-align: center;
-        font-size: 25px;
+        font-size: 2rem;
         font-weight: bolder;
         font-family: 华文行楷;
+    }
+
+    .extra {
+        font-size: 1.5rem;
     }
 }
 </style>

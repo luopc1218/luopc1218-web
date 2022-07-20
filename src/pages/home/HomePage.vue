@@ -1,10 +1,7 @@
 <template>
     <n-element class="home">
-        <div class="logo">
-            你所热爱的，
-            <br />
-            &nbsp;
-            就是你的生活。
+        <div class="banner" :style="{ 'background-image': `url(${state.banner})` }">
+            {{ state.joke }}
         </div>
         <div class="content">
             <n-grid x-gap="12" y-gap="12" :cols="4">
@@ -51,26 +48,9 @@
                                     <div class="title">
                                         公告
                                     </div>
-                                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed perferendis optio
-                                        reiciendis nemo enim officia fugiat totam voluptates non cupiditate consequatur
-                                        hic atque perspiciatis, tempora suscipit autem assumenda ea ratione. Ipsam,
-                                        magni. Nesciunt ratione, voluptatum, maxime illum incidunt, soluta animi itaque
-                                        distinctio aperiam ullam numquam quam beatae pariatur dolor a aliquid quidem
-                                        culpa totam architecto assumenda blanditiis aut magnam repellat. Cupiditate
-                                        reprehenderit earum ipsa, asperiores consectetur placeat vel consequuntur
-                                        voluptatum tempora maiores perspiciatis et a possimus qui nulla illum autem
-                                        laudantium fugit, temporibus alias expedita. Vitae voluptates praesentium sed
-                                        vero ratione ducimus delectus cumque est deleniti veritatis consectetur dolore
-                                        fuga at inventore soluta, assumenda, possimus mollitia? Officiis, dignissimos
-                                        doloribus amet ad ipsum ratione praesentium ut eaque voluptatibus unde voluptas
-                                        at dolorum rem iste maxime possimus ipsa, atque a aliquam fugit et?
-                                        Exercitationem, nam amet, earum rem, ratione esse accusamus quam voluptatum vero
-                                        eum quo quos saepe provident sint aut impedit possimus velit! Facilis rerum,
-                                        aspernatur consequatur debitis molestias delectus itaque assumenda nisi
-                                        repellendus ducimus rem commodi a beatae voluptate quis eveniet pariatur animi
-                                        consequuntur iure quo iusto? Iure fuga at provident tempore ea possimus nostrum
-                                        cum molestias veritatis omnis quo neque dolor asperiores, vero nesciunt nihil
-                                        natus cupiditate! Iusto, tempore.</div>
+                                    <div>
+                                        <img src="https://api.btstu.cn/netcard/api.php" style="width:100%" alt="">
+                                    </div>
                                 </n-card>
                             </div>
                         </n-gi>
@@ -84,12 +64,48 @@
     </n-element>
 </template>
 <script lang="ts" setup>
+import axios from 'axios';
+import { onMounted, reactive } from 'vue';
+
+const state = reactive({
+    banner: "",
+    joke: ""
+})
+
+const getBanner = () => {
+    axios.get('https://api.btstu.cn/sjbz/api.php', {
+        params: {
+            lx: 'dongman',
+            format: "json"
+        }
+    }).then(res => {
+        console.log(res);
+        state.banner = res.data.imgurl
+    })
+}
+
+const getJoke = () => {
+    axios.get('https://api.ooomn.com/api/yan', {
+        params: {
+            encode: "json"
+        }
+    }).then(res => {
+        console.log(res);
+        state.joke = res.data.hitokoto
+    })
+}
+
+onMounted(() => {
+    getJoke()
+    getBanner()
+})
 
 </script>
 <style lang="scss" scoped>
 .home {
-    .logo {
-        background: url("../../assets/logo.jpg") no-repeat;
+    .banner {
+        background-size:contain 100%;
+        background-repeat: repeat;
         height: 190px;
         color: var(--primary-color);
         font-size: 24px;
