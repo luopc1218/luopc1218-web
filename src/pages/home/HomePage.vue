@@ -37,7 +37,7 @@
                             <div class="announcement">
                                 <n-card>
                                     <n-space>
-                                        <n-button type="primary" secondary strong>发帖</n-button>
+                                        <n-button type="primary" secondary strong @Click="handlePost">发帖</n-button>
                                     </n-space>
                                 </n-card>
                             </div>
@@ -90,9 +90,11 @@ const getJoke = () => {
             encode: "json"
         }
     }).then(res => {
-        console.log(res);
         state.joke = res.data.hitokoto
     })
+}
+
+const handlePost = () => {
 }
 
 onMounted(() => {
@@ -104,7 +106,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .home {
     .banner {
-        background-size:contain 100%;
+        background-size: contain 100%;
         background-repeat: repeat;
         height: 190px;
         color: var(--primary-color);

@@ -48,10 +48,28 @@ export default defineComponent({
         primaryColorSuppl: store.state.theme.primaryColor,
       },
     }))
+
+    const initLive2d = () => {
+      setTimeout(() => {
+        window.L2Dwidget.init({
+          pluginRootPath: 'live2dw/',
+          pluginJsPath: 'live2dw/lib/',
+          pluginModelPath: 'live2dw/live2d-widget-model-hibiki/assets/', //中间这个haru_2就是你的老婆,想换个老婆,换这个就可以了
+          tagMode: false,
+          debug: false,
+          model: { jsonPath: '/live2dw/live2d-widget-model-hibiki/assets/hibiki.model.json' },
+          display: { position: 'right', width: 120, height: 270, "vOffset": 0 },  //调整大小,和位置
+          mobile: { show: false },   //要不要盯着你的鼠标看
+          log: false,
+        })
+      }, 500)
+    }
+
     onMounted(() => {
       if (localStorage.getItem('accessToken')) {
         store.dispatch("user/checkSignIn")
       }
+      initLive2d()
     })
     return {
       themeOverrides,

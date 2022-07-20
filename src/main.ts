@@ -13,7 +13,8 @@ declare global {
     interface Window {
         _message: MessageApiInjection;
         _dialog: DialogApiInjection;
-        _notification: NotificationApiInjection
+        _notification: NotificationApiInjection;
+        L2Dwidget: any
     }
 }
 
