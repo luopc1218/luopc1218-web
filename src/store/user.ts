@@ -76,6 +76,9 @@ export const userModule: Module<userModuleState, globalStoreStates> = {
             try {
                 const dialogInstance = window?._dialog.create({
                     showIcon: false,
+                    style: {
+                        width: "600px"
+                    },
                     content: () => h(SignUpForm, {
                         onFinished() {
                             dialogInstance.destroy()

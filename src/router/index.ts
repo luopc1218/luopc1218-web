@@ -1,14 +1,35 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomePage from '../pages/home/HomePage.vue'
+import BbsPage from '@/pages/bbs/BbsPage.vue'
+import BbsIndexPage from '@/pages/bbs/index/BbsIndexPage.vue'
+import BlogPage from '@/pages/blog/BlogPage.vue'
+
 import ProfilePage from '@/pages/profile/ProfilePage.vue'
-import PlayerDemoPage from '@/pages/playerDemo/PlayerDemoPage.vue'
+import IndexPage from '@/pages/index.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: "home",
-    component: HomePage
+    name: 'index',
+    component: IndexPage
+  },
+  {
+    path: '/bbs',
+    name: "bbs",
+    component: BbsPage,
+    children: [
+      {
+        path: '',
+        name: 'bbsIndex',
+        component: BbsIndexPage
+      }
+    ]
+  },
+  {
+    path: '/blog',
+    name: "blogHome",
+    component: BlogPage,
+
   },
   {
     path: '/profile',

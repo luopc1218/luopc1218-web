@@ -1,7 +1,7 @@
 <template>
     <n-element class="header supportDark">
         <div class="title">
-            Luopc1218's BBS
+            Luopc1218's
         </div>
         <div class="menu">
             <n-menu mode="horizontal" :options="menuOptions" />
@@ -48,7 +48,7 @@ import { apis, request } from "@/utils";
 import type { SiteLink } from '@/types/system'
 
 interface HeaderStates {
-    navList: SiteLink[]
+    navList: any[]
 }
 
 const store = useStore();
@@ -56,7 +56,12 @@ const store = useStore();
 const userInfo = computed(() => store.state.user.userInfo);
 
 const state = reactive<HeaderStates>({
-    navList: []
+    navList: [
+        { label: '博客', url: '/blog' },
+        {
+            label: '论坛', url: '/bbs'
+        }
+    ]
 })
 
 /**
@@ -154,18 +159,6 @@ const handleSignIn = () => {
     store.dispatch("user/signIn")
 }
 
-const getNavLink = async () => {
-    request<SiteLink[]>(apis.getNavLink).then(res => {
-        if (res) {
-            state.navList = res
-        }
-    });
-
-}
-
-onMounted(() => {
-    getNavLink()
-})
 
 </script>
 

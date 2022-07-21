@@ -12,19 +12,19 @@
         </n-form-item>
         <n-form-item>
             <div style="width:100%;text-align:center;">
-                <n-space  align="center" :size="2" justify="end"  style="padding-bottom:1rem;">
+                <n-space align="center" :size="2" justify="end" style="padding-bottom:1rem;">
                     <span>没有账号？</span>
                     <n-button text @click="handleSignUp">去注册</n-button>
                 </n-space>
                 <div style="padding:0 5rem">
-                    <n-button type="primary" size="large" block attr-type="submit" @click="handleSubmit" round>登录
+                    <n-button type="primary" size="large" block attr-type="submit" @click="handleSignIn" round>登录
                     </n-button>
                 </div>
                 <n-divider></n-divider>
                 <n-space align="center" size="large" justify="center">
-                    <n-button circle size="large"><i class="icon-QQ extra"></i></n-button>
-                    <n-button circle size="large"><i class="icon-weixin extra"></i></n-button>
-                    <n-button circle size="large"><i class="icon-weibo extra"></i></n-button>
+                    <n-button circle size="large" @click="signInByQQ"><i class="icon-QQ extra"></i></n-button>
+                    <n-button circle size="large" @click="signInByWeixin"><i class="icon-weixin extra"></i></n-button>
+                    <n-button circle size="large" @click="signInByWeibo"><i class="icon-weibo extra"></i></n-button>
                 </n-space>
             </div>
         </n-form-item>
@@ -35,6 +35,7 @@
 import { reactive, ref } from 'vue'
 import { NForm, NFormItem, NInput, NButton, FormInst } from 'naive-ui'
 import { useStore } from 'vuex'
+
 
 const store = useStore()
 
@@ -50,11 +51,24 @@ const handleSignUp = () => {
 
 }
 
-const handleSubmit = (e: Event) => {
+const handleSignIn = (e: Event) => {
     e.preventDefault();
     console.log(formValue);
+    window._message.info('开发中')
 
 }
+
+const signInByQQ = () => {
+    window._message.info('开发中')
+}
+const signInByWeixin = () => {
+    window._message.info('开发中')
+}
+
+const signInByWeibo = () => {
+    window._message.info('开发中')
+}
+
 
 </script>
 

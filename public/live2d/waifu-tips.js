@@ -175,15 +175,15 @@ function loadWidget(config) {
 						return;
 					}
 				});
-				window.addEventListener("click", event => {
-					for (let { selector, text } of result.click) {
-						if (!event.target.matches(selector)) continue;
-						text = randomSelection(text);
-						text = text.replace("{text}", event.target.innerText);
-						showMessage(text, 4000, 8);
-						return;
-					}
-				});
+				// window.addEventListener("click", event => {
+				// 	for (let { selector, text } of result.click) {
+				// 		if (!event.target.matches(selector)) continue;
+				// 		text = randomSelection(text);
+				// 		text = text.replace("{text}", event.target.innerText);
+				// 		showMessage(text, 4000, 8);
+				// 		return;
+				// 	}
+				// });
 				result.seasons.forEach(({ date, text }) => {
 					const now = new Date(),
 						after = date.split("-")[0],

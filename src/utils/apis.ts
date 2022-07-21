@@ -19,6 +19,10 @@ export const apis: Record<string, Api> = {
     upload: {
         url: '/api/file/upload',
         method: 'post'
+    },
+    getCountryTelCodeList: {
+        url: '/api/getCountryTelCodeList',
+        method: "get"
     }
 }
 
