@@ -10,19 +10,20 @@ export interface requestOptions extends Omit<AxiosRequestConfig, 'url' | 'method
     showSuccessMessage?: boolean
 }
 
-export const request = async <T,>(api: Api, params?: any, options: requestOptions = {
-    showErrorMessage: true,
-    showSuccessMessage: false
-}) => {
-    const response: AxiosResponse<ResponseData<T>> = await axios({
-        url: api.url,
-        method: api.method,
-        params: api.method === 'get' ? params : undefined,
-        data: api.method === 'post' ? params : undefined,
-        ...options
-    })
+export const request = async <T = any,>(api: Api, params?: any, options?: requestOptions) => {
+    try {
+        const response: AxiosResponse<ResponseData<T>> = await axios({
+            url: api.url,
+            method: api.method,
+            params: api.method === 'get' ? params : undefined,
+            data: api.method === 'post' ? params : undefined,
+            ...options
+        })
 
-    return responseHandler(response.data, options)
+        return responseHandler(response?.data, options)
+    } catch (error) {
+        return Promise.reject(error)
+    }
 }
 
 export default request

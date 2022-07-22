@@ -1,14 +1,13 @@
 <template>
-    <n-form ref="formRef" label-placement="left" :label-width="50" :model="formValue" class="signInForm"
-        @submit="handleSubmit">
+    <n-form ref="formRef" label-placement="left" :label-width="50" :model="formValue" class="signInForm">
         <div class="title">
             登录Luopc1218
         </div>
         <n-form-item label="用户名" path="username">
-            <n-input placeholder="请输入用户名" />
+            <n-input v-model:value="formValue.username" placeholder="请输入用户名" />
         </n-form-item>
         <n-form-item label="密码" path="password">
-            <n-input placeholder="请输入密码" type="password" />
+            <n-input v-model:value="formValue.password" placeholder="请输入密码" type="password" />
         </n-form-item>
         <n-form-item>
             <div style="width:100%;text-align:center;">
@@ -17,7 +16,8 @@
                     <n-button text @click="handleSignUp">去注册</n-button>
                 </n-space>
                 <div style="padding:0 5rem">
-                    <n-button type="primary" size="large" block attr-type="submit" @click="handleSignIn" round>登录
+                    <n-button type="primary" size="large" block attr-type="submit" @click="handleSubmit" round
+                        :loading="state.submitLoading">登录
                     </n-button>
                 </div>
                 <n-divider></n-divider>
@@ -32,10 +32,16 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, defineEmits } from 'vue'
 import { NForm, NFormItem, NInput, NButton, FormInst } from 'naive-ui'
 import { useStore } from 'vuex'
+import { apis, md5Object, request } from '@/utils';
 
+interface SignInFormState {
+    submitLoading: boolean
+}
+
+const emit = defineEmits(['finished'])
 
 const store = useStore()
 
@@ -46,16 +52,28 @@ const formValue = reactive({
     password: ""
 })
 
+const state = reactive<SignInFormState>({
+    submitLoading: false
+})
+
 const handleSignUp = () => {
     store.dispatch('user/signUp')
 
 }
 
-const handleSignIn = (e: Event) => {
+const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    console.log(formValue);
-    window._message.info('开发中')
-
+    state.submitLoading = true
+    try {
+        const accessToken = await request(apis.signIn, md5Object(formValue, ['password']), {
+            showSuccessMessage: true
+        })        
+        state.submitLoading = false
+        localStorage.setItem('accessToken', accessToken)
+        emit('finished')
+    } catch (error) {
+        state.submitLoading = false
+    }
 }
 
 const signInByQQ = () => {
@@ -79,7 +97,7 @@ const signInByWeibo = () => {
         text-align: center;
         font-size: 2rem;
         font-weight: bolder;
-        font-family: 华文行楷;
+        font-family: 'Comic Sans MS', cursive;
     }
 
     .extra {

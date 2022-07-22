@@ -18,15 +18,20 @@ const codeChecker = (errorCode: number) => {
     }
 }
 
-export const responseHandler = <T,>(response: ResponseData<T>, options?: requestOptions): Promise<T | undefined> => {
+export const responseHandler = <T,>(response: ResponseData<T>, options: requestOptions = {
+    showErrorMessage: true, showSuccessMessage: false
+}): Promise<T | undefined> => {
+
+    const { showErrorMessage = true, showSuccessMessage = false } = options;
+
     if (response.success) {
-        if (options?.showSuccessMessage) {
+        if (showSuccessMessage) {
             window?._message.success(response.message || "操作成功")
         }
         return Promise.resolve(response.data)
 
     } else {
-        if (response.message && options?.showErrorMessage) {
+        if (response.message && showErrorMessage) {
             window?._message.error(response.message)
         }
         codeChecker(response.code)

@@ -26,7 +26,7 @@
             <n-spin v-if="store.state.user.userInfoLoading" :size="14" stroke="#fff"></n-spin>
             <n-dropdown v-else-if="!!userInfo" trigger="click" :options="moreOptions" @select="handleMoreOptionSelect">
                 <n-button text>
-                    <n-avatar round size="small" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+                    <n-avatar round size="small" :src="userInfo.avatarUrl" />
                 </n-button>
             </n-dropdown>
             <div v-else>
@@ -44,8 +44,6 @@ import { useStore } from '@/store'
 // color picker
 import { ColorPicker } from "vue3-colorpicker";
 import "vue3-colorpicker/style.css";
-import { apis, request } from "@/utils";
-import type { SiteLink } from '@/types/system'
 
 interface HeaderStates {
     navList: any[]
@@ -102,15 +100,15 @@ const moreOptions = reactive([
                     h(NAvatar, {
                         round: true,
                         style: 'margin-right: 12px;',
-                        src: 'https://07akioni.oss-cn-beijing.aliyuncs.com/demo1.JPG'
+                        src: userInfo.value?.avatarUrl
                     }),
                     h('div', null, [
-                        h('div', null, [h(NText, { depth: 2 }, { default: () => '打工仔' })]),
+                        h('div', null, [h(NText, { depth: 2 }, { default: () => userInfo.value?.name })]),
                         h('div', { style: 'font-size: 12px;' }, [
                             h(
                                 NText,
                                 { depth: 3 },
-                                { default: () => '毫无疑问，你是办公室里最亮的星' }
+                                { default: () => '欢迎使用luopc1218' }
                             )
                         ])
                     ])
@@ -174,7 +172,7 @@ const handleSignIn = () => {
     .title {
         font-size: 20px;
         margin-right: 1rem;
-        font-family: fantasy;
+        font-family: 'Comic Sans MS', cursive;
     }
 
     .menu {

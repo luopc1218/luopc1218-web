@@ -23,6 +23,22 @@ export const apis: Record<string, Api> = {
     getCountryTelCodeList: {
         url: '/api/getCountryTelCodeList',
         method: "get"
+    },
+    checkSignUpUsername: {
+        url: "/api/user/checkSignUpUsername",
+        method: "get"
+    },
+    sendPhoneCheckCode: {
+        url: "/api/sendPhoneCheckCode",
+        method: 'post'
+    },
+    signUp: {
+        url: "/api/user/signUp",
+        method: "post"
+    },
+    signIn: {
+        url: '/api/user/signIn',
+        method: "post"
     }
 }
 

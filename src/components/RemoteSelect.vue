@@ -1,5 +1,5 @@
 <template>
-    <n-select v-bind="selectProps" :options="options" :loading="state.loading" :value="props.modelValue"
+    <n-select v-bind="selectProps" :options="options" :loading="state.loading" :value="props.value"
         @update:value="handleUpdate"></n-select>
 </template>
 
@@ -12,7 +12,7 @@ interface RemoteSelectProps extends Omit<SelectProps, 'options' | 'loading' | 'v
     api: Api,
     valueKey: string,
     labelKey: string,
-    modelValue?: any,
+    value?: any,
     params?: any,
     labelFormat?: (label: string, response: any) => string
 }
@@ -26,14 +26,14 @@ const props = defineProps<RemoteSelectProps>();
 
 
 const selectProps = computed(() => {
-    const { api, modelValue, valueKey, labelKey, params, ...restProps } = props
+    const { api, value, valueKey, labelKey, params, ...restProps } = props
     return restProps
 })
 const state = reactive<RemoteSelectState>({
     response: [],
     loading: false
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:value'])
 
 const getOptions = async () => {
     try {
@@ -44,8 +44,7 @@ const getOptions = async () => {
         }
         state.loading = false;
     } catch (error) {
-        console.error(error);
-
+        state.loading = false;
     }
 }
 
@@ -56,8 +55,8 @@ const options = computed<SelectOption[]>(() => {
     }));
 })
 
-const handleUpdate = (value) => {
-    emit('update:modelValue', value)
+const handleUpdate = (value: any) => {
+    emit('update:value', value)
 }
 
 

@@ -24,8 +24,10 @@ axios.interceptors.response.use(res => {
 }, error => {
     window._notification.error({
         content: "网络错误",
-        meta: error.message
+        meta: error.message,
+        duration: 3000
     });
+    return Promise.reject(error);
 })
 
 export default axios;

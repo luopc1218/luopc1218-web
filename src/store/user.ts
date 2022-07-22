@@ -1,4 +1,3 @@
-import User from '@/types/user'
 import { apis, request } from '@/utils'
 import { Module } from 'vuex'
 import { globalStoreStates } from '.'
@@ -10,7 +9,14 @@ import { h } from 'vue'
 
 
 export interface userModuleState {
-    userInfo: User | undefined,
+    userInfo?: {
+        id: number,
+        name: string,
+        avatarUrl: string,
+        phone: string,
+        email: string,
+        telCode: string
+    },
     userInfoLoading: boolean
 }
 
@@ -82,7 +88,6 @@ export const userModule: Module<userModuleState, globalStoreStates> = {
                     content: () => h(SignUpForm, {
                         onFinished() {
                             dialogInstance.destroy()
-
                         }
                     }),
                 })
