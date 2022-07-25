@@ -1,7 +1,7 @@
 <template>
     <n-form ref="formRef" label-placement="left" :label-width="50" :model="formValue" class="signInForm">
         <div class="title">
-            登录Luopc1218
+            登录{{store.state.title}}
         </div>
         <n-form-item label="用户名" path="username">
             <n-input v-model:value="formValue.username" placeholder="请输入用户名" />
@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { reactive, ref, defineEmits } from 'vue'
 import { NForm, NFormItem, NInput, NButton, FormInst } from 'naive-ui'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 import { apis, md5Object, request } from '@/utils';
 
 interface SignInFormState {

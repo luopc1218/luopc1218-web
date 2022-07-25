@@ -11,6 +11,7 @@
 <script lang="ts" setup>
 import axios from 'axios';
 import { onMounted, reactive } from 'vue';
+import { useStore } from '@/store';
 
 const state = reactive({
     banner: "",
@@ -39,8 +40,15 @@ const getJoke = () => {
     })
 }
 
+const store = useStore()
+
+
 
 onMounted(() => {
+
+    store.commit('setTitle', 'Luopc1218\'s BBS')
+    store.commit('setPath', [{ title: "论坛", url: '/bbs' }])
+
     getJoke()
     getBanner()
 })

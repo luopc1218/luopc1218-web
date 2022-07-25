@@ -2,7 +2,7 @@
     <n-form ref="formRef" label-placement="left" :label-width="80" :model="formValue" class="signInForm"
         :rules="formRules" @submit="handleSubmit">
         <div class="title">
-            注册Luopc1218
+            注册{{ store.state.title }}
         </div>
         <n-form-item label="头像" path="avatar">
             <n-space align="end">
@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { defineEmits, onMounted, reactive, ref } from 'vue'
 import { NForm, NFormItem, NInput, NButton, FormInst, FormItemRule, FormRules } from 'naive-ui'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 import SingleUpload from '@/components/SingleUpload.vue'
 import axios from 'axios';
 import RemoteSelect from '@/components/RemoteSelect.vue'

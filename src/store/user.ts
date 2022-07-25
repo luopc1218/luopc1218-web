@@ -65,7 +65,8 @@ export const userModule: Module<userModuleState, globalStoreStates> = {
                     content: () => h(SignInForm, {
                         onFinished() {
                             dialogInstance.destroy()
-                            context.dispatch('checkSignIn')
+                            location.reload()
+                            // context.dispatch('checkSignIn')
                         }
                     }),
                 })
@@ -94,6 +95,10 @@ export const userModule: Module<userModuleState, globalStoreStates> = {
             } catch (error) {
                 console.error(error);
             }
+        },
+        signOut(context) {
+            context.dispatch("cleanSignIn")
+            location.reload()
         }
     },
     modules: {

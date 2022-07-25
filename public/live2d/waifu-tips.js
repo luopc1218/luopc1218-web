@@ -138,20 +138,7 @@ function loadWidget(config) {
 
 	function showMessage(text, timeout, priority) {
 		return;
-		if (!text || (sessionStorage.getItem("waifu-text") && sessionStorage.getItem("waifu-text") > priority)) return;
-		if (messageTimer) {
-			clearTimeout(messageTimer);
-			messageTimer = null;
-		}
-		text = randomSelection(text);
-		sessionStorage.setItem("waifu-text", priority);
-		const tips = document.getElementById("waifu-tips");
-		tips.innerHTML = text;
-		tips.classList.add("waifu-tips-active");
-		messageTimer = setTimeout(() => {
-			sessionStorage.removeItem("waifu-text");
-			tips.classList.remove("waifu-tips-active");
-		}, timeout);
+
 	}
 
 	(function initModel() {
@@ -207,7 +194,7 @@ function loadWidget(config) {
 		localStorage.setItem("modelId", modelId);
 		localStorage.setItem("modelTexturesId", modelTexturesId);
 		showMessage(message, 4000, 10);
-		loadlive2d("live2d", `../live2dw/live2d-widget-model-hibiki/assets/hibiki.model.json`);
+		window?.loadlive2d("live2d", `../live2dw/live2d-widget-model-nito/assets/nito.model.json`);
 		// if (useCDN) {
 		// 	if (!modelList) await loadModelList();
 		// 	const target = randomSelection(modelList.models[modelId]);

@@ -1,13 +1,13 @@
 <template>
   <n-config-provider :themeOverrides="themeOverrides" :theme="darkMode ? darkTheme : undefined" :locale="zhCN"
     :date-locale="dateZhCN">
-    <div :class="darkMode ? 'darkMode' : ''">
+    <n-element :class="{ 'darkMode': darkMode, 'viewport': true }">
       <Header />
       <n-scrollbar class="scrollContent">
-        <router-view style="flex:1" />
+        <router-view />
         <Footer />
       </n-scrollbar>
-    </div>
+    </n-element>
     <n-message-provider>
       <NaiveMessageIniter />
     </n-message-provider>
@@ -26,7 +26,7 @@ import { defineComponent, computed, onMounted } from 'vue';
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { GlobalThemeOverrides, darkTheme, zhCN, dateZhCN } from 'naive-ui'
-import { useStore } from 'vuex'
+import { useStore } from '@/store'
 import { globalStoreStates } from './store';
 import NaiveMessageIniter from '@/components/NaiveMessageIniter.vue'
 import NaiveDialogIniter from '@/components/NaiveDialogIniter.vue'
@@ -38,7 +38,7 @@ export default defineComponent({
   components: { Header, Footer, NaiveMessageIniter, NaiveDialogIniter, NaiveNotificationIniter },
   setup() {
 
-    const store = useStore<globalStoreStates>()
+    const store = useStore()
     const darkMode = computed(() => store.state.theme.darkMode)
     const themeOverrides = computed<GlobalThemeOverrides>(() => ({
       common: {
@@ -80,9 +80,17 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-.scrollContent {
-  height: calc(100vh - 74px);
+.viewport {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .scrollContent {
+    // height: calc(100vh - 74px);
+    flex: 1
+  }
 }
+
 
 .darkMode {
   .supportDark {

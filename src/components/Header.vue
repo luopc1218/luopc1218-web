@@ -1,8 +1,8 @@
 <template>
-    <n-element class="header supportDark">
-        <div class="title">
-            Luopc1218's
-        </div>
+    <div class="header supportDark">
+        <router-link to="/" class="title">
+            {{ store.state.title }}
+        </router-link>
         <div class="menu">
             <n-menu mode="horizontal" :options="menuOptions" />
         </div>
@@ -24,29 +24,43 @@
             }}
             </n-button>
             <n-spin v-if="store.state.user.userInfoLoading" :size="14" stroke="#fff"></n-spin>
-            <n-dropdown v-else-if="!!userInfo" trigger="click" :options="moreOptions" @select="handleMoreOptionSelect">
-                <n-button text>
-                    <n-avatar round size="small" :src="userInfo.avatarUrl" />
-                </n-button>
-            </n-dropdown>
+            <n-space v-else-if="!!userInfo" align="center" :size="30">
+                <MessageCenter>
+                    <n-button text color="#fff">
+                        <i class="icon-messagecenter-fill messageCenterBtn"></i>
+                    </n-button>
+                </MessageCenter>
+                <n-dropdown trigger="click" :options="moreOptions" @select="handleMoreOptionSelect">
+                    <n-button circle type="primary">
+                        <template #icon>
+                            <span>
+                                <n-avatar round size="small" :src="userInfo.avatarUrl" />
+                            </span>
+                        </template>
+                    </n-button>
+                </n-dropdown>
+            </n-space>
             <div v-else>
                 <n-button text color="#fff" @click="handleSignIn">请先登录</n-button>
             </div>
         </n-space>
 
-    </n-element>
+    </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, h, reactive, onMounted } from "vue";
+import { computed, h, reactive } from "vue";
+import { RouterLink } from 'vue-router'
 import { NButton, NAvatar, NText, } from 'naive-ui'
 import { useStore } from '@/store'
 // color picker
 import { ColorPicker } from "vue3-colorpicker";
 import "vue3-colorpicker/style.css";
+import MessageCenter from '@/components/MessageCenter.vue'
 
 interface HeaderStates {
-    navList: any[]
+    navList: any[],
+    showMessageCenter: boolean
 }
 
 const store = useStore();
@@ -59,7 +73,8 @@ const state = reactive<HeaderStates>({
         {
             label: '论坛', url: '/bbs'
         }
-    ]
+    ],
+    showMessageCenter: false
 })
 
 /**
@@ -73,8 +88,8 @@ const toggleDarkMode = () => {
  */
 const menuOptions = computed(() => state.navList.map(item => {
     return {
-        label: () => h("a", {
-            href: item.url,
+        label: () => h(RouterLink, {
+            to: item.url,
             style: {
                 color: "#fff"
             }
@@ -139,7 +154,19 @@ const moreOptions = reactive([
  */
 const handleMoreOptionSelect = (key: string) => {
     console.log(key);
-
+    switch (key) {
+        case 'signOut':
+            window?._dialog.warning({
+                title: "提示",
+                content: "确定要退出当前账号吗？",
+                positiveText: '确定',
+                negativeText: '取消',
+                onPositiveClick: () => {
+                    store.dispatch('user/signOut')
+                },
+            })
+            break;
+    }
 }
 
 /**
@@ -170,6 +197,8 @@ const handleSignIn = () => {
     background-color: var(--primary-color);
 
     .title {
+        color: #fff;
+        text-decoration: none;
         font-size: 20px;
         margin-right: 1rem;
         font-family: 'Comic Sans MS', cursive;
@@ -189,8 +218,9 @@ const handleSignIn = () => {
         margin-right: 1rem
     }
 
-    .userInfo {
-        margin-right: 1rem;
+    .messageCenterBtn {
+        font-size: 30px;
     }
+
 }
 </style>
