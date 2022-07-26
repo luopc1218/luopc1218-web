@@ -35,16 +35,11 @@
     </n-layout>
 </template>
 <script lang="ts" setup>
-import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import BlogHeader from './components/BlogHeader.vue'
 
 const route = useRoute()
 
-onMounted(() => {
-    console.log(route);
-
-})
 </script>
 <style lang="scss" scoped>
 </style>

@@ -1,6 +1,6 @@
 <template>
     <n-form ref="formRef" label-placement="left" :label-width="80" :model="formValue" class="signInForm"
-        :rules="formRules" @submit="handleSubmit">
+        :rules="formRules">
         <div class="title">
             注册{{ store.state.title }}
         </div>
@@ -57,7 +57,7 @@
 
 <script setup lang="ts">
 import { defineEmits, onMounted, reactive, ref, computed } from 'vue'
-import { NForm, NFormItem, NInput, NButton, FormInst, FormItemRule, FormRules } from 'naive-ui'
+import { FormInst, FormItemRule, FormRules } from 'naive-ui'
 import { useStore } from '@/store'
 import SingleUpload from '@/components/SingleUpload.vue'
 import axios from 'axios';
@@ -65,28 +65,9 @@ import RemoteSelect from '@/components/RemoteSelect.vue'
 import apis from '@/utils/apis'
 import { md5Object, request } from '@/utils';
 
-interface SignUpFormState {
-    usernameCheckLoading: boolean;
-    sentPhoneCheckCode: boolean;
-    sendPhoneCheckCodeLoading: boolean;
-    sendPhoneCheckCodeWaitTime: number;
-    submitLoading: boolean
-}
 
-interface SignUpFormValue {
-    avatar: string;
-    username: string;
-    password: string;
-    checkPassword: string;
-    telCodeId: number;
-    phone: string;
-    phoneCheckCode: string;
-    email: string;
-}
 
-onMounted(() => {
-    getRandomAvatar()
-})
+
 
 const emit = defineEmits(['finished'])
 
@@ -102,9 +83,9 @@ const getRandomAvatar = () => {
 
 const store = useStore()
 
-const formRef = ref<FormInst | null>(null)
+const formRef = ref<FormInst | undefined>(undefined)
 
-const formValue = reactive<SignUpFormValue>({
+const formValue = reactive({
     avatar: "",
     username: "",
     password: "",
@@ -113,6 +94,14 @@ const formValue = reactive<SignUpFormValue>({
     phone: "",
     phoneCheckCode: "",
     email: ""
+})
+
+const state = reactive({
+    usernameCheckLoading: false,
+    sentPhoneCheckCode: false,
+    sendPhoneCheckCodeLoading: false,
+    sendPhoneCheckCodeWaitTime: 0,
+    submitLoading: false
 })
 
 const checkUsername = async (rule: FormItemRule, value: string) => {
@@ -146,13 +135,7 @@ const formRules = computed<FormRules>(() => ({
     phoneCheckCode: { required: formValue.phone <= "", message: "请输入手机验证码" }
 }))
 
-const state = reactive<SignUpFormState>({
-    usernameCheckLoading: false,
-    sentPhoneCheckCode: false,
-    sendPhoneCheckCodeLoading: false,
-    sendPhoneCheckCodeWaitTime: 0,
-    submitLoading: false
-})
+
 
 // 获取手机验证码
 const handleSendPhoneCheckCode = async () => {
@@ -184,7 +167,7 @@ const countryTelCodeLabelFormat = (label: string) => {
  */
 const handleSubmit = (e: Event) => {
     e.preventDefault();
-    formRef.value?.validate(async error => {
+    formRef.value?.validate(async error => {       
         if (!error) {
             state.submitLoading = true;
             try {
@@ -199,6 +182,10 @@ const handleSubmit = (e: Event) => {
         }
     })
 }
+
+onMounted(() => {
+    getRandomAvatar()
+})
 
 </script>
 

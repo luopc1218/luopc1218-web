@@ -31,7 +31,7 @@
                     </n-button>
                 </MessageCenter>
                 <n-dropdown trigger="click" :options="moreOptions" @select="handleMoreOptionSelect">
-                    <n-button circle type="primary">
+                    <n-button quaternary circle type="primary">
                         <template #icon>
                             <span>
                                 <n-avatar round size="small" :src="userInfo.avatarUrl" />
@@ -44,7 +44,6 @@
                 <n-button text color="#fff" @click="handleSignIn">请先登录</n-button>
             </div>
         </n-space>
-
     </div>
 </template>
 

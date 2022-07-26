@@ -39,6 +39,10 @@ export const apis: Record<string, Api> = {
     signIn: {
         url: '/api/user/signIn',
         method: "post"
+    },
+    getArticleTagList: {
+        url: '/api/article/getArticleTagList',
+        method: 'get'
     }
 }
 

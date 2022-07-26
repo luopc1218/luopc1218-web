@@ -85,7 +85,6 @@ function loadWidget(config) {
 			}, 500);
 		});
 		const devtools = () => { };
-		console.log("%c", devtools);
 		devtools.toString = () => {
 			showMessage("哈哈，你打开了控制台，是想要看看我的小秘密吗？", 6000, 9);
 		};
