@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, onMounted, reactive, ref } from 'vue'
+import { defineEmits, onMounted, reactive, ref, computed } from 'vue'
 import { NForm, NFormItem, NInput, NButton, FormInst, FormItemRule, FormRules } from 'naive-ui'
 import { useStore } from '@/store'
 import SingleUpload from '@/components/SingleUpload.vue'
@@ -64,7 +64,6 @@ import axios from 'axios';
 import RemoteSelect from '@/components/RemoteSelect.vue'
 import apis from '@/utils/apis'
 import { md5Object, request } from '@/utils';
-import { computed } from '@vue/reactivity';
 
 interface SignUpFormState {
     usernameCheckLoading: boolean;
