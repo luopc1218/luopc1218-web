@@ -1,7 +1,7 @@
 <template>
     <div class="blogHeader">
         <n-breadcrumb>
-            <n-breadcrumb-item v-for="item in store.state.path" :key="item.url">
+            <n-breadcrumb-item v-for="item in store.state.path" :key="item.url" :href="item.url">
                 {{ item.title }}
             </n-breadcrumb-item>
         </n-breadcrumb>

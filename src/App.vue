@@ -99,4 +99,14 @@ export default defineComponent({
     color: #fff;
   }
 }
+
+a {
+  text-decoration: none;
+}
+
+.router-link-active {
+  text-decoration: none;
+}
+
+
 </style>

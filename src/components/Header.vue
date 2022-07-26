@@ -93,7 +93,7 @@ const menuOptions = computed(() => state.navList.map(item => {
             style: {
                 color: "#fff"
             }
-        }, item.label),
+        }, () => item.label),
         key: 'blogs',
     }
 }))

@@ -2,8 +2,8 @@
     <div class="indexPage">
         <n-spac class="moduleList">
             <n-space>
-                <router-link :to="item.path" v-for="item in state.moduleList" :key="item.title">
-                    <n-card class="module" :content-style="{ padding: 0 }">
+                <router-link :to="item.path" v-for="item, index in state.moduleList" :key="item.title">
+                    <n-card class="module" :content-style="{ padding: 0 }" :style="{ animationDelay: `${index/2}s` }">
                         <div class="title" :style="{ backgroundImage: `url(${item.pic})` }">
                             {{ item.title }}
                         </div>
@@ -23,12 +23,12 @@ import { useStore } from '@/store';
 const state = reactive({
     moduleList: [
         {
-            pic: 'https://mrd-global.net/img/photos/Cheetah_in_the_Masai_Mara,_Kenya-small.jpg',
+            pic: require('../assets/images/Cheetah_in_the_Masai_Mara,_Kenya-small.jpg'),
             title: '博客',
             path: '/blog'
         },
         {
-            pic: 'https://mrd-global.net/img/photos/Deep_in_thought_about_the_coming_joust-small.jpg',
+            pic: require('../assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
             title: '论坛',
             path: '/bbs'
         }
@@ -45,6 +45,16 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 .indexPage {
     .moduleList {
         padding: 10rem;
@@ -56,11 +66,13 @@ onMounted(() => {
             position: relative;
             overflow: hidden;
             cursor: pointer;
-
+            opacity: 0;
             width: 400px;
             height: 400px;
             filter: blur(1.5px) grayscale(100%);
             transition: filter .3s ease;
+            animation: fadeIn 1s ease;
+            animation-fill-mode: forwards;
 
             .title {
                 width: 120%;

@@ -3,18 +3,20 @@
         <n-layout-header>
             <BlogHeader />
         </n-layout-header>
-        <n-layout has-sider content-style="padding:1rem">
+        <n-layout :has-sider="!route.meta.hideSider" content-style="padding:1rem">
             <n-layout-content>
                 <n-card>
-                    content
+                    <router-view></router-view>
                 </n-card>
             </n-layout-content>
-            <n-layout-sider style="margin-left:1rem;" width="20%" >
+            <n-layout-sider style="margin-left:1rem;" width="20%" v-if="!route.meta.hideSider">
                 <n-card style="margin-bottom:1rem">
                     <n-space>
-                        <n-button type="primary">
-                            写文章
-                        </n-button>
+                        <router-link to="/blog/write">
+                            <n-button type="primary">
+                                写文章
+                            </n-button>
+                        </router-link>
                         <n-button>
                             我的文章
                         </n-button>
@@ -32,18 +34,17 @@
 
     </n-layout>
 </template>
-<script lang="ts" setup>import { onMounted } from 'vue';
-import { useStore } from '@/store';
+<script lang="ts" setup>
+import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import BlogHeader from './components/BlogHeader.vue'
 
-const store = useStore()
+const route = useRoute()
 
 onMounted(() => {
-    store.commit('setTitle', 'Luopc1218\'s Blog');
-    store.commit('setPath', [{ title: '博客', url: '/blog' }])
-})
+    console.log(route);
 
+})
 </script>
 <style lang="scss" scoped>
-.home {}
 </style>
