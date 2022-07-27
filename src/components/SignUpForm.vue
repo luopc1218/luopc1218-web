@@ -44,12 +44,10 @@
             <n-input placeholder="请输入邮箱" />
         </n-form-item>
         <n-form-item>
-            <div style="width:100%;text-align:center;">
-                <div style="padding:0 5rem">
-                    <n-button type="primary" size="large" block attr-type="submit" @click="handleSubmit" round
-                        :loading="state.submitLoading">注册
-                    </n-button>
-                </div>
+            <div style="width:100%;text-align:center;padding:0 5rem">
+                <n-button type="primary" size="large" block attr-type="submit" @click="handleSubmit" round
+                    :loading="state.submitLoading">注册
+                </n-button>
             </div>
         </n-form-item>
     </n-form>
@@ -167,7 +165,7 @@ const countryTelCodeLabelFormat = (label: string) => {
  */
 const handleSubmit = (e: Event) => {
     e.preventDefault();
-    formRef.value?.validate(async error => {       
+    formRef.value?.validate(async error => {
         if (!error) {
             state.submitLoading = true;
             try {

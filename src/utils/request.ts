@@ -11,6 +11,10 @@ export interface requestOptions extends Omit<AxiosRequestConfig, 'url' | 'method
 }
 
 export const request = async <T = any,>(api: Api, params?: any, options?: requestOptions) => {
+    if (!api) {
+        console.error("api is not define!");
+        return Promise.reject(new Error("api is not define!"))
+    }
     try {
         const response: AxiosResponse<ResponseData<T>> = await axios({
             url: api.url,

@@ -9,7 +9,7 @@
                         :maxlength="40"></n-input>
                 </n-input-group>
             </n-form-item>
-            <n-form-item label="简介" path="description ">
+            <n-form-item label="简介" path="description">
                 <n-input type="textarea" v-model:value="formValue.description" placeholder="请输入文章简介" show-count
                     :maxlength="100" :autosize="{ minRows: 3 }">
                 </n-input>
@@ -34,10 +34,14 @@
             <n-form-item label="正文（MarkDown）" path="content">
                 <MdEditor v-model="formValue.content" :theme="store.state.theme.darkMode ? 'dark' : 'light'" />
             </n-form-item>
-            <n-space justify="center">
-                <n-button size="large" style="width:150px" round type="primary" attr-type="submit"
-                    @click="handleSubmit">提交</n-button>
-            </n-space>
+            <n-form-item>
+                <div style="width:100%;text-align:center">
+                    <n-space justify="center">
+                        <n-button size="large" style="width:150px" round type="primary" attr-type="submit"
+                            @click="handleSubmit" :loading="state.submitLoading">提交</n-button>
+                    </n-space>
+                </div>
+            </n-form-item>
         </n-form>
     </div>
 </template>
@@ -51,6 +55,10 @@ import { FormInst, AutoCompleteInst, FormRules } from 'naive-ui';
 import RemoteSelect from '@/components/RemoteSelect.vue'
 import apis from '@/utils/apis'
 import { request } from '@/utils';
+import _ from 'lodash'
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const store = useStore()
 
@@ -74,15 +82,15 @@ const formValue = reactive<{
 
 const formRules = computed<FormRules>(() => ({
     title: {
-        require: true,
+        required: true,
         message: '请输入文章标题',
     },
     description: {
-        require: true,
+        required: true,
         message: '请输入文章简介'
     },
     content: {
-        require: true,
+        required: true,
         message: '请输入文章内容'
     },
 }))
@@ -93,11 +101,13 @@ const state = reactive<{
     tagList: {
         id: number,
         name: string
-    }[]
+    }[],
+    submitLoading: boolean,
 }>({
     inputingTag: '',
     getTagListLoading: false,
-    tagList: []
+    tagList: [],
+    submitLoading: false
 })
 
 
@@ -131,7 +141,11 @@ const onCreateTag = (value: string) => {
     }
 }
 
-const getTagList = async (query: string) => {
+
+/**
+ * 获取标签列表
+ */
+const getTagList = _.debounce(async (query: string) => {
     if (!query) {
         state.tagList = []
     } else {
@@ -140,7 +154,9 @@ const getTagList = async (query: string) => {
             const newTagList = await request<{
                 id: number;
                 name: string;
-            }[]>(apis.getArticleTagList, { query })
+            }[]>(apis.getArticleTagList, { query }, {
+                showErrorMessage: false
+            })
             if (newTagList) {
                 state.tagList = newTagList
             }
@@ -150,19 +166,30 @@ const getTagList = async (query: string) => {
             state.tagList = []
         }
     }
-
-}
+}, 500)
 
 const handleSubmit = (e: Event) => {
     e.preventDefault();
-    console.log(formRef);
-
-    formRef.value?.validate((errors) => {
-        console.log(errors);
-
+    formRef.value?.validate(async (errors) => {
         if (!errors) {
-            console.log(formValue);
-
+            state.submitLoading = true
+            try {
+                const articleInfo = await request(apis.addArticle, {
+                    title: formValue.title,
+                    description: formValue.description,
+                    content: formValue.content,
+                    tags: formValue.tags.filter(tag => !!tag.value).map(tag => tag.value),
+                    newTags: formValue.tags.filter(tag => !tag.value).map(tag => tag.label),
+                }, {
+                    showSuccessMessage: true
+                })
+                state.submitLoading = false;
+                if (articleInfo.id) {
+                    router.push(`/blog/article?id=${articleInfo.id}`)
+                }
+            } catch (e) {
+                state.submitLoading = false;
+            }
         }
     })
 }
