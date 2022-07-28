@@ -98,11 +98,11 @@ const signInByWeibo = () => {
         text-align: center;
         font-size: 2rem;
         font-weight: bolder;
-        font-family: 'Comic Sans MS', cursive;
     }
 
     .extra {
         font-size: 1.5rem;
+       
     }
 }
 </style>

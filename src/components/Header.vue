@@ -200,7 +200,6 @@ const handleSignIn = () => {
         text-decoration: none;
         font-size: 20px;
         margin-right: 1rem;
-        font-family: 'Comic Sans MS', cursive;
     }
 
     .menu {

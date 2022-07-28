@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <n-card>
         <n-form ref="formRef" :label-width="80" :model="formValue" :rules="formRules">
             <n-form-item label="标题" path="title">
                 <n-input-group>
@@ -43,7 +43,7 @@
                 </div>
             </n-form-item>
         </n-form>
-    </div>
+    </n-card>
 </template>
 
 <script setup lang="ts">

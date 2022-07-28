@@ -6,6 +6,7 @@ import ProfilePage from '@/pages/profile/ProfilePage.vue'
 import IndexPage from '@/pages/index.vue'
 import BlogWritePage from '@/pages/blog/write/BlogWritePage.vue'
 import BlogIndexPage from '@/pages/blog/index/BlogIndexPage.vue'
+import BlogArticlePageVue from '@/pages/blog/article/BlogArticlePage.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -43,6 +44,11 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           hideSider: true
         }
+      },
+      {
+        path: 'article',
+        name: 'blogArticle',
+        component: BlogArticlePageVue,
       }
     ]
   },

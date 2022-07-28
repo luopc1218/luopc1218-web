@@ -194,7 +194,6 @@ onMounted(() => {
         text-align: center;
         font-size: 2rem;
         font-weight: bolder;
-        font-family: 'Comic Sans MS', cursive;
         ;
     }
 

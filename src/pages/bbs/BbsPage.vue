@@ -63,7 +63,6 @@ onMounted(() => {
         height: 190px;
         color: var(--primary-color);
         font-size: 36px;
-        font-family: fantasy;
         display: flex;
         align-items: center;
         justify-content: center;

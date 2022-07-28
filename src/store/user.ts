@@ -17,14 +17,16 @@ export interface userModuleState {
         email: string,
         telCode: string
     },
-    userInfoLoading: boolean
+    userInfoLoading: boolean,
+    adminMode: boolean
 }
 
 export const userModule: Module<userModuleState, globalStoreStates> = {
     namespaced: true,
     state: {
         userInfoLoading: false,
-        userInfo: undefined
+        userInfo: undefined,
+        adminMode: false
     },
     getters: {
     },
@@ -34,6 +36,9 @@ export const userModule: Module<userModuleState, globalStoreStates> = {
         },
         setUserInfoLoading(state, payload) {
             state.userInfoLoading = payload
+        },
+        setAdminMode(state, payload) {
+            state.adminMode = payload
         }
     },
     actions: {
@@ -41,6 +46,7 @@ export const userModule: Module<userModuleState, globalStoreStates> = {
             try {
                 context.commit("setUserInfoLoading", true)
                 const userInfo = await request(apis.getUserInfo)
+                context.commit('setAdminMode', userInfo.name === 'luopc1218')
                 context.commit("setUserInfoLoading", false)
                 context.commit("setUserInfo", userInfo)
             }

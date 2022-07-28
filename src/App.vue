@@ -109,4 +109,14 @@ a {
 }
 
 
+
+@font-face {
+  font-family: "myFont"; //给引入的字体起个名字
+  src: url("./assets/fonts/汉仪忘川跳简.ttf"); //引入字体文件
+}
+
+* {
+  font-family:cursive;
+
+}
 </style>

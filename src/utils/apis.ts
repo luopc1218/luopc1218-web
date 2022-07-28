@@ -51,6 +51,10 @@ export const apis: Record<string, Api> = {
     getArticleList: {
         url: '/api/article/getArticleList',
         method: "get"
+    },
+    getArticleInfo: {
+        url: '/api/article/getArticleInfo',
+        method: "get"
     }
 }
 

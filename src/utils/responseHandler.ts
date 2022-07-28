@@ -31,8 +31,8 @@ export const responseHandler = <T,>(response: ResponseData<T>, options: requestO
         return Promise.resolve(response.data)
 
     } else {
-        if (response.message && showErrorMessage) {
-            window?._message.error(response.message)
+        if (showErrorMessage) {
+            window?._message.error(response.message || '网络错误')
         }
         codeChecker(response.code)
         return Promise.reject(new Error(response.message))
