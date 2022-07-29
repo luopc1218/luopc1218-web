@@ -84,9 +84,7 @@ const state = reactive<{
 const getAdminInfo = async () => {
     state.getAdminInfoLoading = true;
     try {
-        const adminInfo = await request(apis.getUserInfo, {
-            name: 'luopc1218'
-        })
+        const adminInfo = await request(apis.getAdminInfo)
         if (adminInfo) {
             state.adminInfo = adminInfo;
         }
