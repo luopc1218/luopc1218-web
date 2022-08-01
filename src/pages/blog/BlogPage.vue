@@ -1,13 +1,11 @@
 <template>
-    <n-layout>
-        <n-layout-header>
-            <BlogHeader />
-        </n-layout-header>
-        <n-layout :has-sider="!route.meta.hideSider" content-style="padding:1rem">
-            <n-layout-content>
+    <div class="blog">
+        <BlogHeader />
+        <div class="content">
+            <div class="page">
                 <router-view></router-view>
-            </n-layout-content>
-            <n-layout-sider style="margin-left:1rem;" width="20%" v-if="!route.meta.hideSider">
+            </div>
+            <div class="sider" v-if="!route.meta.hideSider">
                 <n-card style="margin-bottom:1rem" class="adminInfo">
                     <n-divider style="margin:0 0 1rem 0">
                         博主信息
@@ -54,10 +52,10 @@
                     这里是{{ state.adminInfo?.name }}的个人博客，分享学习生活中的各种琐事，有问题欢迎探讨交流
                 </n-card>
 
-            </n-layout-sider>
-        </n-layout>
+            </div>
+        </div>
 
-    </n-layout>
+    </div>
 </template>
 <script lang="ts" setup>
 import { useStore } from '@/store';
@@ -100,26 +98,43 @@ onMounted(() => {
 
 </script>
 <style lang="scss" scoped>
-.adminInfo {
-    .avatar {
-        width: 140px;
-        height: 140px;
-        cursor: pointer;
-        transition: all 1s ease;
+.blog {
+    .content {
+        display: flex;
+        padding: 1rem;
+
+        .page {
+            flex: 1
+        }
+
+        .sider {
+            width: 20%;
+            margin-left: 1rem;
+
+            .adminInfo {
+                .avatar {
+                    width: 140px;
+                    height: 140px;
+                    cursor: pointer;
+                    transition: all 1s ease;
+                }
+
+
+
+                .name {
+                    margin: 1rem;
+                    font-size: 18px;
+                    font-weight: bolder;
+                }
+            }
+
+            .adminInfo:hover {
+                .avatar {
+                    transform: rotateY(180deg);
+                }
+            }
+        }
     }
 
-
-
-    .name {
-        margin: 1rem;
-        font-size: 18px;
-        font-weight: bolder;
-    }
-}
-
-.adminInfo:hover {
-    .avatar {
-        transform: rotateY(180deg);
-    }
 }
 </style>

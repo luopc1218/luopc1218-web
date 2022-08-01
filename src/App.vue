@@ -1,12 +1,18 @@
 <template>
   <n-config-provider :themeOverrides="themeOverrides" :theme="darkMode ? darkTheme : undefined" :locale="zhCN"
     :date-locale="dateZhCN">
-    <n-element :class="{ 'darkMode': darkMode, 'viewport': true }">
-      <Header />
-      <n-scrollbar class="scrollContent">
-        <router-view />
-        <Footer />
-      </n-scrollbar>
+    <n-element :class="{ 'darkMode': darkMode }">
+      <div class="supportDark viewport">
+        <Header />
+        <n-scrollbar :style="{ maxHeight: `calc(100vh - ${store.state.headerHeight}px)`, overflow: 'hidden' }"
+          @scroll="handleScroll">
+          <div class="content"
+            :style="{ minHeight: `calc(100vh - ${store.state.headerHeight + store.state.footerHeight}px)` }">
+            <router-view />
+          </div>
+          <Footer />
+        </n-scrollbar>
+      </div>
     </n-element>
     <n-message-provider>
       <NaiveMessageIniter />
@@ -21,77 +27,49 @@
   </n-config-provider>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, onMounted } from 'vue';
+<script lang="ts" setup>
+import { computed, onMounted } from 'vue';
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { GlobalThemeOverrides, darkTheme, zhCN, dateZhCN } from 'naive-ui'
 import { useStore } from '@/store'
-import { globalStoreStates } from './store';
 import NaiveMessageIniter from '@/components/NaiveMessageIniter.vue'
 import NaiveDialogIniter from '@/components/NaiveDialogIniter.vue'
 import NaiveNotificationIniter from '@/components/NaiveNotificationIniter.vue'
+import mitt from '@/utils/mitt'
 
 
-export default defineComponent({
-  name: 'IndexPage',
-  components: { Header, Footer, NaiveMessageIniter, NaiveDialogIniter, NaiveNotificationIniter },
-  setup() {
 
-    const store = useStore()
-    const darkMode = computed(() => store.state.theme.darkMode)
-    const themeOverrides = computed<GlobalThemeOverrides>(() => ({
-      common: {
-        primaryColor: store.state.theme.primaryColor,
-        primaryColorHover: store.state.theme.primaryColor,
-        primaryColorPressed: store.state.theme.primaryColor,
-        primaryColorSuppl: store.state.theme.primaryColor,
-      },
-    }))
+const store = useStore()
+const darkMode = computed(() => store.state.theme.darkMode)
+const themeOverrides = computed<GlobalThemeOverrides>(() => ({
+  common: {
+    primaryColor: store.state.theme.primaryColor,
+    primaryColorHover: store.state.theme.primaryColor,
+    primaryColorPressed: store.state.theme.primaryColor,
+    primaryColorSuppl: store.state.theme.primaryColor,
+  },
+}))
 
-    const initLive2d = () => {
-      setTimeout(() => {
-        window.L2Dwidget.init({
-          pluginRootPath: 'live2dw/',
-          pluginJsPath: 'live2dw/lib/',
-          pluginModelPath: 'live2dw/live2d-widget-model-hibiki/assets/', //中间这个haru_2就是你的老婆,想换个老婆,换这个就可以了
-          tagMode: false,
-          debug: false,
-          model: { jsonPath: '/live2dw/live2d-widget-model-hibiki/assets/hibiki.model.json' },
-          display: { position: 'right', width: 120, height: 270, "vOffset": 0, hOffset: 50 },  //调整大小,和位置
-          mobile: { show: false },   //要不要盯着你的鼠标看
-          log: false,
-        })
-      }, 500)
-    }
+const handleScroll = ((e: Event) => {
+  mitt.emit('scroll', e)
+})
 
-    onMounted(() => {
-      if (localStorage.getItem('accessToken')) {
-        store.dispatch("user/checkSignIn")
-      }
-      // initLive2d()
-    })
-    return {
-      themeOverrides,
-      darkMode,
-      darkTheme, zhCN, dateZhCN
-    }
+onMounted(() => {
+  if (localStorage.getItem('accessToken')) {
+    store.dispatch("user/checkSignIn")
   }
-});
+})
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .viewport {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
+  background: #f4f4f4;
 
-  .scrollContent {
-    // height: calc(100vh - 74px);
-    flex: 1
-  }
+  .content {}
 }
-
-
+</style>
+<style lang="scss">
 .darkMode {
   .supportDark {
     transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
@@ -112,11 +90,11 @@ a {
 
 @font-face {
   font-family: "myFont"; //给引入的字体起个名字
-  src: url("./assets/fonts/汉仪忘川跳简.ttf"); //引入字体文件
+  src: url("./assets/fonts/仓耳舒圆体W03.ttf"); //引入字体文件
 }
 
 * {
-  font-family:cursive;
+  font-family: myFont, cursive;
 
 }
 </style>

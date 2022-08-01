@@ -16,27 +16,32 @@ export interface globalStoreStates {
     primaryColor: string;
   },
   title: string,
-  path: Path[]
+  path: Path[],
+  headerHeight: number,
+  footerHeight: number
+
 }
 
 export default createStore<globalStoreStates>({
   state: {
     theme: {
-      darkMode: false,
+      darkMode: !!localStorage.getItem("darkMode"),
       primaryColor: localStorage.getItem("primaryColor") || DEFAULT_PRIMARY_COLOR
     },
     title: '',
-    path: []
+    path: [],
+    headerHeight: 0,
+    footerHeight: 0
   },
   getters: {
   },
   mutations: {
-    toggleDarkMode(state) {
-      state.theme.darkMode = !state.theme.darkMode
+    setDarkMode(state, payload) {
+      state.theme.darkMode = payload
     },
-    changePrimaryColor(state, color) {
-      localStorage.setItem("primaryColor", color)
-      state.theme.primaryColor = color
+    setPrimaryColor(state, payload) {
+      localStorage.setItem("primaryColor", payload)
+      state.theme.primaryColor = payload
     },
     setTitle(state, payload) {
       state.title = payload || "Luopc1218's"
@@ -44,8 +49,15 @@ export default createStore<globalStoreStates>({
     setPath(state, payload) {
       state.path = payload
     },
+    setHeaderHeight(state, payload) {
+      state.headerHeight = payload
+    },
+    setFooterHeight(state, payload) {
+      state.footerHeight = payload
+    }
   },
   actions: {
+
   },
   modules: {
     user: userModule

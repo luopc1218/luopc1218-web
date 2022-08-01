@@ -1,7 +1,8 @@
 <template>
     <div class="blogIndexPage">
         <div class="articleList">
-            <router-link v-for="item in state.articleList" :key="item.id" :to="`/blog/article?id=${item.id}`">
+            <router-link v-for="(item, index) in state.articleList" :key="item.id" :to="`/blog/article?id=${item.id}`"
+                :class="index % 2 === 0 ? 'flyLeft' : 'flyRight'" :style="{ animationDelay: `${index / 5}s` }">
                 <n-card hoverable class="articleItem">
 
                     <n-button text class="title">
@@ -70,8 +71,29 @@ onMounted(() => {
 
 </script>
 <style lang="scss" scoped>
+@keyframes flyLeft {
+    from {
+        left: 100%
+    }
+
+    to {
+        left: 0;
+    }
+}
+
+@keyframes flyRight {
+    from {
+        right: 100%
+    }
+
+    to {
+        right: 0;
+    }
+}
+
 .blogIndexPage {
     .articleList {
+        overflow: hidden;
         .articleItem {
             margin-bottom: 1rem;
             cursor: pointer;
@@ -93,6 +115,20 @@ onMounted(() => {
 
                 .tag {}
             }
+        }
+
+        .flyLeft {
+            position: relative;
+            left: 100%;
+            animation: flyLeft 1s ease;
+            animation-fill-mode: forwards;
+        }
+
+        .flyRight {
+            position: relative;
+            right: 100%;
+            animation: flyRight 1s ease;
+            animation-fill-mode: forwards;
         }
     }
 }

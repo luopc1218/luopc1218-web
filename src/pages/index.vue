@@ -1,39 +1,15 @@
 <template>
     <div class="indexPage">
-        <n-spac class="moduleList">
-            <n-space>
-                <router-link :to="item.path" v-for="item, index in state.moduleList" :key="item.title">
-                    <n-card class="module" :content-style="{ padding: 0 }" :style="{ animationDelay: `${index/2}s` }">
-                        <div class="title" :style="{ backgroundImage: `url(${item.pic})` }">
-                            {{ item.title }}
-                        </div>
-                    </n-card>
-                </router-link>
-
-            </n-space>
-        </n-spac>
+        <Link />
     </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
+import { onMounted } from 'vue';
 import { useStore } from '@/store';
+import Link from '@/components/indexModules/Link.vue'
 
 
-const state = reactive({
-    moduleList: [
-        {
-            pic: require('../assets/images/Cheetah_in_the_Masai_Mara,_Kenya-small.jpg'),
-            title: '博客',
-            path: '/blog'
-        },
-        {
-            pic: require('../assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
-            title: '论坛',
-            path: '/bbs'
-        }
-    ]
-})
 
 const store = useStore()
 
@@ -45,58 +21,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 .indexPage {
-    .moduleList {
-        padding: 10rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .module {
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            opacity: 0;
-            width: 400px;
-            height: 400px;
-            filter: blur(1.5px) grayscale(100%);
-            transition: filter .3s ease;
-            animation: fadeIn 1s ease;
-            animation-fill-mode: forwards;
-
-            .title {
-                width: 120%;
-                height: 100%;
-                padding: 1rem;
-                // height: 100%;
-                color: #fff;
-                position: absolute;
-                left: -20%;
-                transition: left .3s ease;
-                font-size: 25px;
-                font-weight: bolder;
-                background-size: 100% auto;
-                background-repeat: no-repeat;
-            }
-        }
-
-        .module:hover {
-            filter: none;
-
-            .title {
-                left: 0;
-            }
-        }
-    }
+    padding: 1rem;
 }
 </style>    

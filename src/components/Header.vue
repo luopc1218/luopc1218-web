@@ -1,5 +1,5 @@
 <template>
-    <div class="header supportDark">
+    <div class="header supportDark" ref="headerRef">
         <router-link to="/" class="title">
             {{ store.state.title }}
         </router-link>
@@ -12,43 +12,37 @@
             </div>
             <n-popover style="padding: 0" trigger="click" :keep-alive-on-hover="false">
                 <template #trigger>
-                    <n-button quaternary color="#fff">更换主题</n-button>
+                    <n-button>更换主题</n-button>
                 </template>
                 <color-picker isWidget disableAlpha :pure-color="store.state.theme.primaryColor"
                     @update:pure-color="handleChangePrimaryColor">
                     选择主题</color-picker>
             </n-popover>
 
-            <n-button quaternary color="#fff" class="toggleDarkModeBtn" @click="toggleDarkMode">{{
+            <n-button class="toggleDarkModeBtn" @click="toggleDarkMode">{{
                     store.state.theme.darkMode ? "浅色" : "暗色"
             }}
             </n-button>
             <n-spin v-if="store.state.user.userInfoLoading" :size="14" stroke="#fff"></n-spin>
             <n-space v-else-if="!!userInfo" align="center" :size="30">
                 <MessageCenter>
-                    <n-button text color="#fff">
+                    <n-button text>
                         <i class="icon-messagecenter-fill messageCenterBtn"></i>
                     </n-button>
                 </MessageCenter>
                 <n-dropdown trigger="click" :options="moreOptions" @select="handleMoreOptionSelect">
-                    <n-button quaternary circle type="primary">
-                        <template #icon>
-                            <span>
-                                <n-avatar round size="small" :src="userInfo.avatarUrl" />
-                            </span>
-                        </template>
-                    </n-button>
+                    <n-avatar round class="avatar" :src="userInfo.avatarUrl" />
                 </n-dropdown>
             </n-space>
             <div v-else>
-                <n-button text color="#fff" @click="handleSignIn">请先登录</n-button>
+                <n-button text @click="handleSignIn">请先登录</n-button>
             </div>
         </n-space>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, h, reactive } from "vue";
+import { computed, h, onMounted, reactive, ref } from "vue";
 import { RouterLink } from 'vue-router'
 import { NButton, NAvatar, NText, } from 'naive-ui'
 import { useStore } from '@/store'
@@ -61,6 +55,8 @@ interface HeaderStates {
     navList: any[],
     showMessageCenter: boolean
 }
+
+const headerRef = ref<any>(null);
 
 const store = useStore();
 
@@ -80,7 +76,7 @@ const state = reactive<HeaderStates>({
  * 监听切换浅色/暗色
  */
 const toggleDarkMode = () => {
-    store.commit("toggleDarkMode")
+    store.commit("setDarkMode", !store.state.theme.darkMode)
 }
 /**
  * 导航列表
@@ -90,7 +86,7 @@ const menuOptions = computed(() => state.navList.map(item => {
         label: () => h(RouterLink, {
             to: item.url,
             style: {
-                color: "#fff"
+                // color: "#fff"
             }
         }, () => item.label),
         key: 'blogs',
@@ -173,7 +169,7 @@ const handleMoreOptionSelect = (key: string) => {
  * @param color 颜色
  */
 const handleChangePrimaryColor = (color: string) => {
-    store.commit("changePrimaryColor", color)
+    store.commit("setPrimaryColor", color)
 }
 
 /**
@@ -184,22 +180,29 @@ const handleSignIn = () => {
 }
 
 
+onMounted(() => {
+    store.commit('setHeaderHeight', headerRef?.value?.clientHeight)
+
+})
+
 </script>
 
 <style lang="scss">
 .header {
-    color: #fff;
+    // color: #fff;
     padding: 1rem;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 
-    background-color: var(--primary-color);
+    // background-color: var(--primary-color);
 
     .title {
-        color: #fff;
+        color: var(--n-item-text-color);
         text-decoration: none;
-        font-size: 20px;
+        font-size: 25px;
         margin-right: 1rem;
+        font-weight: bolder;
     }
 
     .menu {
@@ -220,5 +223,8 @@ const handleSignIn = () => {
         font-size: 30px;
     }
 
+    .avatar {
+        cursor: pointer;
+    }
 }
 </style>
