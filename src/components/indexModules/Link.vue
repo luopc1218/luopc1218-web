@@ -1,22 +1,28 @@
 <template>
     <ScrollAnimation>
-        <div class="linkList">
-            <n-divider>
-                链接
-            </n-divider>
-            <div>
-                <n-space>
+
+        <template v-slot:default="slotProps">
+
+            <div class="link" :style="{ minHeight: `calc(100vh - ${store.state.headerHeight}px)` }"
+                :class="{ 'link-visibility': slotProps.visibility, 'link-halfVisibility': slotProps.halfVisibility, 'link-crossed': slotProps.crossed }">
+                <div class="title">
+                    链接
+                </div>
+                <n-space class="linkList" justify="center" align="center">
                     <router-link :to="item.path" v-for="item, index in state.linkList" :key="item.title">
-                        <n-card class="link" :content-style="{ padding: 0 }"
-                            :style="{ animationDelay: `${index / 2}s` }">
-                            <div class="title" :style="{ backgroundImage: `url(${item.pic})` }">
-                                {{ item.title }}
+                        <n-card class="linkItem" :content-style="{ padding: 0 }"
+                            :style="{ 'transition-delay': slotProps.halfVisibility ? `${index / 10}s` : '0s' }">
+                            <div class="background" :style="{ backgroundImage: `url(${item.pic})` }">
+                                <div class="linkItemtitle">
+                                    {{ item.title }}
+                                </div>
                             </div>
+
                         </n-card>
                     </router-link>
                 </n-space>
             </div>
-        </div>
+        </template>
     </ScrollAnimation>
 
 </template>
@@ -24,6 +30,9 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import ScrollAnimation from '@/components/ScrollAnimation.vue'
+import { useStore } from '@/store';
+
+const store = useStore()
 
 const state = reactive({
     linkList: [
@@ -36,50 +45,111 @@ const state = reactive({
             pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
             title: '论坛',
             path: '/bbs'
-        }
+        },
+        {
+            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
+            title: '论坛',
+            path: '/bbs'
+        }, {
+            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
+            title: '论坛',
+            path: '/bbs'
+        }, {
+            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
+            title: '论坛',
+            path: '/bbs'
+        }, {
+            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
+            title: '论坛',
+            path: '/bbs'
+        }, {
+            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
+            title: '论坛',
+            path: '/bbs'
+        }, {
+            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
+            title: '论坛',
+            path: '/bbs'
+        },
     ]
 })
 </script>
 
 <style lang="scss" scoped>
-.linkList {
-    position: relative;
+.link {
+    opacity: 0;
     transform: translateY(100px);
-    transition: all .3s ease;
-
-    .link {
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        width: 400px;
-        height: 400px;
-        filter: blur(1.5px) grayscale(100%);
-        transition: filter .3s ease;
+    position: relative;
+    transition: all 1s ease;
 
 
-        .title {
-            width: 120%;
-            height: 100%;
-            padding: 1rem;
-            // height: 100%;
-            color: #fff;
-            position: absolute;
-            left: -20%;
-            transition: left .3s ease;
-            font-size: 25px;
-            font-weight: bolder;
-            background-size: 100% auto;
-            background-repeat: no-repeat;
+    .title {
+        text-align: center;
+        padding: 1rem;
+        font-size: 36px;
+    }
+
+    .linkList {
+        width: 100%;
+
+        .linkItem {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            width: 400px;
+            height: 400px;
+            filter: blur(1.5px) grayscale(100%);
+            opacity: 0;
+            transition: all .3s ease;
+
+
+            .background {
+                width: 120%;
+                height: 120%;
+                background-size: 100% auto;
+                background-repeat: no-repeat;
+                position: relative;
+                left: -20%;
+                transition: all .3s ease;
+            }
+
+            .linkItemtitle {
+                padding: 1rem;
+                color: #fff;
+                font-size: 25px;
+                font-weight: bolder;
+
+            }
+        }
+
+        .linkItem:hover {
+            filter: none;
+
+            .background {
+                left: 0;
+            }
         }
     }
 
-    .link:hover {
-        filter: none;
+    &-halfVisibility {
+        opacity: 1;
+        transform: none;
 
-        .title {
-            left: 0;
+        .linkList {
+            .linkItem {
+                opacity: 1;
+
+            }
         }
+
     }
+
+    &-crossed {
+        transform: translateY(-100px);
+    }
+
+
+
 
 }
 </style>

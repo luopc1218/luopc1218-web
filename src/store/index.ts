@@ -44,7 +44,7 @@ export default createStore<globalStoreStates>({
       state.theme.primaryColor = payload
     },
     setTitle(state, payload) {
-      state.title = payload || "Luopc1218's"
+      state.title = payload || "Luopc1218"
     },
     setPath(state, payload) {
       state.path = payload

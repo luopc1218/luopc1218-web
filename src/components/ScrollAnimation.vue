@@ -1,9 +1,6 @@
 <template>
     <div class="scrollAnimation" ref="scrollAnimationRef">
-        <div :class="props.defaultAnimation ? `animation-${props.defaultAnimation}` : ''">
-
-        </div>
-        <slot :visibility="state.visibility" :halfVisibility="state.halfVisibility" />
+        <slot :visibility="state.visibility" :halfVisibility="state.halfVisibility" :crossed="state.crossed" />
     </div>
 </template>
 
@@ -23,7 +20,8 @@ const store = useStore()
 
 const state = reactive({
     visibility: false,
-    halfVisibility: false
+    halfVisibility: false,
+    crossed: false
 })
 
 
@@ -35,8 +33,11 @@ const handleScroll = (e: any) => {
     const clientHeight = e?.target?.clientHeight
     const scrollTop = e?.target?.scrollTop;
     const offsetTop = scrollAnimationRef?.value?.offsetTop;
-    state.visibility = (scrollTop + clientHeight - (offsetTop - 24)) > 0;
-    state.halfVisibility = (scrollTop + clientHeight - (offsetTop - 24)) > (clientHeight / 2)
+    console.log(scrollTop + clientHeight, offsetTop);
+
+    state.visibility = (scrollTop + clientHeight - (offsetTop)) > 0;
+    state.halfVisibility = (scrollTop + clientHeight - (offsetTop)) > (clientHeight / 2)
+    state.crossed = (scrollTop + clientHeight - (offsetTop)) > clientHeight * 1.5
 }
 
 onMounted(() => {
@@ -53,4 +54,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.scrollAnimation {
+    overflow: hidden;
+}
 </style>
