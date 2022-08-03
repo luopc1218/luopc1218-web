@@ -198,7 +198,7 @@ onMounted(() => {
     // background-color: var(--primary-color);
 
     .title {
-        color: var(--n-item-text-color);
+        color: var(--base-colo);
         text-decoration: none;
         font-size: 25px;
         margin-right: 1rem;

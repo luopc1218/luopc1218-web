@@ -60,9 +60,5 @@ const store = useStore()
         }
     }
 
-    &-crossed {
-        transform: translateY(-100px);
-    }
-
 }
 </style>

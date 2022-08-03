@@ -1,10 +1,10 @@
 <template>
-    <div class="indexPage">
+    <div class="page">
         <Welcome />
         <Link />
         <TimeLine />
         <About />
-        <Message />
+        <LeaveMessage />
     </div>
 </template>
 
@@ -14,7 +14,7 @@ import { useStore } from '@/store';
 import Welcome from '@/components/indexModules/Welcome.vue'
 import About from '@/components/indexModules/About.vue'
 import Link from '@/components/indexModules/Link.vue'
-import Message from '@/components/indexModules/Message.vue'
+import LeaveMessage from '@/components/indexModules/LeaveMessage.vue'
 import TimeLine from '@/components/indexModules/TimeLine.vue'
 
 const store = useStore()
@@ -27,7 +27,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.indexPage {
-    padding: 1rem;
+.page {
+    // padding: 1rem;
 }
 </style>    

@@ -1,7 +1,7 @@
 <template>
     <ScrollAnimation>
         <template v-slot:default="slotProps">
-            <div class="welcome" :style="{ minHeight: `calc(100vh - ${store.state.headerHeight}px)` }"
+            <div class="welcome supportDark" :style="{ minHeight: `calc(100vh - ${store.state.headerHeight}px)` }"
                 :class="{ 'welcome-crossed': slotProps.crossed }">
                 <div class="text">
                     Welcome,
@@ -49,6 +49,17 @@ const store = useStore()
     }
 }
 
+@keyframes allochromasia {
+    from {
+        background-position: 300%;
+
+    }
+
+    to {
+        background-position: 0%;
+    }
+}
+
 
 .welcome {
     display: flex;
@@ -56,20 +67,27 @@ const store = useStore()
     justify-content: center;
     align-items: center;
     transition: opacity 1s ease;
+    // background-color: var(--primary-color);
 
     .text {
         font-size: 88px;
         transition: transform 1s ease;
+        background-clip: text;
+        /* 规定背景的划分区域 */
+        -webkit-text-fill-color: transparent;
+        /* 防止字体颜色覆盖 */
+        background-image: linear-gradient(to right, var(--primary-color), var(--base-color), var(--primary-color));
+        background-size: 300%;
 
 
     }
 
     .text:nth-child(2n+1) {
-        animation: flyRight 1s ease;
+        animation: flyRight 1s ease, allochromasia 5s linear infinite;
     }
 
     .text:nth-child(2n) {
-        animation: flyLeft 1s ease;
+        animation: flyLeft 1s ease, allochromasia 5s linear infinite;
     }
 
     &-crossed {

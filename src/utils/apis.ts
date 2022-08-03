@@ -59,6 +59,14 @@ export const apis: Record<string, Api> = {
     getAdminInfo: {
         url: '/api/user/getAdminInfo',
         method: "get"
+    },
+    addLeaveMessage: {
+        url: "/api/message/addLeaveMessage",
+        method: 'post'
+    },
+    getLeaveMessageList: {
+        url: "/api/message/getLeaveMessageList",
+        method: "get"
     }
 }
 

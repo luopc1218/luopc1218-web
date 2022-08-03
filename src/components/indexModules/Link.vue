@@ -145,7 +145,7 @@ const state = reactive({
     }
 
     &-crossed {
-        transform: translateY(-100px);
+        // transform: translateY(-100px);
     }
 
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="blog">
+    <div class="page">
         <BlogHeader />
         <div class="content">
             <div class="page">
@@ -98,7 +98,7 @@ onMounted(() => {
 
 </script>
 <style lang="scss" scoped>
-.blog {
+.page {
     .content {
         display: flex;
         padding: 1rem;

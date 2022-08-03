@@ -5,8 +5,7 @@
                 :style="{ minHeight: `calc(100vh - ${store.state.headerHeight}px)` }"
                 :class="{ 'about-visibility': slotProps.visibility, 'about-halfVisibility': slotProps.halfVisibility, 'about-crossed': slotProps.crossed }">
                 <div class="title">
-                    想了解更多？
-                    你需要的都在这里。
+                    关于本站
                 </div>
                 <n-card class="aboutContent">
                     <div>
@@ -48,7 +47,7 @@ const store = useStore()
 
     }
 
-    &-halfVisibility {
+    &-visibility {
         opacity: 1;
         transform: none
     }

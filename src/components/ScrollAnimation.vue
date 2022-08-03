@@ -33,9 +33,7 @@ const handleScroll = (e: any) => {
     const clientHeight = e?.target?.clientHeight
     const scrollTop = e?.target?.scrollTop;
     const offsetTop = scrollAnimationRef?.value?.offsetTop;
-    console.log(scrollTop + clientHeight, offsetTop);
-
-    state.visibility = (scrollTop + clientHeight - (offsetTop)) > 0;
+    state.visibility = (scrollTop + clientHeight - (offsetTop)) > clientHeight / 5;
     state.halfVisibility = (scrollTop + clientHeight - (offsetTop)) > (clientHeight / 2)
     state.crossed = (scrollTop + clientHeight - (offsetTop)) > clientHeight * 1.5
 }
@@ -55,6 +53,6 @@ onUnmounted(() => {
 
 <style scoped>
 .scrollAnimation {
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 </style>
