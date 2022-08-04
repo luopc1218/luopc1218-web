@@ -27,7 +27,7 @@
                     <n-empty v-if="state.leaveMessageList.totalCount <= 0"></n-empty>
                     <n-space vertical v-else class="leaveMessageList" align="center" :item-style="{ width: '100%' }">
                         <n-card v-for="item, index in state.leaveMessageList.list" :key="item.id"
-                            class="leaveMessageItem" :style="{ animationDelay: `${index / 5}s` }">
+                            class="leaveMessageItem" :style="{ animationDelay: `${index / 10}s` }">
                             <n-space align="center" class="author">
                                 <n-avatar :src="item.authorAvatarUrl">
 
@@ -172,24 +172,26 @@ onMounted(() => {
 
     &-visibility {
         opacity: 1;
-        transform: none
-    }
+        transform: none;
 
-    .leaveMessageList {
-        padding: 1rem;
-        box-sizing: border-box;
+        .leaveMessageList {
+            padding: 1rem;
+            box-sizing: border-box;
 
-        .leaveMessageItem {
-            opacity: 0;
-            animation: flyIn .3s ease;
-            animation-fill-mode: forwards;
+            .leaveMessageItem {
+                opacity: 0;
+                animation: flyIn .3s ease;
+                animation-fill-mode: forwards;
 
-            .time {
-                font-size: 12px;
-                // color: #ccc;
-                opacity: .6;
+                .time {
+                    font-size: 12px;
+                    // color: #ccc;
+                    opacity: .6;
+                }
             }
         }
     }
+
+
 }
 </style>

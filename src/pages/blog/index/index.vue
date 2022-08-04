@@ -1,101 +1,81 @@
 <template>
     <div class="blogIndexPage">
-        <div class="articleList">
-            <router-link v-for="(item, index) in state.articleList" :key="item.id" :to="`/blog/article?id=${item.id}`"
-                :class="index % 2 === 0 ? 'flyLeft' : 'flyRight'" :style="{ animationDelay: `${index / 5}s` }">
-                <n-card hoverable class="articleItem">
+        <PaginationData :api="apis.getArticleList" :params="{ pageSize: 10 }">
+            <template v-slot:default="{ data, pageSize }">
+                <div class="articleList">
+                    <router-link v-for="(item, index) in data.list" :key="item.id" :to="`/blog/article?id=${item.id}`">
+                        <n-card hoverable class="articleItem"
+                            :style="{ animationDelay: `${(index % pageSize) / pageSize}s` }">
 
-                    <n-button text class="title">
-                        {{ item.title }}
-                    </n-button>
-                    <n-space align="center">
-                        <div class="time">
-                            <span>发表于：</span>
-                            <span>
-                                {{ formatTime(item.createTime) }}
-                            </span>
-                        </div>
-                        <div class="tagList" v-if="item.tags.length > 0">
-                            <span>标签：</span>
-                            <n-space>
-                                <n-tag class="tag" size="small" checked v-for="tag in item.tags" :key="tag.id"
-                                    checkable>{{
-                                            tag.name
-                                    }}
-                                </n-tag>
+                            <n-button text class="title">
+                                {{ item.title }}
+                            </n-button>
+                            <n-space align="center">
+                                <div class="time">
+                                    <span>发表于：</span>
+                                    <span>
+                                        {{ formatTime(item.createTime) }}
+                                    </span>
+                                </div>
+                                <div class="tagList" v-if="item.tags.length > 0">
+                                    <span>标签：</span>
+                                    <n-space>
+                                        <n-tag class="tag" size="small" type="primary" v-for="tag in item.tags" :key="tag.id"
+                                            >{{
+                                                    tag.name
+                                            }}
+                                        </n-tag>
+                                    </n-space>
+                                </div>
                             </n-space>
-                        </div>
-                    </n-space>
-                    <div class="description">
-                        {{ item.description }}
-                    </div>
-                </n-card>
-            </router-link>
-        </div>
+                            <div class="description">
+                                {{ item.description }}
+                            </div>
+                        </n-card>
+                    </router-link>
+                </div>
+            </template>
+        </PaginationData>
+
     </div>
 </template>
 <script lang="ts" setup>import { onMounted, reactive } from 'vue';
 import { useStore } from '@/store';
 import { apis, request } from '@/utils';
 import { formatTime } from '@/utils/index'
+import PaginationData from '@/components/PaginationData.vue'
 
 const store = useStore()
 
-const state = reactive<{
-    getArticleListLoading: boolean;
-    articleList: any[];
-}>({
-    getArticleListLoading: false,
-    articleList: []
-})
-
-const getArticleList = async () => {
-    state.getArticleListLoading = true
-    try {
-        const articleList = await request(apis.getArticleList)
-        if (articleList) {
-            state.articleList = articleList
-        }
-        state.getArticleListLoading = false;
-    } catch (error) {
-        state.getArticleListLoading = false;
-    }
-}
 
 onMounted(() => {
     store.commit('setTitle', 'Luopc1218\'s Blog');
     store.commit('setPath', [{ title: '博客', url: '/blog' }, { title: "最新文章", url: "/blog" }])
-
-    getArticleList()
 })
 
 </script>
 <style lang="scss" scoped>
-@keyframes flyLeft {
+@keyframes flyTop {
     from {
-        left: 100%
+        opacity: 0;
+        transform: translateY(100%);
     }
 
     to {
-        left: 0;
-    }
-}
-
-@keyframes flyRight {
-    from {
-        right: 100%
-    }
-
-    to {
-        right: 0;
+        opacity: 1;
+        transform: none;
     }
 }
 
 .blogIndexPage {
     .articleList {
-        overflow: hidden;
+
         .articleItem {
+            opacity: 0;
             margin-bottom: 1rem;
+            animation: flyTop 1s ease;
+            animation-fill-mode: forwards;
+
             cursor: pointer;
 
             .title {
@@ -117,19 +97,6 @@ onMounted(() => {
             }
         }
 
-        .flyLeft {
-            position: relative;
-            left: 100%;
-            animation: flyLeft 1s ease;
-            animation-fill-mode: forwards;
-        }
-
-        .flyRight {
-            position: relative;
-            right: 100%;
-            animation: flyRight 1s ease;
-            animation-fill-mode: forwards;
-        }
     }
 }
 </style>

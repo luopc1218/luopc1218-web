@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :themeOverrides="themeOverrides" :theme="darkMode ? darkTheme : undefined" :locale="zhCN"
+  <n-config-provider id="app" :themeOverrides="themeOverrides" :theme="darkMode ? darkTheme : undefined" :locale="zhCN"
     :date-locale="dateZhCN">
     <n-element :class="{ 'darkMode': darkMode }">
       <div class="supportDark viewport">
@@ -61,6 +61,7 @@ const themeOverrides = computed<GlobalThemeOverrides>(() => ({
     primaryColorHover: store.state.theme.primaryColor,
     primaryColorPressed: store.state.theme.primaryColor,
     primaryColorSuppl: store.state.theme.primaryColor,
+    fontFamily: " myFont, cursive"
   },
 }))
 
@@ -87,6 +88,11 @@ onMounted(() => {
 }
 </style>
 <style scoped>
+#app {
+  font-family:var(--font-family);
+
+}
+
 /* 渐变设置 */
 .fade-enter-from,
 .fade-leave-to {
@@ -108,6 +114,12 @@ onMounted(() => {
 }
 </style>
 <style lang="scss">
+@font-face {
+  font-family: "myFont"; //给引入的字体起个名字
+  src: url("./assets/fonts/仓耳舒圆体W03.ttf"); //引入字体文件
+}
+
+
 .darkMode {
   .supportDark {
     transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
@@ -122,17 +134,5 @@ a {
 
 .router-link-active {
   text-decoration: none;
-}
-
-
-
-@font-face {
-  font-family: "myFont"; //给引入的字体起个名字
-  src: url("./assets/fonts/仓耳舒圆体W03.ttf"); //引入字体文件
-}
-
-* {
-  font-family: myFont, cursive;
-
 }
 </style>

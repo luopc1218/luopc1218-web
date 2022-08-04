@@ -1,10 +1,10 @@
 <template>
     <div class="leaveMessagePage">
         <PaginationData :api="apis.getLeaveMessageList" :params="{ pageSize: 100 }">
-            <template v-slot:default="{ data }">
+            <template v-slot:default="{ data, pageSize }">
                 <n-space class="leaveMessageList">
-                    <n-card v-for="item, index in data.list" :key="item.id" :style="{ animationDelay: `${index / 5}s` }"
-                        class="leaveMessageItem">
+                    <n-card v-for="item, index in data.list" :key="item.id" hoverable
+                        :style="{ animationDelay: `${(index % pageSize) / pageSize}s` }" class="leaveMessageItem">
                         <n-space align="center" class="author">
                             <n-avatar :src="item.authorAvatarUrl">
 

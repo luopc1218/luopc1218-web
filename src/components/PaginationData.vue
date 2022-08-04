@@ -1,15 +1,18 @@
 <template>
     <n-space vertical algin="center" class="paginationData" ref="paginationDataRef">
-        <n-spin :show="state.getDataLoading">
+        <div>
             <n-empty v-if="!state.data?.totalCount"></n-empty>
-            <slot v-else :data="state.data" />
-        </n-spin>
+            <slot v-else :data="state.data" :page="state.page" :pageSize="state.pageSize" />
+        </div>
         <n-button v-if="hasMore && props.manual" @click="getMore">
             显示更多（{{ state.data?.totalCount - state.data?.list.length }}）
         </n-button>
         <div style="text-align:center" v-if="!hasMore">
             <span class="noMore">
-                没有更多了
+                <n-spin size="small" v-if="state.getDataLoading"></n-spin>
+                <span v-else>
+                    没有更多了
+                </span>
             </span>
         </div>
     </n-space>
@@ -67,12 +70,14 @@ const getMore = () => {
     getData()
 }
 
-const handleScroll = (e) => {
+const handleScroll = (e: any) => {
     if (!hasMore.value) return;
     const clientHeight = e?.target?.clientHeight
     const scrollTop = e?.target?.scrollTop;
-    const offsetTop = paginationDataRef?.value?.offsetTop;
-    console.log(scrollTop, offsetTop);
+    const offsetTop = paginationDataRef.value.$el.offsetTop;
+    if (((scrollTop + clientHeight) >= (offsetTop + paginationDataRef.value.$el.clientHeight)) && !state.getDataLoading) {
+        getMore()
+    }
 }
 
 onMounted(() => {
