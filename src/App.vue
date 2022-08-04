@@ -8,7 +8,20 @@
           @scroll="handleScroll">
           <div class="content"
             :style="{ minHeight: `calc(100vh - ${store.state.headerHeight + store.state.footerHeight}px)` }">
-            <router-view />
+            <div class="breadcrumb">
+              <n-breadcrumb>
+                <n-breadcrumb-item v-for="item in store.state.path" :key="item.url">
+                  <router-link :to="item.url">
+                    {{ item.title }}
+                  </router-link>
+                </n-breadcrumb-item>
+              </n-breadcrumb>
+            </div>
+            <router-view v-slot="{ Component, route }">
+              <transition name="fade" mode="out-in">
+                <component :is="Component" :key="route.path" />
+              </transition>
+            </router-view>
           </div>
           <Footer />
         </n-scrollbar>
@@ -66,7 +79,32 @@ onMounted(() => {
   height: 100vh;
   background: #f4f4f4;
 
-  .content {}
+  .content {
+    .breadcrumb {
+      padding: 0 1rem;
+    }
+  }
+}
+</style>
+<style scoped>
+/* 渐变设置 */
+.fade-enter-from,
+.fade-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+
+.fade-enter-active {
+  transition: all .3s ease;
+}
+
+.fade-leave-active {
+  transition: all .3s ease
 }
 </style>
 <style lang="scss">

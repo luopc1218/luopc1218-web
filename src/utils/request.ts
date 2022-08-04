@@ -10,6 +10,11 @@ export interface requestOptions extends Omit<AxiosRequestConfig, 'url' | 'method
     showSuccessMessage?: boolean
 }
 
+export interface PaginationData<T = any> {
+    list: T[],
+    totalCount: number
+}
+
 export const request = async <T = any,>(api: Api, params?: any, options?: requestOptions) => {
     if (!api) {
         console.error("api is not define!");

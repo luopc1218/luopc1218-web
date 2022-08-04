@@ -4,9 +4,10 @@ import BbsIndexPage from '@/pages/bbs/index/index.vue'
 import BlogPage from '@/pages/blog/index.vue'
 import ProfilePage from '@/pages/profile/index.vue'
 import IndexPage from '@/pages/index.vue'
-import BlogWritePage from '@/pages/blog/write/BlogWritePage.vue'
+import BlogWritePage from '@/pages/blog/write/index.vue'
 import BlogIndexPage from '@/pages/blog/index/index.vue'
-import BlogArticlePageVue from '@/pages/blog/article/BlogArticlePage.vue'
+import BlogArticlePageVue from '@/pages/blog/article/index.vue'
+import LeaveMessagePage from '@/pages/leaveMessage/index.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -57,6 +58,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "profile",
     component: ProfilePage
   },
+  {
+    path: '/leaveMessage',
+    name: 'leaveMessage',
+    component: LeaveMessagePage
+  }
 ]
 
 const router = createRouter({

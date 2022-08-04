@@ -10,7 +10,7 @@
                 </div>
                 <n-space class="linkList" justify="center" align="center">
                     <router-link :to="item.path" v-for="item, index in state.linkList" :key="item.title">
-                        <n-card class="linkItem" :content-style="{ padding: 0 }"
+                        <n-card class="linkItem" :content-style="{ padding: 0 }" hoverable
                             :style="{ 'transition-delay': slotProps.halfVisibility ? `${index / 10}s` : '0s' }">
                             <div class="background" :style="{ backgroundImage: `url(${item.pic})` }">
                                 <div class="linkItemtitle">
@@ -45,31 +45,30 @@ const state = reactive({
             pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
             title: '论坛',
             path: '/bbs'
-        },
-        {
-            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
-            title: '论坛',
-            path: '/bbs'
         }, {
-            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
-            title: '论坛',
-            path: '/bbs'
+            pic: require('@/assets/images/Developing.jpg'),
+            title: '开发中',
+            path: '/'
         }, {
-            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
-            title: '论坛',
-            path: '/bbs'
+            pic: require('@/assets/images/Developing.jpg'),
+            title: '开发中',
+            path: '/'
         }, {
-            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
-            title: '论坛',
-            path: '/bbs'
+            pic: require('@/assets/images/Developing.jpg'),
+            title: '开发中',
+            path: '/'
         }, {
-            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
+            pic: require('@/assets/images/Developing.jpg'),
             title: '论坛',
-            path: '/bbs'
+            path: '/'
         }, {
-            pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
+            pic: require('@/assets/images/Developing.jpg'),
             title: '论坛',
-            path: '/bbs'
+            path: '/'
+        }, {
+            pic: require('@/assets/images/Developing.jpg'),
+            title: '开发中',
+            path: '/'
         },
     ]
 })
@@ -95,7 +94,6 @@ const state = reactive({
         .linkItem {
             position: relative;
             overflow: hidden;
-            cursor: pointer;
             width: 400px;
             height: 400px;
             filter: blur(1.5px) grayscale(100%);
@@ -106,7 +104,7 @@ const state = reactive({
             .background {
                 width: 120%;
                 height: 120%;
-                background-size: 100% auto;
+                background-size: 150% auto;
                 background-repeat: no-repeat;
                 position: relative;
                 left: -20%;

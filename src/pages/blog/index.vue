@@ -1,6 +1,5 @@
 <template>
     <div class="page">
-        <BlogHeader />
         <div class="content">
             <div class="page">
                 <router-view></router-view>
@@ -62,7 +61,6 @@ import { useStore } from '@/store';
 import { apis, request } from '@/utils';
 import { onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
-import BlogHeader from './components/BlogHeader.vue'
 
 const route = useRoute()
 
