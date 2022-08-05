@@ -20,8 +20,8 @@
                                 <div class="tagList" v-if="item.tags.length > 0">
                                     <span>标签：</span>
                                     <n-space>
-                                        <n-tag class="tag" size="small" type="primary" v-for="tag in item.tags" :key="tag.id"
-                                            >{{
+                                        <n-tag class="tag" size="small" type="primary" v-for="tag in item.tags"
+                                            :key="tag.id">{{
                                                     tag.name
                                             }}
                                         </n-tag>
@@ -49,7 +49,6 @@ const store = useStore()
 
 
 onMounted(() => {
-    store.commit('setTitle', 'Luopc1218\'s Blog');
     store.commit('setPath', [{ title: '博客', url: '/blog' }, { title: "最新文章", url: "/blog" }])
 })
 

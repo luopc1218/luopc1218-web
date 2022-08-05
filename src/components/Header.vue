@@ -181,6 +181,8 @@ const handleSignIn = () => {
 
 
 onMounted(() => {
+    console.log(headerRef);
+    
     store.commit('setHeaderHeight', headerRef?.value?.clientHeight)
 
 })

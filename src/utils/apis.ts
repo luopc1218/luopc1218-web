@@ -48,6 +48,14 @@ export const apis: Record<string, Api> = {
         url: '/api/article/addArticle',
         method: 'post'
     },
+    saveArticle: {
+        url: '/api/article/saveArticle',
+        method: 'post'
+    },
+    deleteArticle: {
+        url: "/api/article/deleteArticle",
+        method: 'post'
+    },
     getArticleList: {
         url: '/api/article/getArticleList',
         method: "get"

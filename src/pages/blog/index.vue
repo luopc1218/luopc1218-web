@@ -31,9 +31,9 @@
                         快捷操作
                     </n-divider>
                     <n-space>
-                        <router-link to="/blog/write">
+                        <router-link to="/blog/article/add">
                             <n-button type="primary">
-                                写文章
+                                发表文章
                             </n-button>
                         </router-link>
                         <n-button>
@@ -91,6 +91,7 @@ const getAdminInfo = async () => {
 }
 
 onMounted(() => {
+    store.commit('setTitle', 'Luopc1218\'s Blog');
     getAdminInfo()
 })
 

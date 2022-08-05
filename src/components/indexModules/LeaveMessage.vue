@@ -117,9 +117,9 @@ const handleSendLeaveMessage = async () => {
         return window?._message.error("留言不能为空");
     }
     if (!store.state.user.userInfo) {
-        window._dialog.warning({
-            title: '警告',
-            content: '是否匿名发送',
+        window._dialog.create({
+            title: '提示',
+            content: '当前未登录，是否匿名发送？',
             positiveText: '匿名发送',
             negativeText: '不发送',
             onPositiveClick: () => {

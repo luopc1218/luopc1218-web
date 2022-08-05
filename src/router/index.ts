@@ -4,10 +4,11 @@ import BbsIndexPage from '@/pages/bbs/index/index.vue'
 import BlogPage from '@/pages/blog/index.vue'
 import ProfilePage from '@/pages/profile/index.vue'
 import IndexPage from '@/pages/index.vue'
-import BlogWritePage from '@/pages/blog/write/index.vue'
+import blogArticleAddPage from '@/pages/blog/article/add/index.vue'
 import BlogIndexPage from '@/pages/blog/index/index.vue'
-import BlogArticlePageVue from '@/pages/blog/article/index.vue'
+import BlogArticleIndexPage from '@/pages/blog/article/index/index.vue'
 import LeaveMessagePage from '@/pages/leaveMessage/index.vue'
+import BlogArticleEditPage from '@/pages/blog/article/edit/index.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -38,18 +39,32 @@ const routes: Array<RouteRecordRaw> = [
         name: 'blogIndex',
         component: BlogIndexPage
       },
-      {
-        path: 'write',
-        name: 'blogWrite',
-        component: BlogWritePage,
-        meta: {
-          hideSider: true
-        }
-      },
+
       {
         path: 'article',
         name: 'blogArticle',
-        component: BlogArticlePageVue,
+        children: [
+          {
+            path: '',
+            component: BlogArticleIndexPage
+          },
+          {
+            path: 'edit',
+            name: 'blogArticleEdit',
+            component: BlogArticleEditPage,
+            meta: {
+              hideSider: true
+            }
+          },
+          {
+            path: 'add',
+            name: 'blogArticleAdd',
+            component: blogArticleAddPage,
+            meta: {
+              hideSider: true
+            }
+          },
+        ]
       }
     ]
   },

@@ -10,7 +10,7 @@
             :style="{ minHeight: `calc(100vh - ${store.state.headerHeight + store.state.footerHeight}px)` }">
             <div class="breadcrumb">
               <n-breadcrumb>
-                <n-breadcrumb-item v-for="item in store.state.path" :key="item.url">
+                <n-breadcrumb-item v-for="item in store.state.path.filter(item => !item.hide)" :key="item.url">
                   <router-link :to="item.url">
                     {{ item.title }}
                   </router-link>
@@ -89,7 +89,7 @@ onMounted(() => {
 </style>
 <style scoped>
 #app {
-  font-family:var(--font-family);
+  font-family: var(--font-family);
 
 }
 

@@ -45,30 +45,6 @@ const state = reactive({
             pic: require('@/assets/images/Deep_in_thought_about_the_coming_joust-small.jpg'),
             title: '论坛',
             path: '/bbs'
-        }, {
-            pic: require('@/assets/images/Developing.jpg'),
-            title: '开发中',
-            path: '/'
-        }, {
-            pic: require('@/assets/images/Developing.jpg'),
-            title: '开发中',
-            path: '/'
-        }, {
-            pic: require('@/assets/images/Developing.jpg'),
-            title: '开发中',
-            path: '/'
-        }, {
-            pic: require('@/assets/images/Developing.jpg'),
-            title: '论坛',
-            path: '/'
-        }, {
-            pic: require('@/assets/images/Developing.jpg'),
-            title: '论坛',
-            path: '/'
-        }, {
-            pic: require('@/assets/images/Developing.jpg'),
-            title: '开发中',
-            path: '/'
         },
     ]
 })

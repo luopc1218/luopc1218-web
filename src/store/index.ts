@@ -5,6 +5,7 @@ import userModule, { userModuleState } from './user'
 export interface Path {
   title: string,
   url: string,
+  hide?: boolean
 }
 
 export interface AllStoreStates extends globalStoreStates {
@@ -37,6 +38,7 @@ export default createStore<globalStoreStates>({
   },
   mutations: {
     setDarkMode(state, payload) {
+      localStorage.setItem("darkMode", payload)
       state.theme.darkMode = payload
     },
     setPrimaryColor(state, payload) {

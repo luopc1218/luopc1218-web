@@ -16,14 +16,17 @@
                     <n-avatar round :src="state.articleInfo.authorAvatarUrl"></n-avatar>
                     <div>{{ state.articleInfo.authorName }}</div>
                 </n-space>
-                <div class="time">
-                    {{ formatTime(state.articleInfo.createTime) }}
-                </div>
+                <n-space class="time">
+                    <div>发表于{{ formatTime(state.articleInfo.createTime) }}</div>
+                    <div v-if="state.articleInfo.updateTime">修改于{{ formatTime(state.articleInfo.updateTime) }}</div>
+                </n-space>
                 <n-space class="ownerActions" v-if="ownerMode">
-                    <n-button text type="primary">编辑</n-button>
-                    
-                    <n-button text type="primary">删除</n-button>
-                    
+                    <router-link :to="`/blog/article/edit?articleId=${articleId}`">
+                        <n-button text type="primary">编辑</n-button>
+                    </router-link>
+
+                    <n-button text type="primary" @click="handleDeleteArticle">删除</n-button>
+
                 </n-space>
                 <div class="description">
                     <n-card>
@@ -42,9 +45,11 @@
 <script setup lang="ts">
 import { apis, request, formatTime } from '@/utils';
 import { computed, onMounted, reactive } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import MdEditor from 'md-editor-v3'
 import { useStore } from '@/store';
+
+const router = useRouter()
 
 const store = useStore()
 
@@ -76,8 +81,44 @@ const getArticleInfo = async () => {
     }
 }
 
+const handleDeleteArticle = () => {
+    const d = window._dialog.error({
+        title: "警告",
+        content: "确定要删除这篇文章吗？",
+        positiveText: "确定",
+        positiveButtonProps: {
+            type: "error"
+        },
+        onPositiveClick() {
+            d.loading = true;
+            return new Promise<void>((reslove, reject) => {
+                request(apis.deleteArticle, {
+                    articleId: articleId.value
+                }, {
+                    showSuccessMessage: true
+                }).then(() => {
+                    d.loading = false;
+                    router.replace('/blog')
+                    reslove()
+                }).catch(e => {
+                    d.loading = false
+                    reject(e)
+                })
+            })
+        }
+    })
+}
+
+
 onMounted(() => {
-    console.log(route);
+    store.commit("setPath", [
+        {
+            title: '博客', url: '/blog',
+        },
+        {
+            title: `文章#${articleId.value}`, url: route.fullPath
+        }
+    ])
 
     getArticleInfo()
 })
