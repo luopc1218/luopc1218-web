@@ -15,7 +15,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'index',
-    component: IndexPage
+    component: IndexPage,
+    meta: {
+      hideBreadcrumb: true
+    }
   },
   {
     path: '/bbs',
@@ -25,7 +28,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '',
         name: 'bbsIndex',
-        component: BbsIndexPage
+        component: BbsIndexPage,
+        meta: {
+          hideBreadcrumb: true
+        }
       },
     ]
   },

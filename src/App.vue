@@ -9,7 +9,7 @@
           <div class="content"
             :style="{ minHeight: `calc(100vh - ${store.state.headerHeight + store.state.footerHeight}px)` }">
             <div class="breadcrumb">
-              <n-breadcrumb>
+              <n-breadcrumb v-if="!route.meta.hideBreadcrumb">
                 <n-breadcrumb-item v-for="item in store.state.path.filter(item => !item.hide)" :key="item.url">
                   <router-link :to="item.url">
                     {{ item.title }}
@@ -50,9 +50,11 @@ import NaiveMessageIniter from '@/components/NaiveMessageIniter.vue'
 import NaiveDialogIniter from '@/components/NaiveDialogIniter.vue'
 import NaiveNotificationIniter from '@/components/NaiveNotificationIniter.vue'
 import mitt from '@/utils/mitt'
+import { useRoute } from 'vue-router';
 
 
 
+const route = useRoute()
 const store = useStore()
 const darkMode = computed(() => store.state.theme.darkMode)
 const themeOverrides = computed<GlobalThemeOverrides>(() => ({

@@ -6,7 +6,7 @@
                     <n-card v-for="item, index in data.list" :key="item.id" hoverable
                         :style="{ animationDelay: `${(index % pageSize) / pageSize}s` }" class="leaveMessageItem">
                         <n-space align="center" class="author">
-                            <n-avatar :src="item.authorAvatarUrl">
+                            <n-avatar round :src="item.authorAvatarUrl">
 
                             </n-avatar>
                             <div>

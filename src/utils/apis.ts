@@ -64,6 +64,14 @@ export const apis: Record<string, Api> = {
         url: '/api/article/getArticleInfo',
         method: "get"
     },
+    getArticleEvaluate: {
+        url: "/api/article/getArticleEvaluate",
+        method: "get"
+    },
+    toggleArticleEvaluate: {
+        url: "/api/article/toggleArticleEvaluate",
+        method: "post"
+    },
     getAdminInfo: {
         url: '/api/user/getAdminInfo',
         method: "get"
@@ -74,6 +82,18 @@ export const apis: Record<string, Api> = {
     },
     getLeaveMessageList: {
         url: "/api/message/getLeaveMessageList",
+        method: "get"
+    },
+    addArticleViewCount: {
+        url: "/api/article/addArticleViewCount",
+        method: "post"
+    },
+    addArticleComment: {
+        url: "/api/article/addArticleComment",
+        method: "post"
+    },
+    getArticleCommentList: {
+        url: "/api/article/getArticleCommentList",
         method: "get"
     }
 }

@@ -29,7 +29,7 @@
                         <n-card v-for="item, index in state.leaveMessageList.list" :key="item.id"
                             class="leaveMessageItem" :style="{ animationDelay: `${index / 10}s` }">
                             <n-space align="center" class="author">
-                                <n-avatar :src="item.authorAvatarUrl">
+                                <n-avatar round :src="item.authorAvatarUrl">
 
                                 </n-avatar>
                                 <div>

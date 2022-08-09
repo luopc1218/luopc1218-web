@@ -56,12 +56,10 @@ export const userModule: Module<userModuleState, globalStoreStates> = {
         },
         async checkSignIn(context) {
             try {
-                const accessToken = await request(apis.checkSignIn, {}, { showErrorMessage: false })
-                if (accessToken) {
-                    context.dispatch("getUserInfo")
-                }
+                await request(apis.checkSignIn, {}, { showErrorMessage: false })
+                context.dispatch("getUserInfo")
             } catch (error) {
-                console.log(error);
+                context.dispatch("cleanSignIn")
             }
         },
         async signIn(context) {
@@ -105,6 +103,10 @@ export const userModule: Module<userModuleState, globalStoreStates> = {
         signOut(context) {
             context.dispatch("cleanSignIn")
             location.reload()
+        },
+        requireSignIn(context) {
+            window._message.error("请先登录");
+            context.dispatch('signIn')
         }
     },
     modules: {

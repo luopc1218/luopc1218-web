@@ -78,10 +78,20 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from '@/store';
+import { onMounted } from 'vue';
+
 const handlePost = () => {
     console.log('post');
 
 }
+
+const store = useStore()
+
+onMounted(() => {
+    store.commit('setTitle', 'Luopc1218\'s BBS')
+    store.commit('setPath', [])
+})
 
 </script>
 

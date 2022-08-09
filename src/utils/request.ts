@@ -29,7 +29,7 @@ export const request = async <T = any,>(api: Api, params?: any, options?: reques
             ...options
         })
 
-        return responseHandler(response?.data, options)
+        return responseHandler(response.data, options)
     } catch (error) {
         return Promise.reject(error)
     }

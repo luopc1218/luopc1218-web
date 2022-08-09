@@ -180,9 +180,7 @@ const handleSignIn = () => {
 }
 
 
-onMounted(() => {
-    console.log(headerRef);
-    
+onMounted(() => {   
     store.commit('setHeaderHeight', headerRef?.value?.clientHeight)
 
 })

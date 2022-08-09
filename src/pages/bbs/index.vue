@@ -45,8 +45,7 @@ const store = useStore()
 
 
 onMounted(() => {
-    store.commit('setTitle', 'Luopc1218\'s BBS')
-    store.commit('setPath', [{ title: "论坛", url: '/bbs' }])
+
     getJoke()
     getBanner()
 })

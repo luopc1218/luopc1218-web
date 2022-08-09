@@ -1,16 +1,16 @@
 <template>
     <n-space vertical algin="center" class="paginationData" ref="paginationDataRef">
         <div>
-            <n-empty v-if="!state.data?.totalCount"></n-empty>
+            <n-empty v-if="state.data.totalCount === 0"></n-empty>
             <slot v-else :data="state.data" :page="state.page" :pageSize="state.pageSize" />
         </div>
         <n-button v-if="hasMore && props.manual" @click="getMore">
-            显示更多（{{ state.data?.totalCount - state.data?.list.length }}）
+            显示更多（{{ state.data.totalCount - state.data?.list.length }}）
         </n-button>
-        <div style="text-align:center" v-if="!hasMore">
+        <n-spin size="small" v-if="state.getDataLoading"></n-spin>
+        <div style="text-align:center" v-if="!hasMore && state.data.list.length > 0">
             <span class="noMore">
-                <n-spin size="small" v-if="state.getDataLoading"></n-spin>
-                <span v-else>
+                <span>
                     没有更多了
                 </span>
             </span>
@@ -20,7 +20,7 @@
     
 <script setup lang='ts'>
 import { Api, request, PaginationData } from '@/utils';
-import { defineProps, onMounted, onUnmounted, reactive, computed, ref } from 'vue'
+import { defineProps, onMounted, onUnmounted, reactive, computed, ref, defineExpose } from 'vue'
 import mitt from '@/utils/mitt'
 
 const props = defineProps<{
@@ -51,13 +51,23 @@ const state = reactive<{
 
 const hasMore = computed(() => state.data?.totalCount > state.data?.list.length)
 
-const getData = async () => {
+const resetData = () => {
+    state.page = 1;
+    getData(true)
+}
+
+const getData = async (reset?: boolean) => {
     state.getDataLoading = true;
     try {
         const data = await request<PaginationData>(props.api, { page: state.page, pageSize: state.pageSize, ...props.params });
         if (data) {
-            state.data.list = [...state.data.list, ...data.list];
-            state.data.totalCount = data.totalCount;
+            if (reset) {
+                state.data = data
+            } else {
+                state.data.list = [...state.data.list, ...data.list];
+                state.data.totalCount = data.totalCount;
+            }
+
         }
         state.getDataLoading = false;
     } catch (error) {
@@ -88,10 +98,16 @@ onMounted(() => {
 onUnmounted(() => {
     mitt.off('scroll', handleScroll)
 })
+
+defineExpose({
+    resetData
+})
 </script>
     
 <style lang="scss" scoped>
 .paginationData {
+    overflow-x: hidden;
+
     .noMore {
         cursor: not-allowed;
     }

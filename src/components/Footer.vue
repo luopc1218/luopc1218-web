@@ -27,8 +27,6 @@ const footerRef = ref<any>(null)
 const store = useStore()
 
 onMounted(() => {
-    console.log(footerRef);
-
     store.commit('setFooterHeight', footerRef?.value?.clientHeight)
 })
 </script>

@@ -38,7 +38,11 @@ export default createStore<globalStoreStates>({
   },
   mutations: {
     setDarkMode(state, payload) {
-      localStorage.setItem("darkMode", payload)
+      if (!payload) {
+        localStorage.removeItem("darkMode")
+      } else {
+        localStorage.setItem("darkMode", payload)
+      }
       state.theme.darkMode = payload
     },
     setPrimaryColor(state, payload) {
