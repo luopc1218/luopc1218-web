@@ -91,7 +91,7 @@ const handleScroll = (e: any) => {
 }
 
 onMounted(() => {
-    getData();
+    getData();    
     mitt.on('scroll', handleScroll)
 })
 
@@ -106,7 +106,7 @@ defineExpose({
     
 <style lang="scss" scoped>
 .paginationData {
-    overflow-x: hidden;
+    overflow: hidden;
 
     .noMore {
         cursor: not-allowed;

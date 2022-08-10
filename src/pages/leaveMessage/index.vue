@@ -1,10 +1,10 @@
 <template>
     <div class="leaveMessagePage">
-        <PaginationData :api="apis.getLeaveMessageList" :params="{ pageSize: 100 }">
+        <PaginationData :api="apis.getLeaveMessageList" :pageSize="100">
             <template v-slot:default="{ data, pageSize }">
                 <n-space class="leaveMessageList">
                     <n-card v-for="item, index in data.list" :key="item.id" hoverable
-                        :style="{ animationDelay: `${(index % pageSize) / pageSize}s` }" class="leaveMessageItem">
+                        :style="{ animationDelay: `${(index % pageSize) / pageSize * 5}s` }" class="leaveMessageItem">
                         <n-space align="center" class="author">
                             <n-avatar round :src="item.authorAvatarUrl">
 
@@ -34,6 +34,7 @@ import { formatTime } from '@/utils'
 const store = useStore()
 
 onMounted(() => {
+    store.commit('setTitle');
     store.commit('setPath', [{ title: '首页', url: '/' }, { title: "全部留言", url: "/leaveMessage" }])
 })
 </script>
