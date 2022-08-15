@@ -1,21 +1,24 @@
 <template>
-    <n-space vertical algin="center" class="paginationData" ref="paginationDataRef">
-        <div>
-            <n-empty v-if="state.data.totalCount === 0"></n-empty>
-            <slot v-else :data="state.data" :page="state.page" :pageSize="state.pageSize" />
-        </div>
-        <n-button v-if="hasMore && props.manual" @click="getMore">
-            显示更多（{{ state.data.totalCount - state.data?.list.length }}）
-        </n-button>
-        <n-spin size="small" v-if="state.getDataLoading"></n-spin>
-        <div style="text-align:center" v-if="!hasMore && state.data.list.length > 0">
-            <span class="noMore">
-                <span>
-                    没有更多了
+    <n-spin size="small" :show="state.getDataLoading">
+        <n-space vertical algin="center" class="paginationData" ref="paginationDataRef">
+            <div>
+                <n-empty v-if="state.data.totalCount === 0"></n-empty>
+                <slot v-else :data="state.data" :page="state.page" :pageSize="state.pageSize" />
+            </div>
+            <n-button v-if="hasMore && props.manual" @click="getMore">
+                显示更多（{{ state.data.totalCount - state.data?.list.length }}）
+            </n-button>
+
+            <div style="text-align:center" v-if="!hasMore && state.data.list.length > 0">
+                <span class="noMore">
+                    <span>
+                        没有更多了
+                    </span>
                 </span>
-            </span>
-        </div>
-    </n-space>
+            </div>
+        </n-space>
+    </n-spin>
+
 </template>
     
 <script setup lang='ts'>
@@ -91,7 +94,7 @@ const handleScroll = (e: any) => {
 }
 
 onMounted(() => {
-    getData();    
+    getData();
     mitt.on('scroll', handleScroll)
 })
 

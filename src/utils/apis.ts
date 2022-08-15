@@ -95,6 +95,10 @@ export const apis: Record<string, Api> = {
     getArticleCommentList: {
         url: "/api/article/getArticleCommentList",
         method: "get"
+    },
+    getArticleSubCommentList: {
+        url: '/api/article/getArticleSubCommentList',
+        method: 'get'
     }
 }
 

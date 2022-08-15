@@ -33,7 +33,21 @@
                             <div class="time">
                                 {{ formatTime(item.createTime) }}
                             </div>
-                            {{ item.content }}
+                            <div class="content">
+                                {{ item.content }}
+                            </div>
+                            <div>
+                                <n-button text @click="toogleSubComments(item)"><i
+                                        :class="state.showSubComments.includes(item.id) ? 'icon-comments-fill' : 'icon-comments'"></i>
+                                    {{ item.subCommentCount
+                                    }}
+                                </n-button>
+
+                                <div v-if="state.showSubComments.includes(item.id)">
+                                    <n-divider style="margin:1rem 0"></n-divider>
+                                    <SubComment :commentId="item.id" />
+                                </div>
+                            </div>
                         </n-card>
                     </n-space>
                 </template>
@@ -48,6 +62,7 @@ import { useStore } from '@/store';
 import { apis, request, formatTime } from '@/utils';
 import { defineProps, onMounted, reactive, ref } from 'vue'
 import PaginationData from '@/components/PaginationData.vue'
+import SubComment from './SubComment.vue'
 
 const store = useStore()
 
@@ -57,11 +72,12 @@ const props = defineProps<{
 
 const state = reactive<{
     inputingComment: string,
-    addArticleCommentLoading: boolean
+    addArticleCommentLoading: boolean,
+    showSubComments: number[]
 }>({
     inputingComment: "",
     addArticleCommentLoading: false,
-
+    showSubComments: []
 })
 
 const paginationDataRef = ref<any>(null)
@@ -79,6 +95,15 @@ const addArticleComment = async () => {
         state.addArticleCommentLoading = false
     } catch (error) {
         state.addArticleCommentLoading = false
+    }
+}
+
+const toogleSubComments = (comment: any) => {
+    const commentIndex = state.showSubComments.findIndex(item => item === comment.id)
+    if (commentIndex >= 0) {
+        state.showSubComments.splice(commentIndex, 1)
+    } else {
+        state.showSubComments.push(comment.id)
     }
 }
 

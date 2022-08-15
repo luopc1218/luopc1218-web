@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/blog',
-    name: "blogHome",
+    name: "blog",
     component: BlogPage,
     children: [
       {
@@ -52,6 +52,7 @@ const routes: Array<RouteRecordRaw> = [
         children: [
           {
             path: '',
+            name: "blogArticleIndex",
             component: BlogArticleIndexPage
           },
           {
