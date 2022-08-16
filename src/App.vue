@@ -116,12 +116,6 @@ onMounted(() => {
 }
 </style>
 <style lang="scss">
-@font-face {
-  font-family: "myFont"; //给引入的字体起个名字
-  src: url("./assets/fonts/仓耳舒圆体W03.ttf"); //引入字体文件
-}
-
-
 .darkMode {
   .supportDark {
     transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s, background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s;
