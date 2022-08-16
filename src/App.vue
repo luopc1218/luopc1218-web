@@ -63,7 +63,7 @@ const themeOverrides = computed<GlobalThemeOverrides>(() => ({
     primaryColorHover: store.state.theme.primaryColor,
     primaryColorPressed: store.state.theme.primaryColor,
     primaryColorSuppl: store.state.theme.primaryColor,
-    fontFamily: " myFont, cursive"
+    fontFamily: "myFont, system-ui"
   },
 }))
 
@@ -91,8 +91,7 @@ onMounted(() => {
 </style>
 <style scoped>
 #app {
-  font-family: var(--font-family);
-
+  font-family: var(--font-family) system-ui;
 }
 
 /* 渐变设置 */
