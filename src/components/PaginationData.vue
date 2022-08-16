@@ -5,7 +5,7 @@
                 <n-empty v-if="state.data.totalCount === 0"></n-empty>
                 <slot v-else :data="state.data" :page="state.page" :pageSize="state.pageSize" />
             </div>
-            <n-button v-if="hasMore && props.manual" @click="getMore">
+            <n-button text v-if="hasMore && props.manual" @click="getMore">
                 显示更多（{{ state.data.totalCount - state.data?.list.length }}）
             </n-button>
 
@@ -84,7 +84,7 @@ const getMore = () => {
 }
 
 const handleScroll = (e: any) => {
-    if (!hasMore.value) return;
+    if (!hasMore.value || props.manual) return;
     const clientHeight = e?.target?.clientHeight
     const scrollTop = e?.target?.scrollTop;
     const offsetTop = paginationDataRef.value.$el.offsetTop;

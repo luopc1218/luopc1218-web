@@ -14,7 +14,9 @@
                 <n-button :disabled="!state.inputingComment" size="large" round type="primary"
                     @click="addArticleComment">发表评论</n-button>
             </n-space>
-
+            <div class="tips">
+                tips：点击正文即可回复
+            </div>
             <PaginationData ref="paginationDataRef" :api="apis.getArticleCommentList"
                 :params="{ articleId: props.articleId }">
                 <template v-slot:default="{ data }">
@@ -22,18 +24,18 @@
                     commentList">
                         <n-card v-for="item, index in data.list" :key="item.id" class="commentItem"
                             :style="{ animationDelay: `${index / 10}s` }">
-                            <n-space align="center" class="author">
+                            <n-space align="center">
                                 <n-avatar round :src="item.authorAvatarUrl">
 
                                 </n-avatar>
-                                <div>
+                                <router-link class="authorName" :to="`/profile?id=${item.authorId}`">
                                     {{ item.authorName || "匿名" }}
-                                </div>
+                                </router-link>
                             </n-space>
                             <div class="time">
                                 {{ formatTime(item.createTime) }}
                             </div>
-                            <div class="content">
+                            <div class="content" @click="handleReplyComment(item)">
                                 {{ item.content }}
                             </div>
                             <div>
@@ -53,16 +55,18 @@
                 </template>
             </PaginationData>
         </n-space>
-
     </n-card>
+    <ReplyCommentDrawer v-model:replyingComment="state.replyingComment" @replied="handleCommentReplied" />
+
 </template>
     
 <script setup lang='ts'>
 import { useStore } from '@/store';
 import { apis, request, formatTime } from '@/utils';
-import { defineProps, onMounted, reactive, ref } from 'vue'
+import { defineProps, onMounted, reactive, ref, nextTick } from 'vue'
 import PaginationData from '@/components/PaginationData.vue'
 import SubComment from './SubComment.vue'
+import ReplyCommentDrawer from './ReplyCommentDrawer.vue'
 
 const store = useStore()
 
@@ -73,11 +77,13 @@ const props = defineProps<{
 const state = reactive<{
     inputingComment: string,
     addArticleCommentLoading: boolean,
-    showSubComments: number[]
+    showSubComments: number[],
+    replyingComment?: any
 }>({
     inputingComment: "",
     addArticleCommentLoading: false,
-    showSubComments: []
+    showSubComments: [],
+    replyingComment: undefined
 })
 
 const paginationDataRef = ref<any>(null)
@@ -107,6 +113,18 @@ const toogleSubComments = (comment: any) => {
     }
 }
 
+const handleReplyComment = (comment: any) => {
+    state.replyingComment = comment
+}
+
+
+const handleCommentReplied = (comment: any) => {
+    state.showSubComments = [];
+    nextTick(() => {
+        toogleSubComments(comment);
+    })
+
+}
 </script>
     
 <style lang="scss" scoped>
@@ -135,16 +153,34 @@ const toogleSubComments = (comment: any) => {
         }
     }
 
+    .tips {
+        font-size: 12px;
+    }
+
     .commentList {
         .commentItem {
             opacity: 0;
             animation: flyIn .3s ease;
             animation-fill-mode: forwards;
 
+            .authorName {
+                color: var(--primary-color)
+            }
+
             .time {
                 font-size: 12px;
                 // color: #ccc;
                 opacity: .6;
+            }
+
+            .content {
+                padding: 1rem 0;
+                cursor: pointer;
+                transition: all .3s ease;
+
+                &:hover {
+                    opacity: .3;
+                }
             }
         }
     }
