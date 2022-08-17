@@ -4,7 +4,7 @@
             {{ state.joke }}
         </div>
         <div class="content">
-            <router-view></router-view>
+            <router-view :key="JSON.stringify(route.query)"></router-view>
         </div>
     </n-element>
 </template>
@@ -12,6 +12,9 @@
 import axios from 'axios';
 import { onMounted, reactive } from 'vue';
 import { useStore } from '@/store';
+import { useRoute } from 'vue-router';
+
+const route = useRoute()
 
 const state = reactive({
     banner: "",

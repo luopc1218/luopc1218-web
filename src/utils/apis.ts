@@ -107,6 +107,10 @@ export const apis: Record<string, Api> = {
     getHotArticleList: {
         url: '/api/article/getHotArticleList',
         method: 'get'
+    },
+    changeNotice: {
+        url: '/api/changeNotice',
+        method: 'post'
     }
 }
 

@@ -1,13 +1,70 @@
-<template lang="">
-    <div>
-        Profile
+<template>
+    <div class="profile">
+        <n-card class="userInfo">
+            <n-spin :show="state.getUserInfoLoading">
+                <div v-if="state.userInfo">
+                    <n-space align="center">
+                        <n-avatar :src="state.userInfo.avatarUrl" :size="100"></n-avatar>
+                        <div>
+                            <div>{{ state.userInfo.name }}</div>
+                        </div>
+                    </n-space>
+                </div>
+                <n-empty v-else></n-empty>
+            </n-spin>
+        </n-card>
     </div>
 </template>
-<script lang="ts">
-export default {
+<script setup lang="ts">
+import { useStore } from '@/store';
+import { apis, request } from '@/utils';
+import { onMounted, reactive, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
+const store = useStore()
+
+const route = useRoute()
+
+const userId = route.query.id
+
+const state = reactive<{
+    userInfo: any;
+    getUserInfoLoading: boolean;
+}>({
+    userInfo: undefined,
+    getUserInfoLoading: false
+})
+
+const getUserInfo = async () => {
+    state.getUserInfoLoading = true;
+    try {
+        const userInfo = await request(apis.getUserInfo, {
+            id: userId
+        })
+        if (userInfo) {
+            state.userInfo = userInfo
+        }
+        state.getUserInfoLoading = false
+    } catch (error) {
+        state.getUserInfoLoading = false
+    }
 }
+
+
+onMounted(() => {
+    store.commit("setTitle")
+    store.commit("setPath", [
+        {
+            title: '个人信息', url: '/profile',
+
+        },
+        { title: "用户#" + userId, url: route.fullPath, hide: !userId }
+    ])
+    getUserInfo()
+})
 </script>
-<style lang="">
-    
+<style lang="scss" scoped>
+.profile {
+    padding: 1rem;
+}
 </style>

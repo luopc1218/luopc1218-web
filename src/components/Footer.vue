@@ -1,8 +1,8 @@
 <template>
-    <div ref="footerRef">
-        <n-space vertical class="footer">
+    <div ref="footerRef" class="footer">
+        <n-space vertical>
             powered by luopc1218
-            <n-space class="dependencyList" align="center" justify="center">
+            <!-- <n-space class="dependencyList" align="center" justify="center">
                 <n-tag size="small" type="primary">
                     @vue^3.x
                 </n-tag>
@@ -12,7 +12,7 @@
                 <n-tag size="small" type="primary">
                     @naive-ui^2.x
                 </n-tag>
-            </n-space>
+            </n-space> -->
         </n-space>
     </div>
 
@@ -27,16 +27,16 @@ const footerRef = ref<any>(null)
 const store = useStore()
 
 onMounted(() => {
-    store.commit('setFooterHeight', footerRef?.value?.clientHeight)
+    store.commit('setFooterHeight', footerRef?.value?.offsetHeight)
 })
 </script>
 
 <style lang="scss" scoped>
 .footer {
     text-align: center;
-    padding: 2rem;
     font-size: 12px;
     color: #ccc;
+    padding: 1rem;
 
     .dependency {}
 }

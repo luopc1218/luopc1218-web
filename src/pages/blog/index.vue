@@ -2,7 +2,7 @@
     <div class="page">
         <div class="content">
             <div class="page">
-                <router-view></router-view>
+                <router-view :key="JSON.stringify(route.query)"></router-view>
             </div>
             <div class="sider" v-if="!route.meta.hideSider">
                 <n-card class="siderItem adminInfo">
@@ -17,7 +17,7 @@
                                 <n-avatar class="avatar" :src="state.adminInfo.avatarUrl"></n-avatar>
                             </div>
                             <div class="name">{{ state.adminInfo?.name }}</div>
-                            <n-space>
+                            <n-space justify="center">
                                 <div>文章：0</div>
                                 <div>回复：0</div>
                                 <div>标签：0</div>
@@ -26,43 +26,29 @@
 
                     </n-spin>
                 </n-card>
-                <n-card class="siderItem" v-if="store.state.user.adminMode">
+                <n-card class="siderItem">
                     <n-divider class="title">
                         快捷操作
                     </n-divider>
-                    <n-space>
-                        <router-link to="/blog/article/add">
+                    <n-space justify="center" v-if="store.state.user.userInfo">
+                        <router-link to="/blog/article/add" v-if="store.state.user.adminMode">
                             <n-button type="primary">
                                 发表文章
                             </n-button>
                         </router-link>
-                        <n-button>
-                            我的文章
-                        </n-button>
-                        <n-button>
-                            我的回复
-                        </n-button>
+                        <router-link to="/profile?tab=myArticle">
+                            <n-button>
+                                我的文章
+                            </n-button>
+                        </router-link>
+                        <router-link to="/profile?tab=myFavorite">
+                            <n-button>
+                                我的收藏
+                            </n-button>
+                        </router-link>
                     </n-space>
                 </n-card>
-                <n-card class="siderItem">
-                    <n-divider class="title">
-                        公告
-                    </n-divider>
-                    <n-spin :show="state.getNoticeLoading">
-                        <div v-if="state.notice" class="notice">
-                            {{ state.notice.content }}
-                            <div style="text-align:right">
-                                <div>
-                                    ——— {{ state.notice.authorName }}
-                                </div>
-                                <div class="time">
-                                    {{ formatTime(state.notice.createTime) }}
-                                </div>
-                            </div>
-                        </div>
-                        <n-empty v-else />
-                    </n-spin>
-                </n-card>
+                <Notice />
                 <n-card class="siderItem">
                     <n-divider class="title">
                         热门文章
@@ -89,6 +75,7 @@ import { useStore } from '@/store';
 import { apis, request, formatTime } from '@/utils';
 import { onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
+import Notice from './components/Notice.vue'
 
 const route = useRoute()
 
@@ -100,15 +87,11 @@ const state = reactive<{
         name: string,
     };
     getAdminInfoLoading: boolean;
-    getNoticeLoading: boolean;
-    notice: any,
     getHotArticleListloading: boolean,
     hotArticleList: any[]
 }>({
     adminInfo: undefined,
     getAdminInfoLoading: false,
-    getNoticeLoading: false,
-    notice: undefined,
     getHotArticleListloading: false,
     hotArticleList: []
 })
@@ -128,18 +111,6 @@ const getAdminInfo = async () => {
     }
 }
 
-const getNotice = async () => {
-    state.getNoticeLoading = true;
-    try {
-        const notice = await request(apis.getNotice)
-        if (notice) {
-            state.notice = notice
-        }
-        state.getNoticeLoading = false
-    } catch (error) {
-        state.getNoticeLoading = false
-    }
-}
 
 const getHotArticleList = async () => {
     state.getHotArticleListloading = true;
@@ -157,7 +128,6 @@ const getHotArticleList = async () => {
 onMounted(() => {
     store.commit('setTitle', 'Luopc1218\'s Blog');
     getAdminInfo();
-    getNotice()
     getHotArticleList()
 })
 
@@ -209,12 +179,7 @@ onMounted(() => {
                 }
             }
 
-            .notice {
-                .time {
-                    font-size: 12px;
-                    opacity: .8;
-                }
-            }
+
 
             .hotArticleList {
                 .articleItem {

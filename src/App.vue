@@ -17,7 +17,7 @@
                 </n-breadcrumb-item>
               </n-breadcrumb>
             </div>
-            <router-view v-slot="{ Component, route }">
+            <router-view v-slot="{ Component, route }" :key="JSON.stringify(route.query)">
               <transition name="fade" mode="out-in">
                 <component :is="Component" :key="route.path" />
               </transition>
@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { GlobalThemeOverrides, darkTheme, zhCN, dateZhCN } from 'naive-ui'
@@ -63,13 +63,14 @@ const themeOverrides = computed<GlobalThemeOverrides>(() => ({
     primaryColorHover: store.state.theme.primaryColor,
     primaryColorPressed: store.state.theme.primaryColor,
     primaryColorSuppl: store.state.theme.primaryColor,
-    fontFamily: "myFont, system-ui"
+    fontFamily: "-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol"
   },
 }))
 
 const handleScroll = ((e: Event) => {
   mitt.emit('scroll', e)
 })
+
 
 onMounted(() => {
   if (localStorage.getItem('accessToken')) {

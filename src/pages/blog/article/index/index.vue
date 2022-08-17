@@ -13,10 +13,12 @@
                             {{ item.name }}
                         </n-tag>
                     </n-space>
-                    <n-space class="author" align="center">
-                        <n-avatar round :src="state.articleInfo.authorAvatarUrl"></n-avatar>
-                        <div>{{ state.articleInfo.authorName }}</div>
-                    </n-space>
+                    <router-link :to="`/profile?id=${state.articleInfo.authorId}`">
+                        <n-space class="author" align="center">
+                            <n-avatar round :src="state.articleInfo.authorAvatarUrl"></n-avatar>
+                            <div>{{ state.articleInfo.authorName }}</div>
+                        </n-space>
+                    </router-link>
                     <n-space class="time">
                         <div>发表于{{ formatTime(state.articleInfo.createTime) }}</div>
                         <div v-if="state.articleInfo.updateTime">修改于{{ formatTime(state.articleInfo.updateTime) }}</div>
@@ -201,7 +203,7 @@ onMounted(() => {
             title: '博客', url: '/blog',
         },
         {
-            title: `文章#${articleId.value}`, url: route.fullPath
+            title: `文章#${articleId.value}`, url: route.fullPath, hide: !articleId.value
         }
     ])
 
@@ -217,6 +219,10 @@ onMounted(() => {
     .articleInfo {
         .title {
             font-size: 36px;
+        }
+
+        .author {
+            color: var(--primary-color)
         }
 
         .time {

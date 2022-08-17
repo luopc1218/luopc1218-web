@@ -43,7 +43,7 @@
 
 <script lang="ts" setup>
 import { computed, h, onMounted, reactive, ref } from "vue";
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { NButton, NAvatar, NText, } from 'naive-ui'
 import { useStore } from '@/store'
 // color picker
@@ -57,6 +57,8 @@ interface HeaderStates {
 }
 
 const headerRef = ref<any>(null);
+
+const router = useRouter()
 
 const store = useStore();
 
@@ -118,7 +120,7 @@ const moreOptions = reactive([
                             h(
                                 NText,
                                 { depth: 3 },
-                                { default: () => '欢迎使用luopc1218' }
+                                { default: () => '欢迎使用' }
                             )
                         ])
                     ])
@@ -148,7 +150,6 @@ const moreOptions = reactive([
  * @param key 
  */
 const handleMoreOptionSelect = (key: string) => {
-    console.log(key);
     switch (key) {
         case 'signOut':
             window?._dialog.warning({
@@ -161,6 +162,10 @@ const handleMoreOptionSelect = (key: string) => {
                 },
             })
             break;
+        case "userInfo": {
+            router.push('/profile')
+            break;
+        }
     }
 }
 
@@ -180,7 +185,7 @@ const handleSignIn = () => {
 }
 
 
-onMounted(() => {   
+onMounted(() => {
     store.commit('setHeaderHeight', headerRef?.value?.clientHeight)
 
 })

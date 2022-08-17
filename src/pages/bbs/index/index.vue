@@ -7,7 +7,7 @@
                     <div>昨日: 0</div>
                     <div>帖子: 0</div>
                     <div>会员: 0 </div>
-                    <div>欢迎您: luopc1218</div>
+                    <div>欢迎您: {{ store.state.user.userInfo.name }}</div>
                 </n-space>
             </n-gi>
             <n-gi :span="3">
