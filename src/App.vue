@@ -17,7 +17,7 @@
                 </n-breadcrumb-item>
               </n-breadcrumb>
             </div>
-            <router-view v-slot="{ Component, route }" :key="JSON.stringify(route.query)">
+            <router-view v-slot="{ Component, route }" :key="route.fullPath">
               <transition name="fade" mode="out-in">
                 <component :is="Component" :key="route.path" />
               </transition>

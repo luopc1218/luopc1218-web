@@ -4,7 +4,7 @@
             {{ state.joke }}
         </div>
         <div class="content">
-            <router-view :key="JSON.stringify(route.query)"></router-view>
+            <router-view :key="route.fullPath"></router-view>
         </div>
     </n-element>
 </template>

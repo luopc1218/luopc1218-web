@@ -2,7 +2,7 @@
     <div class="page">
         <div class="content">
             <div class="page">
-                <router-view :key="JSON.stringify(route.query)"></router-view>
+                <router-view :key="route.fullPath"></router-view>
             </div>
             <div class="sider" v-if="!route.meta.hideSider">
                 <n-card class="siderItem adminInfo">
@@ -36,12 +36,22 @@
                                 发表文章
                             </n-button>
                         </router-link>
-                        <router-link to="/profile?tab=myArticle">
+                        <router-link :to="{
+                            name: 'profile',
+                            params: {
+                                tab: 'myArticle'
+                            }
+                        }">
                             <n-button>
                                 我的文章
                             </n-button>
                         </router-link>
-                        <router-link to="/profile?tab=myFavorite">
+                        <router-link :to="{
+                            name: 'profile',
+                            params: {
+                                tab: 'myFavorite'
+                            }
+                        }">
                             <n-button>
                                 我的收藏
                             </n-button>

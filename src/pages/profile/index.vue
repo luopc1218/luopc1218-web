@@ -13,6 +13,16 @@
                 <n-empty v-else></n-empty>
             </n-spin>
         </n-card>
+        <n-card>
+            <n-tabs type="line" animated :default-value="route.params.tab" >
+                <n-tab-pane name="myArticle" tab="我的文章">
+                    <MyArticle />
+                </n-tab-pane>
+                <n-tab-pane name="myFavorite" tab="我的收藏">
+                    Hey Jude
+                </n-tab-pane>
+            </n-tabs>
+        </n-card>
     </div>
 </template>
 <script setup lang="ts">
@@ -20,6 +30,7 @@ import { useStore } from '@/store';
 import { apis, request } from '@/utils';
 import { onMounted, reactive, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import MyArticle from './components/MyArticle.vue'
 
 const store = useStore()
 
@@ -66,5 +77,9 @@ onMounted(() => {
 <style lang="scss" scoped>
 .profile {
     padding: 1rem;
+
+    .userInfo {
+        margin-bottom: 1rem;
+    }
 }
 </style>

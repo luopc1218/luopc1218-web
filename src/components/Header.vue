@@ -163,7 +163,7 @@ const handleMoreOptionSelect = (key: string) => {
             })
             break;
         case "userInfo": {
-            router.push('/profile')
+            router.push({ path: '/profile' })
             break;
         }
     }
