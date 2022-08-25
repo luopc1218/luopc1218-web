@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted } from 'vue';
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { GlobalThemeOverrides, darkTheme, zhCN, dateZhCN } from 'naive-ui'
