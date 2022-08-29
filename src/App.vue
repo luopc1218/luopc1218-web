@@ -67,7 +67,7 @@ const themeOverrides = computed<GlobalThemeOverrides>(() => ({
   },
 }))
 
-const handleScroll = ((e: Event) => {
+const handleScroll = ((e: UIEvent) => {
   mitt.emit('scroll', e)
 })
 

@@ -28,7 +28,7 @@
                             <n-button text type="primary">编辑</n-button>
                         </router-link>
 
-                        <n-button text type="primary" @click="handleDeleteArticle">删除</n-button>
+                        <n-button text type="error" @click="handleDeleteArticle">删除</n-button>
 
                     </n-space>
                     <div class="description">
@@ -154,7 +154,7 @@ const getArticleEvaluate = async () => {
 }
 
 const handleDeleteArticle = () => {
-    const d = window._dialog.error({
+    const d = window._dialog.warning({
         title: "警告",
         content: "确定要删除这篇文章吗？",
         positiveText: "确定",

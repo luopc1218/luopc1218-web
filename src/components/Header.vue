@@ -51,12 +51,17 @@ import { ColorPicker } from "vue3-colorpicker";
 import "vue3-colorpicker/style.css";
 import MessageCenter from '@/components/MessageCenter.vue'
 
+interface Nav {
+    label: string,
+    url: string
+}
+
 interface HeaderStates {
-    navList: any[],
+    navList: Nav[],
     showMessageCenter: boolean
 }
 
-const headerRef = ref<any>(null);
+const headerRef = ref<HTMLElement | null>(null);
 
 const router = useRouter()
 
@@ -152,7 +157,7 @@ const moreOptions = reactive([
 const handleMoreOptionSelect = (key: string) => {
     switch (key) {
         case 'signOut':
-            window?._dialog.warning({
+            window?._dialog.create({
                 title: "提示",
                 content: "确定要退出当前账号吗？",
                 positiveText: '确定',

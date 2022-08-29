@@ -1,23 +1,22 @@
 <template>
-    <div>
+    <div class="remoteTable">
         <n-data-table :loading="state.getDataLoading" :data="state.data.list" :columns="props.columns" bordered
-            :pagination="pagination">
+            :pagination="false">
         </n-data-table>
+        <n-space justify="end">
+            <n-pagination class="pagination" v-model:page="state.page" show-quick-jumper show-size-picker
+                :page-count="pageCount" :page-sizes="[10, 20, 50, 100]" v-model:pageSize="state.pageSize" />
+        </n-space>
+
     </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, defineProps, computed, nextTick } from 'vue';
+import { onMounted, reactive, defineProps, nextTick, defineExpose, watch, computed } from 'vue';
 import { DataTableColumns } from 'naive-ui'
 import { Api, PaginationData, request } from '@/utils';
 
-const pagination = computed(() => ({
-    "item-count": state.data.totalCount,
-    page: state.page,
-    "page-size": state.pageSize,
-    "on-update:page": handlePageChange,
-    "on-update:page-size": handlePageSizeChange,
-}))
+
 
 const props = defineProps<{
     columns: DataTableColumns,
@@ -25,6 +24,8 @@ const props = defineProps<{
     params?: any,
     pageSize?: number
 }>()
+
+
 
 const state = reactive<{
     getDataLoading: boolean,
@@ -38,13 +39,15 @@ const state = reactive<{
         totalCount: 0
     },
     page: 1,
-    pageSize: props.pageSize || 20
+    pageSize: 10
 })
+
+const pageCount = computed(() => (state.data.totalCount / state.pageSize).toFixed(0))
 
 const getData = async () => {
     state.getDataLoading = true;
     try {
-        const data = await request<PaginationData>(props.api, { page: state.page, pageSize: state.pageSize, ...props.params })
+        const data = await request<PaginationData>(props.api, { page: state.page, pageSize: state.pageSize, ...props.params },)
         if (data) {
             state.data = data
         }
@@ -54,32 +57,34 @@ const getData = async () => {
     }
 }
 
-const handlePageChange = (page: number) => {
-    state.page = page;
-    nextTick(() => {
-        getData()
-    })
-}
 
-const handlePageSizeChange = (pageSize: number) => {
-    state.pageSize = pageSize;
-    nextTick(() => {
-        getData()
-    })
-}
+watch([() => state.page, () => state.pageSize], () => {
+    getData()
+})
 
 const resetData = () => {
-    state.page = 1;
-    nextTick(() => {
+    if (state.page === 1) {
         getData()
-    })
+    }
+    else {
+        state.page = 1;
+    }
 }
 
 onMounted(() => {
     getData()
 })
 
+defineExpose({
+    resetData
+})
+
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.remoteTable {
+    .pagination {
+        margin-top: 1rem;
+    }
+}
 </style>

@@ -20,9 +20,9 @@
 
 <script setup lang="ts">
 import { useStore } from '@/store';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, VNode } from 'vue';
 
-const footerRef = ref<any>(null)
+const footerRef = ref<HTMLElement | null>(null)
 
 const store = useStore()
 

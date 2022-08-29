@@ -14,6 +14,7 @@
                     <div>
                         Github：<a href="https://github.com/luopc1218">https://github.com/luopc1218</a>
                     </div>
+                    <div>知识库：<a href="https://www.yuque.com/books/share/7ebd6ec7-26b6-4bd0-b586-9600c872e9e1?# 《developer》">https://www.yuque.com/books/share/7ebd6ec7-26b6-4bd0-b586-9600c872e9e1?# 《developer》</a></div>
                 </n-card>
             </n-space>
         </template>
@@ -21,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
 import ScrollAnimation from '@/components/ScrollAnimation.vue'
 import { useStore } from '@/store';
 

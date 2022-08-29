@@ -26,17 +26,17 @@
 
                     </n-spin>
                 </n-card>
-                <n-card class="siderItem">
+                <n-card class="siderItem" v-if="store.state.user.userInfo">
                     <n-divider class="title">
                         快捷操作
                     </n-divider>
-                    <n-space justify="center" v-if="store.state.user.userInfo">
+                    <n-space justify="center">
                         <router-link to="/blog/article/add" v-if="store.state.user.adminMode">
                             <n-button type="primary">
                                 发表文章
                             </n-button>
                         </router-link>
-                        <router-link :to="{
+                        <router-link v-if="store.state.user.adminMode" :to="{
                             name: 'profile',
                             params: {
                                 tab: 'myArticle'

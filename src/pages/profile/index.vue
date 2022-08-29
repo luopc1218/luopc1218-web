@@ -14,12 +14,12 @@
             </n-spin>
         </n-card>
         <n-card>
-            <n-tabs type="line" animated :default-value="route.params.tab" >
-                <n-tab-pane name="myArticle" tab="我的文章">
+            <n-tabs type="line" animated :default-value="route.params.tab">
+                <n-tab-pane name="myArticle" tab="我的文章" v-if="store.state.user.adminMode">
                     <MyArticle />
                 </n-tab-pane>
                 <n-tab-pane name="myFavorite" tab="我的收藏">
-                    Hey Jude
+                    <MyFavoriteArticle />
                 </n-tab-pane>
             </n-tabs>
         </n-card>
@@ -28,9 +28,11 @@
 <script setup lang="ts">
 import { useStore } from '@/store';
 import { apis, request } from '@/utils';
-import { onMounted, reactive, watch } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import MyArticle from './components/MyArticle.vue'
+import MyFavoriteArticle from './components/MyFavoriteArticle.vue'
+
 
 const store = useStore()
 

@@ -6,7 +6,6 @@
                     <router-link v-for="(item, index) in data.list" :key="item.id" :to="`/blog/article?id=${item.id}`">
                         <n-card hoverable class="articleItem"
                             :style="{ animationDelay: `${(index % pageSize) / pageSize}s` }">
-
                             <n-button text class="title">
                                 {{ item.title }}
                             </n-button>
@@ -57,7 +56,7 @@ onMounted(() => {
 @keyframes flyTop {
     from {
         opacity: 0;
-        transform: translateY(100%);
+        transform: translateX(100%);
     }
 
     to {
@@ -72,7 +71,7 @@ onMounted(() => {
         .articleItem {
             opacity: 0;
             margin-bottom: 1rem;
-            animation: flyTop 1s ease;
+            animation: flyTop .3s ease;
             animation-fill-mode: forwards;
 
             cursor: pointer;
