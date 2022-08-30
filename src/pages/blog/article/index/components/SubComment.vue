@@ -11,19 +11,24 @@
 
                             </n-avatar>
                             <router-link class="authorName" :to="`/profile?id=${item.authorId}`">
-                                {{ item.authorName || "匿名" }}
+                                {{  item.authorName || "匿名"  }}
 
                             </router-link>
                             <div v-if="item.replyComment">
                                 回复
-                                {{ item.replyComment.authorName }}
+                                {{  item.replyComment.authorName  }}
                             </div>
 
-                            <div class="content" @click="handleReplySubComment(item)">
-                                {{ item.content }}
+                            <div>
+                                <span @click="handleReplySubComment(item)" class="content">
+                                    {{  item.content  }}
+                                </span>
+                                <span class="replyContent">
+                                    {{  item.replyContent  }}
+                                </span>
                             </div>
                             <div class="time">
-                                {{ formatTime(item.createTime) }}
+                                {{  formatTime(item.createTime)  }}
                             </div>
                         </n-space>
                     </div>
@@ -93,6 +98,11 @@ defineExpose({
             &:hover {
                 opacity: .3;
             }
+        }
+
+        .replyContent {
+            padding-left: 1rem;
+            opacity: .3;
         }
     }
 }

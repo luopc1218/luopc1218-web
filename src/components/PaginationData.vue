@@ -6,10 +6,10 @@
                 <slot v-else :data="state.data" :page="state.page" :pageSize="state.pageSize" />
             </div>
             <n-button text v-if="hasMore && props.manual" @click="getMore">
-                显示更多（{{ state.data.totalCount - state.data?.list.length }}）
+                显示更多（{{  state.data.totalCount - state.data?.list.length  }}）
             </n-button>
 
-            <div style="text-align:center" v-if="!hasMore && state.data.list.length > 0">
+            <div style="text-align:center" v-if="!hasMore && state.data.list.length > 0 && !props.hideNoMoreText">
                 <span class="noMore">
                     <span>
                         没有更多了
@@ -31,7 +31,8 @@ const props = defineProps<{
     params?: any,
     page?: number,
     pageSize?: number,
-    manual?: boolean
+    manual?: boolean,
+    hideNoMoreText?: boolean
 }>()
 
 const paginationDataRef = ref<any>(null)

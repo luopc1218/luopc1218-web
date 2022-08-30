@@ -9,14 +9,19 @@
 
                     </n-avatar>
                     <div>
-                        {{ props.replyingComment.authorName || "匿名" }}
+                        {{  props.replyingComment.authorName || "匿名"  }}
                     </div>
                 </n-space>
                 <div class="time">
-                    {{ formatTime(props.replyingComment.createTime) }}
+                    {{  formatTime(props.replyingComment.createTime)  }}
                 </div>
-                <div class="content">
-                    {{ props.replyingComment.content }}
+                <div>
+                    <span class="content">
+                        {{  props.replyingComment.content  }}
+                    </span>
+                    <span class="replyContent">
+                        {{  props.replyingComment.replyContent  }}
+                    </span>
                 </div>
             </div>
             <n-divider></n-divider>
@@ -56,7 +61,8 @@ const handleReply = async () => {
             articleId: props.replyingComment.articleId,
             commentId: props.replyingComment.commentId ? props.replyingComment.commentId : props.replyingComment.id,
             subCommentId: props.replyingComment.commentId ? props.replyingComment.id : undefined,
-            content: state.replyContent
+            content: `${state.replyContent} `,
+            replyContent: `//@${props.replyingComment.authorName}：${props.replyingComment.content}`
         }, {
             showSuccessMessage: true
         })
@@ -86,7 +92,12 @@ const handleClose = () => {
     }
 
     .content {
-        padding: 1rem 0;
+        // padding: 1rem 0;
+    }
+
+    .replyContent {
+        padding-left: 1rem;
+        opacity: .3;
     }
 }
 </style>
