@@ -1,6 +1,6 @@
 <template>
     <n-space vertical>
-        <PaginationData ref="paginationDataRef" :pageSize="5" :api="apis.getArticleSubCommentList" :params="{
+        <PaginationData  ref="paginationDataRef" :pageSize="5" :api="apis.getArticleSubCommentList" :params="{
             commentId: props.commentId
         }" manual>
             <template v-slot:default="{ data }">
@@ -23,8 +23,8 @@
                                 <span @click="handleReplySubComment(item)" class="content">
                                     {{  item.content  }}
                                 </span>
-                                <span class="replyContent">
-                                    {{  item.replyContent  }}
+                                <span class="replyContent" v-if="item.replyComment">
+                                    // @{{ item.replyComment.authorName }} ：{{item.replyComment.content}}
                                 </span>
                             </div>
                             <div class="time">

@@ -19,8 +19,8 @@
                     <span class="content">
                         {{  props.replyingComment.content  }}
                     </span>
-                    <span class="replyContent">
-                        {{  props.replyingComment.replyContent  }}
+                    <span class="replyContent" v-if="props.replyingComment.replyComment">
+                        // @{{ props.replyingComment.replyComment.authorName }} ：{{props.replyingComment.replyComment.content}}
                     </span>
                 </div>
             </div>
@@ -62,7 +62,6 @@ const handleReply = async () => {
             commentId: props.replyingComment.commentId ? props.replyingComment.commentId : props.replyingComment.id,
             subCommentId: props.replyingComment.commentId ? props.replyingComment.id : undefined,
             content: `${state.replyContent} `,
-            replyContent: `//@${props.replyingComment.authorName}：${props.replyingComment.content}`
         }, {
             showSuccessMessage: true
         })
