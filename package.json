@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build:docker": "vue-cli-service build && docker build -t luopc1218docker/luopc1218-web:latest --no-cache --rm ."
+    "build:docker": "yarn && vue-cli-service build && docker build -t luopc1218docker/luopc1218-web:latest --no-cache --rm ."
   },
   "dependencies": {
     "axios": "^0.27.2",
