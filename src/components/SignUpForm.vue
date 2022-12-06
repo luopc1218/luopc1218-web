@@ -88,7 +88,7 @@ const formValue = reactive({
     username: "",
     password: "",
     checkPassword: "",
-    telCodeId: 39,
+    telCodeId: 1,
     phone: "",
     phoneCheckCode: "",
     email: ""
