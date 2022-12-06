@@ -44,7 +44,7 @@
             <n-input placeholder="请输入邮箱" />
         </n-form-item>
         <n-form-item>
-            <div style="width:100%;text-align:center;padding:0 5rem">
+            <div style="width:100%;text-align:center;padding:3rem 5rem 0 5rem">
                 <n-button type="primary" size="large" block attr-type="submit" @click="handleSubmit" round
                     :loading="state.submitLoading">注册
                 </n-button>
@@ -190,7 +190,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .signInForm {
     .title {
-        padding: 1rem;
+        padding:3rem 1rem;
         text-align: center;
         font-size: 2rem;
         font-weight: bolder;

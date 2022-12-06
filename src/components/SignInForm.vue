@@ -1,5 +1,5 @@
 <template>
-    <n-form ref="formRef" label-placement="left" :label-width="50" :model="formValue" class="signInForm">
+    <n-form ref="formRef" label-placement="left" :label-width="80" :model="formValue" class="signInForm">
         <div class="title">
             登录{{ store.state.title }}
         </div>
@@ -94,7 +94,7 @@ const signInByWeibo = () => {
 <style lang="scss" scoped>
 .signInForm {
     .title {
-        padding: 1rem;
+        padding:3rem 1rem;
         text-align: center;
         font-size: 2rem;
         font-weight: bolder;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <RemoteTable ref="articleListTableRef" :api="apis.getUserFavoriteArticleList" :columns="tableColumns" />
+        <RemoteTable ref="articleListTableRef" :api="apis.getArticleFavoriteList" :columns="tableColumns" />
     </div>
 </template>
 

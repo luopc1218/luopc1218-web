@@ -116,8 +116,8 @@ export const apis: Record<string, Api> = {
 		url: "/api/article/getUserArticleList",
 		method: "get",
 	},
-	getUserFavoriteArticleList: {
-		url: "/api/article/getUserFavoriteArticleList",
+	getArticleFavoriteList: {
+		url: "/api/article/getArticleFavoriteList",
 		method: "get",
 	},
 };

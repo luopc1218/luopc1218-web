@@ -8,11 +8,11 @@
 <script setup lang="ts">
 import { apis, request } from '@/utils';
 import { defineProps, defineEmits, ref, reactive } from 'vue'
-import { UploadProps as NUploadProps, NUpload, UploadFileInfo, UploadCustomRequestOptions } from 'naive-ui'
+import { NUpload, UploadFileInfo, UploadCustomRequestOptions } from 'naive-ui'
 
 interface UploadProps {
     value?: string,
-    accept?: string
+    accept?: string,
 }
 
 interface UploadState {
@@ -31,6 +31,7 @@ const handleChange = (e: { file: UploadFileInfo, fileList: Array<UploadFileInfo>
 }
 
 const emit = defineEmits(['update:value'])
+
 
 const customRequest = ({
     file,
@@ -68,4 +69,5 @@ const customRequest = ({
 </script>
 
 <style scoped>
+
 </style>
