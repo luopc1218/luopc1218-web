@@ -2,19 +2,14 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import BbsPage from "@/pages/bbs/index.vue";
 import BbsIndexPage from "@/pages/bbs/index/index.vue";
 import BlogPage from "@/pages/blog/index.vue";
-import ProfilePage from "@/pages/profile/ProfilePage.vue";
-import IndexPage from "@/pages/MainPage.vue";
-import blogArticleAddPage from "@/pages/blog/article/add/index.vue";
+import ProfilePage from "@/pa@/pages/profile/index.vuemport IndexPage from "@/pag@/pages/index.vueport blogArticleAddPage from "@/pages/blog/article/add/index.vue";
 import BlogIndexPage from "@/pages/blog/index/index.vue";
 import BlogArticleIndexPage from "@/pages/blog/article/index/index.vue";
 import LeaveMessagePage from "@/pages/leaveMessage/LeaveMessagePage.vue";
-import BlogArticleEditPage from "@/pages/blog/article/edit/index.vue";
-import SystemPage from "@/pages/system/SystemPage.vue";
+import BlogArticleEditPage from "@/page@/pages/leaveMessage/index.vue SystemPage from "@/pages/system/SystemPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: "/",
-    name: "index",
+  {@/pages/system/index.vuee: "index",
     component: IndexPage,
     meta: {
       hideBreadcrumb: true,
