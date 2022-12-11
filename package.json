@@ -8,7 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "build:docker": "yarn && vue-cli-service build && docker build -t luopc1218docker/luopc1218-web:latest --no-cache --rm ."
+    "build:docker": "npm i --product && vue-cli-service build && docker build -t luopc1218docker/luopc1218-web:latest --no-cache --rm ."
   },
   "dependencies": {
     "core-js": "^3.8.3",
