@@ -20,4 +20,5 @@ module.exports = defineConfig({
 
   productionSourceMap: false,
   runtimeCompiler: true,
+  assetsDir: 'public'
 });
