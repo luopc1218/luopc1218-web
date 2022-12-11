@@ -61,6 +61,7 @@ const routes: Array<RouteRecordRaw> = [
             component: BlogArticleEditPage,
             meta: {
               hideSider: true,
+              requireAdmin: true,
             },
           },
           {
@@ -69,17 +70,26 @@ const routes: Array<RouteRecordRaw> = [
             component: blogArticleAddPage,
             meta: {
               hideSider: true,
+              requireAdmin: true,
             },
           },
         ],
       },
     ],
   },
-  { path: '/system', name: 'system', component: SystemPage },
+  {
+    path: '/system',
+    name: 'system',
+    component: SystemPage,
+    meta: { requireAdmin: true },
+  },
   {
     path: '/profile',
     name: 'profile',
     component: ProfilePage,
+    meta: {
+      requireSignIn: true,
+    },
   },
   {
     path: '/leaveMessage',
