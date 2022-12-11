@@ -1,7 +1,7 @@
 <template>
     <div>
         <n-grid x-gap="12" y-gap="12" :cols="4">
-            <n-gi :span="4">
+            <n-gi :span="4" v-if="store.state.user.userInfo?.id">
                 <n-space class="statistics">
                     <div>今日: 0</div>
                     <div>昨日: 0</div>
