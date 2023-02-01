@@ -6,7 +6,12 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       "/api": {
-        target: "http://localhost:8080", //API服务器的地址
+        // local
+        target: "http://localhost:8080", 
+        // dev
+        // target: "http://myserver.com:8080",
+        // prod
+        // target: "http://localhost:8080",
         ws: true, //代理websockets
         // changeOrigin: true, // 是否跨域，虚拟的站点需要更管origin
         pathRewrite: {
