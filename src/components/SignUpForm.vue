@@ -6,7 +6,7 @@
         </div>
         <n-form-item label="头像" path="avatar">
             <n-space align="end">
-                <n-avatar round :size="100" :src="formValue.avatar"></n-avatar>
+                <img v-show="formValue.avatar" style="width:100px;height:100px;border-radius:100px" :src="formValue.avatar" />
                 <n-button size="small" ghost type="primary" @click="getRandomAvatar">换一个</n-button>
                 <SingleUpload accept="image/*" v-model:value="formValue.avatar">
                     <n-button size="small" ghost type="primary">上传新头像</n-button>
@@ -31,8 +31,8 @@
                 <n-input v-model:value="formValue.phone" placeholder="请输入手机号" style="flex:1" />
                 <n-button :disabled="!formValue.phone || state.sendPhoneCheckCodeWaitTime > 0"
                     @click="handleSendPhoneCheckCode" :loading="state.sendPhoneCheckCodeLoading">{{
-                            state.sendPhoneCheckCodeWaitTime
-                                > 0 ? `${state.sendPhoneCheckCodeWaitTime}s` : '获取验证码'
+                        state.sendPhoneCheckCodeWaitTime
+                            > 0 ? `${state.sendPhoneCheckCodeWaitTime}s` : '获取验证码'
                     }}</n-button>
             </n-input-group>
         </n-form-item>
@@ -190,7 +190,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .signInForm {
     .title {
-        padding:3rem 1rem;
+        padding: 3rem 1rem;
         text-align: center;
         font-size: 2rem;
         font-weight: bolder;
