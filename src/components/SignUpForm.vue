@@ -6,7 +6,7 @@
         </div>
         <n-form-item label="头像" path="avatar">
             <n-space align="end">
-                <img v-show="formValue.avatar" style="width:100px;height:100px;border-radius:100px" :src="formValue.avatar" />
+                <n-avatar :size="100" round :src="formValue.avatar" />
                 <n-button size="small" ghost type="primary" @click="getRandomAvatar">换一个</n-button>
                 <SingleUpload accept="image/*" v-model:value="formValue.avatar">
                     <n-button size="small" ghost type="primary">上传新头像</n-button>
@@ -62,6 +62,7 @@ import axios from 'axios';
 import RemoteSelect from '@/components/RemoteSelect.vue'
 import apis from '@/utils/apis'
 import { md5Object, request } from '@/utils';
+import { PersonOutline } from '@vicons/ionicons5'
 
 
 
@@ -70,12 +71,12 @@ import { md5Object, request } from '@/utils';
 const emit = defineEmits(['finished'])
 
 const getRandomAvatar = () => {
-    axios.get('http://api.btstu.cn/sjtx/api.php', {
+    axios.get('https://api.thecatapi.com/v1/images/search', {
         params: {
-            format: 'json'
         }
     }).then(res => {
-        formValue.avatar = res.data.imgurl
+
+        formValue.avatar = res.data[0].url
     })
 }
 
@@ -124,11 +125,11 @@ const formRules = computed<FormRules>(() => ({
     username: [{ required: true, message: '请输入用户名', trigger: ['input'] }, {
         asyncValidator: checkUsername, trigger: [],
     }],
-    password: { required: true, message: '请输入密码', },
-    checkPassword: [{ required: true, message: '请再次输入密码', }, {
+    password: { required: true, message: '请输入密码', trigger: ['input'] },
+    checkPassword: [{ required: true, message: '请再次输入密码', trigger: ['input'] }, {
         validator: (rule: FormItemRule, value: string) => {
             return value === "" || value === formValue.password
-        }, message: '两次密码输入不一致',
+        }, trigger: ['input'], message: '两次密码输入不一致',
     }],
     phoneCheckCode: { required: formValue.phone <= "", message: "请输入手机验证码" }
 }))

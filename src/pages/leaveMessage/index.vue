@@ -7,7 +7,6 @@
                         :style="{ animationDelay: `${(index % pageSize) / pageSize * 5}s` }" class="leaveMessageItem">
                         <n-space align="center" class="author">
                             <n-avatar round :src="item.authorAvatarUrl">
-
                             </n-avatar>
                             <div>
                                 {{ item.authorName || "匿名" }}

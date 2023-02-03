@@ -2,7 +2,6 @@ const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
-
   devServer: {
     proxy: {
       "/api": {
@@ -22,7 +21,9 @@ module.exports = defineConfig({
     },
   },
 
-  productionSourceMap: false,
   runtimeCompiler: true,
-  assetsDir: 'public'
+  assetsDir: 'public',
+  css: {
+    sourceMap: true
+  }
 });

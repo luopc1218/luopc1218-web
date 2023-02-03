@@ -16,9 +16,10 @@ module.exports = {
   },
 
   rules: {
-    "no-console": "off",
-    "no-debugger": "off",
-    "vue/multi-word-component-names": "off",
-    "vue/no-v-model-argument": "off",
+    "no-console": "warn",
+    "no-debugger": "warn",
+    "vue/multi-word-component-names": "warn",
+    "vue/no-v-model-argument": "warn",
+    "@typescript-eslint/no-empty-interface": "warn",
   },
 };
