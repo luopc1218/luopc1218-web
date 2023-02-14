@@ -4,10 +4,10 @@
             <div class="welcome supportDark" :style="{ minHeight: `calc(100vh - ${store.state.headerHeight}px)` }"
                 :class="{ 'welcome-crossed': slotProps.crossed }">
                 <div class="text">
-                    Welcome,
+                    欢迎来到,
                 </div>
                 <div class="text">
-                    Luopc1218.
+                    {{ props.indexData.title }}.
                 </div>
             </div>
         </template>
@@ -15,9 +15,12 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { defineProps } from 'vue'
 import ScrollAnimation from '@/components/ScrollAnimation.vue'
 import { useStore } from '@/store/';
+import { IndexData } from '@/pages/index.vue';
+
+const props = defineProps<{indexData:IndexData}>()
 
 const store = useStore()
 

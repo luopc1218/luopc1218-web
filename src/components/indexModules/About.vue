@@ -5,16 +5,12 @@
                 :style="{ minHeight: `calc(100vh - ${store.state.headerHeight}px)` }"
                 :class="{ 'about-visibility': slotProps.visibility, 'about-halfVisibility': slotProps.halfVisibility, 'about-crossed': slotProps.crossed }">
                 <div class="title">
-                    关于本站
+                    关于
                 </div>
                 <n-card class="aboutContent">
-                    <div>
-                        邮箱：<a href="mailto:luopc1218@outlook.com">luopc1218@outlook.com</a>
+                    <div v-for="item in props.indexData.abouts" :key="item.key">
+                        {{item.key}}：<a :href="item.value">{{item.value}}</a>
                     </div>
-                    <div>
-                        Github：<a href="https://github.com/luopc1218">https://github.com/luopc1218</a>
-                    </div>
-                    <div>知识库：<a href="https://www.yuque.com/books/share/7ebd6ec7-26b6-4bd0-b586-9600c872e9e1?# 《developer》">https://www.yuque.com/books/share/7ebd6ec7-26b6-4bd0-b586-9600c872e9e1?# 《developer》</a></div>
                 </n-card>
             </n-space>
         </template>
@@ -23,9 +19,15 @@
 
 <script setup lang="ts">
 import ScrollAnimation from '@/components/ScrollAnimation.vue'
+import { IndexData } from '@/pages/index.vue';
 import { useStore } from '@/store';
+import { NSpace, NCard } from 'naive-ui';
+import { defineProps } from 'vue'
 
 const store = useStore()
+
+const props = defineProps<{ indexData: IndexData }>()
+
 
 
 </script>

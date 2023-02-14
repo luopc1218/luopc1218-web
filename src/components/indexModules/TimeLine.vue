@@ -8,12 +8,8 @@
                     时间线
                 </div>
                 <n-timeline class="timeLineContent">
-                    <n-timeline-item content="啊" />
-                    <n-timeline-item type="success" title="成功" content="哪里成功" time="2018-04-03 20:46" />
-                    <n-timeline-item type="error" content="哪里错误" time="2018-04-03 20:46" />
-                    <n-timeline-item type="warning" title="警告" content="哪里警告" time="2018-04-03 20:46" />
-                    <n-timeline-item type="info" title="信息" content="是的" time="2018-04-03 20:46" line-type="dashed" />
-                    <n-timeline-item content="啊" />
+                    <n-timeline-item v-for="item in props.indexData.paths" :title="item.title" :key="item.time"
+                        :content="item.description" :time="item.time" />
                 </n-timeline>
             </n-space>
         </template>
@@ -21,10 +17,16 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from 'vue'
 import ScrollAnimation from '@/components/ScrollAnimation.vue'
+import { IndexData } from '@/pages/index.vue';
 import { useStore } from '@/store';
+import { NSpace, NTimeline, NTimelineItem } from 'naive-ui';
 
 const store = useStore()
+
+const props = defineProps<{ indexData: IndexData }>()
+
 
 
 </script>
