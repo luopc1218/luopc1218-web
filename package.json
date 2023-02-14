@@ -8,7 +8,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "build:docker": "npm i && npm run build && docker build -t luopc1218-web:latest --no-cache --rm ."
+    "build:docker": "npm i && npm run build && docker build -t luopc1218-web:latest --no-cache --rm .",
+    "run:docker": "docker run -d --name luopc1218-web -p 7000:80 luopc1218-web"
   },
   "dependencies": {
     "axios": "^1.2.1",
