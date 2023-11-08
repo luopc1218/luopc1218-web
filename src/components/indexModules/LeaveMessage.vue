@@ -154,10 +154,13 @@ onMounted(() => {
 }
 
 .leaveMessage {
+    // width: 50%;
     opacity: 0;
     transition: all 1s ease;
     transform: translateY(100px);
-    padding: 0 500px;
+    max-width: 70%;
+    margin: 0 auto;
+    padding: 0 100px;
 
     .title {
         text-align: center;
